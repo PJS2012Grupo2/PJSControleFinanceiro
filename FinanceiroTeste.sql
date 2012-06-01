@@ -10,6 +10,7 @@ CREATE TABLE CATEGORIA (
    NOME VARCHAR(50) NOT NULL,
    LIMITE MONEY NOT NULL
 );
+GO
 
 CREATE TABLE MOVIMENTO (
   ID_MOVIMENTO INT PRIMARY KEY NOT NULL IDENTITY,
@@ -20,6 +21,7 @@ CREATE TABLE MOVIMENTO (
   VALOR_TOTAL AS (VALOR * PARCELA),
   ID_CATEGORIA INT FOREIGN KEY REFERENCES CATEGORIA(ID_CATEGORIA)
   );
+GO
 
 CREATE TABLE MOVIMENTO_RECORRENTE(
   ID_RECORRENTE INT PRIMARY KEY NOT NULL identity,
@@ -36,16 +38,18 @@ insert into CATEGORIA VALUES ('Carro', 230.00);
 INSERT INTO CATEGORIA VALUES ('Limpeza', 100.00);
 insert into CATEGORIA VAlUES ('Cachorros',50.00);
 insert into CATEGORIA values ('Agua', 60.00);
+GO
 
 --Inserindo alguns registros para teste
-INSERT INTO MOVIMENTO VALUES ('Cera ',10.00,'10-02-2012', 1,2);
-insert into MOVIMENTO VAlUES ('Racao',49.99, '12-31-2011', 3,4);
-INSERT INTO MOVIMENTO VALUES ('Coca Cola', 3.00, '02-12-2011',3,3);
-insert into MOVIMENTO values ('Detergente', 2.00,'10-11-2011', 1, 2);
+INSERT INTO MOVIMENTO VALUES ('Cera ',10.00,'2012-02-10', 1,2);
+insert into MOVIMENTO VAlUES ('Racao',49.99, '2011-10-12', 3,4);
+INSERT INTO MOVIMENTO VALUES ('Coca Cola', 3.00, '2011-12-02',3,3);
+insert into MOVIMENTO values ('Detergente', 2.00,'2011-11-10', 1, 2);
 
 INSERT INTO MOVIMENTO_RECORRENTE VALUES ('Fatura', -80.00, 'Mensal', 1);
 INSERT INTO MOVIMENTO_RECORRENTE VALUES ('Compras', -90.00, 'Semanal',1);
 INSERT INTO MOVIMENTO_RECORRENTE VALUES ('Conta de agua', -50.00, 'Mensal', 4); 
+GO
 
 SELECT M.ID_MOVIMENTO,
        M.DESCRICAO,
@@ -82,12 +86,16 @@ FROM MOVIMENTO M INNER JOIN CATEGORIA C
  on
      M.ID_CATEGORIA = C.ID_CATEGORIA
  WHERE C.NOME like 'C%';
+ GO
  
 select * from CATEGORIA where limite = (select MAX(limite) from CATEGORIA);
+ GO
  
 select * from MOVIMENTO where VALOR = (select MAX(valor) from MOVIMENTO);
+GO
 
 select * from CATEGORIA where limite = (select Min(limite) from CATEGORIA);
+GO
  
 select * from MOVIMENTO where VALOR = (select Min(valor) from MOVIMENTO);
 
@@ -105,3 +113,4 @@ select CATEGORIA.NOME,
  from CATEGORIA inner join MOVIMENTO
  on CATEGORIA.ID_CATEGORIA = MOVIMENTO.ID_CATEGORIA
  group by CATEGORIA.nome;
+GO
