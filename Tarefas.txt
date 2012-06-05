@@ -1,4 +1,0 @@
-- Inserção, alteração, remoção e reg. recorrentes - Yuri
-- Busca - Sandra
-- Divisão em categorias/orçamento - André
-- Gastos parcelados - Paulo

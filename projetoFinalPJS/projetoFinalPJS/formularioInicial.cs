@@ -63,25 +63,48 @@ namespace projetoFinalPJS
             comandoInsercaoMovimento.Parameters.Add(prmCategoriaMovimento);
             adaptadorMovimento.InsertCommand = comandoInsercaoMovimento;
 
-            // Comando de atualização do movimento
-            SqlCommand comandoAtualizacaoMovimento = new SqlCommand("Update Comprados set DESCRICAO = @Descricao, VALOR = @Valor, CATEGORIA = @Cateoria where ID_MOVIMENTO = @IdMovimento", conexaoFinanceiro);
-            // Parâmetros para o comando
-            // Descrição
-            prmDescricaoMovimento = new SqlParameter("@Descricao", SqlDbType.VarChar, 50);
-            prmDescricaoMovimento.SourceColumn = "DESCRICAO";
-            prmDescricaoMovimento.SourceVersion = DataRowVersion.Current;
-            comandoAtualizacaoMovimento.Parameters.Add(prmDescricaoMovimento);
+            SqlCommand comandoInsercaoCategoria = new SqlCommand("Insert into CATEGORIA (NOME, LIMITE) values (@Nome, @Limite)", conexaoFinanceiro);
+            // Nome
+            SqlParameter prmNomeCategoria = new SqlParameter("@Nome", SqlDbType.VarChar, 50);
+            prmNomeCategoria.SourceColumn = "NOME";
+            prmNomeCategoria.SourceVersion = DataRowVersion.Current;
+            comandoInsercaoCategoria.Parameters.Add(prmNomeCategoria);
+            // Limite
+            SqlParameter prmLimiteCategoria = new SqlParameter("@Limite", SqlDbType.Money);
+            prmLimiteCategoria.SourceColumn = "LIMITE";
+            prmLimiteCategoria.SourceVersion = DataRowVersion.Current;
+            comandoInsercaoCategoria.Parameters.Add(prmLimiteCategoria);
+            adaptadorCategoria.InsertCommand = comandoInsercaoCategoria;
+
+            SqlCommand comandoInsercaoRecorrente = new SqlCommand("Insert into MOVIMENTO_RECORRENTE (NOME, VALOR, RECORRENCIA, ID_CATEGORIA) values (@Nome, @Valor, @Recorrencia, @IdCategoria)", conexaoFinanceiro);
+            // Nome
+            SqlParameter prmNomeRecorrente = new SqlParameter("@Nome", SqlDbType.VarChar, 30);
+            prmNomeRecorrente.SourceColumn = "NOME";
+            prmNomeRecorrente.SourceVersion = DataRowVersion.Current;
+            comandoInsercaoRecorrente.Parameters.Add(prmNomeRecorrente);
             // Valor
-            prmValorMovimento = new SqlParameter("@Valor", SqlDbType.Money);
-            prmValorMovimento.SourceColumn = "Valor";
-            prmValorMovimento.SourceVersion = DataRowVersion.Current;
+            SqlParameter prmValorRecorrente = new SqlParameter("@Valor", SqlDbType.Money);
+            prmValorRecorrente.SourceColumn = "VALOR";
+            prmValorRecorrente.SourceVersion = DataRowVersion.Current;
+            comandoInsercaoRecorrente.Parameters.Add(prmValorRecorrente);
+            // Recorrência
+            SqlParameter prmRecorrenciaRecorrente = new SqlParameter("@Recorrencia", SqlDbType.VarChar, 20);
+            prmValorRecorrente.SourceColumn = "RECORRENCIA";
+            prmValorRecorrente.SourceVersion = DataRowVersion.Current;
+            comandoInsercaoRecorrente.Parameters.Add(prmRecorrenciaRecorrente);
+            // ID da Categoria
+            SqlParameter prmCategoriaRecorrente = new SqlParameter("@IdCategoria", SqlDbType.Int);
+            prmValorRecorrente.SourceColumn = "ID_CATEGORIA";
+            prmValorRecorrente.SourceVersion = DataRowVersion.Current;
+            comandoInsercaoRecorrente.Parameters.Add(prmCategoriaRecorrente);
+
+            /**************** Comandos de atualização **********************/
+            SqlCommand comandoAtualizacaoMovimento = new SqlCommand("Update Comprados set DESCRICAO = @Descricao, VALOR = @Valor, DATACADASTRO = @DataCadastro, PARCELA = @Parcela, ID_CATEGORIA = @Cateoria where ID_MOVIMENTO = @IdMovimento", conexaoFinanceiro);
+            comandoAtualizacaoMovimento.Parameters.Add(prmDescricaoMovimento);
             comandoAtualizacaoMovimento.Parameters.Add(prmValorMovimento);
-            // Categoria
-            prmCategoriaMovimento = new SqlParameter("@Categoria", SqlDbType.Int);
-            prmCategoriaMovimento.SourceColumn = "CATEGORIA";
-            prmCategoriaMovimento.SourceVersion = DataRowVersion.Current;
+            comandoAtualizacaoMovimento.Parameters.Add(prmDataCadastroMovimento);
+            comandoAtualizacaoMovimento.Parameters.Add(prmParcelaMovimento);
             comandoAtualizacaoMovimento.Parameters.Add(prmCategoriaMovimento);
-            // Atribui o comando de atualização para o adaptador
             adaptadorMovimento.UpdateCommand = comandoAtualizacaoMovimento;
 
             // Cria o comando de remoção do Movimento
