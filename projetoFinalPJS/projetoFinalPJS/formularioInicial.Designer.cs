@@ -53,7 +53,9 @@
             this.gastosParceladosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.csCategoriasBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
+            this.listView1 = new System.Windows.Forms.ListView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
@@ -63,19 +65,14 @@
             this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.listView1 = new System.Windows.Forms.ListView();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.nomeCategoriaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.orçamentoCategoriaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.orçamentoRestanteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.csCategoriasBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.csCategoriasBindingSource1)).BeginInit();
             this.panel2.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.csCategoriasBindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -112,7 +109,7 @@
             this.categoriaToolStripMenuItem,
             this.categoriasEspeciaisToolStripMenuItem});
             this.novoToolStripMenuItem.Name = "novoToolStripMenuItem";
-            this.novoToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.novoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.novoToolStripMenuItem.Text = "Novo";
             // 
             // Form_Entrada_De_ValoresToolStripMenuItem1
@@ -153,7 +150,7 @@
             // abrirToolStripMenuItem
             // 
             this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
-            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.abrirToolStripMenuItem.Text = "Abrir";
             // 
             // editarToolStripMenuItem
@@ -262,10 +259,6 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.nomeCategoriaDataGridViewTextBoxColumn,
-            this.orçamentoCategoriaDataGridViewTextBoxColumn,
-            this.orçamentoRestanteDataGridViewTextBoxColumn});
             this.dataGridView1.DataSource = this.csCategoriasBindingSource1;
             this.dataGridView1.Location = new System.Drawing.Point(-2, 3);
             this.dataGridView1.Name = "dataGridView1";
@@ -285,6 +278,19 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(778, 163);
             this.panel2.TabIndex = 2;
+            // 
+            // listView1
+            // 
+            this.listView1.Alignment = System.Windows.Forms.ListViewAlignment.SnapToGrid;
+            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listView1.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.listView1.Location = new System.Drawing.Point(-2, 0);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(773, 156);
+            this.listView1.TabIndex = 0;
+            this.listView1.UseCompatibleStateImageBehavior = false;
             // 
             // toolStrip1
             // 
@@ -374,19 +380,6 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(146, 17);
             this.toolStripStatusLabel1.Text = "Lembretes:                           ";
             // 
-            // listView1
-            // 
-            this.listView1.Alignment = System.Windows.Forms.ListViewAlignment.SnapToGrid;
-            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.listView1.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.listView1.Location = new System.Drawing.Point(-2, 0);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(773, 156);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            // 
             // toolStripDropDownButton1
             // 
             this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -395,29 +388,6 @@
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
             this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 20);
             this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
-            // 
-            // nomeCategoriaDataGridViewTextBoxColumn
-            // 
-            this.nomeCategoriaDataGridViewTextBoxColumn.DataPropertyName = "Nome_Categoria";
-            this.nomeCategoriaDataGridViewTextBoxColumn.HeaderText = "Nome_Categoria";
-            this.nomeCategoriaDataGridViewTextBoxColumn.Name = "nomeCategoriaDataGridViewTextBoxColumn";
-            // 
-            // orçamentoCategoriaDataGridViewTextBoxColumn
-            // 
-            this.orçamentoCategoriaDataGridViewTextBoxColumn.DataPropertyName = "Orçamento_Categoria";
-            this.orçamentoCategoriaDataGridViewTextBoxColumn.HeaderText = "Orçamento_Categoria";
-            this.orçamentoCategoriaDataGridViewTextBoxColumn.Name = "orçamentoCategoriaDataGridViewTextBoxColumn";
-            // 
-            // orçamentoRestanteDataGridViewTextBoxColumn
-            // 
-            this.orçamentoRestanteDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.orçamentoRestanteDataGridViewTextBoxColumn.DataPropertyName = "Orçamento_Restante";
-            this.orçamentoRestanteDataGridViewTextBoxColumn.HeaderText = "Orçamento_Restante";
-            this.orçamentoRestanteDataGridViewTextBoxColumn.Name = "orçamentoRestanteDataGridViewTextBoxColumn";
-            // 
-            // csCategoriasBindingSource1
-            // 
-            this.csCategoriasBindingSource1.DataSource = typeof(projetoFinalPJS.Cs_Categorias);
             // 
             // formularioInicial
             // 
@@ -435,16 +405,17 @@
             this.Name = "formularioInicial";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "formularioInicial";
+            this.Load += new System.EventHandler(this.formularioInicial_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.csCategoriasBindingSource1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.csCategoriasBindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
