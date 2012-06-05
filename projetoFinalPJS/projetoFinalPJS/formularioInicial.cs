@@ -46,8 +46,11 @@ namespace projetoFinalPJS
             conexao.ConnectionString = "Data Source=PC18LAB3\\MSSQLSERVER1;Initial Catalog=Financeiro;Integrated Security=SSPI";
 
             SqlDataAdapter adaptador = new SqlDataAdapter();
-            SqlCommand comandoSelecao = new SqlCommand("Select * from Comprados", conexao);
+            SqlCommand comandoSelecao = new SqlCommand("Select * from Categoria", conexao);
             adaptador.SelectCommand = comandoSelecao;
+
+            SqlCommand comandoInsercao = new SqlCommand("Insert into (Categoria) values (@nome, @limite)");
+            adaptador.SelectCommand = comandoInsercao;
         }
     }
 }
