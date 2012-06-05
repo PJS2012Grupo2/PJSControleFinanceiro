@@ -145,11 +145,17 @@ namespace projetoFinalPJS
             adaptadorRecorrente.DeleteCommand = comandoRemocaoRecorrente;
 
             // Ação para esquema faltando
-            adaptador.MissingSchemaAction = MissingSchemaAction.AddWithKey;
+            adaptadorMovimento.MissingSchemaAction = MissingSchemaAction.AddWithKey;
+            adaptadorCategoria.MissingSchemaAction = MissingSchemaAction.AddWithKey;
+            adaptadorRecorrente.MissingSchemaAction = MissingSchemaAction.AddWithKey;
 
-            // Cria o dataset
-            DataSet dados = new DataSet();
-            adaptador.Fill(dados, "BlaBla");
+            // Cria os datasets
+            DataSet dadosMovimento = new DataSet();
+            adaptadorMovimento.Fill(dadosMovimento, "MOVIMENTO");
+            DataSet dadosCategoria = new DataSet();
+            adaptadorCategoria.Fill(dadosCategoria, "CATEGORIA");
+            DataSet dadosRecorrente = new DataSet();
+            adaptadorRecorrente.Fill(dadosRecorrente, "MOVIMENTO_RECORRENTE");
         }
 
         public formularioInicial()
