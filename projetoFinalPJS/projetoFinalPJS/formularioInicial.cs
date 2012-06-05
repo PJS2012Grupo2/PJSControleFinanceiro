@@ -99,7 +99,7 @@ namespace projetoFinalPJS
             comandoInsercaoRecorrente.Parameters.Add(prmCategoriaRecorrente);
 
             /**************** Comandos de atualização **********************/
-            SqlCommand comandoAtualizacaoMovimento = new SqlCommand("Update Comprados set DESCRICAO = @Descricao, VALOR = @Valor, DATACADASTRO = @DataCadastro, PARCELA = @Parcela, ID_CATEGORIA = @Cateoria where ID_MOVIMENTO = @IdMovimento", conexaoFinanceiro);
+            SqlCommand comandoAtualizacaoMovimento = new SqlCommand("Update MOVIMENTO set DESCRICAO = @Descricao, VALOR = @Valor, DATACADASTRO = @DataCadastro, PARCELA = @Parcela, ID_CATEGORIA = @Cateoria where ID_MOVIMENTO = @IdMovimento", conexaoFinanceiro);
             comandoAtualizacaoMovimento.Parameters.Add(prmDescricaoMovimento);
             comandoAtualizacaoMovimento.Parameters.Add(prmValorMovimento);
             comandoAtualizacaoMovimento.Parameters.Add(prmDataCadastroMovimento);
@@ -107,15 +107,42 @@ namespace projetoFinalPJS
             comandoAtualizacaoMovimento.Parameters.Add(prmCategoriaMovimento);
             adaptadorMovimento.UpdateCommand = comandoAtualizacaoMovimento;
 
-            // Cria o comando de remoção do Movimento
-            SqlCommand comandoRemocao = new SqlCommand("Delete from MOVIMENTO where ID_MOVIMENTO = @IdMovimento", conexaoFinanceiro);
-            // Código
-            prm = new SqlParameter("@Codigo", SqlDbType.Int);
-            prmCodigo.SourceColumn = "Codigo";
-            prmCodigo.SourceVersion = DataRowVersion.Original;
-            comandoRemocao.Parameters.Add(prmCodigo);
-            // Atribui o comando de remoção para o adaptador
-            adaptador.DeleteCommand = comandoRemocao;
+            SqlCommand comandoAtualizacaoCategoria = new SqlCommand("Update CATEGORIA set NOME = @Nome, LIMITE = @Limite where ID_CATEGORIA = @IdCategoria", conexaoFinanceiro);
+            comandoAtualizacaoCategoria.Parameters.Add(prmNomeCategoria);
+            comandoAtualizacaoCategoria.Parameters.Add(prmLimiteCategoria);
+            adaptadorCategoria.UpdateCommand = comandoAtualizacaoCategoria;
+
+            SqlCommand comandoAtualizaoRecorrente = new SqlCommand("Update MOVIMENTO_RECORRENTE set NOME = @Nome, VALOR = @Valor, RECORRENCIA = @Recorrencia, ID_CATEGORIA = @IdCategoria", conexaoFinanceiro);
+            comandoAtualizaoRecorrente.Parameters.Add(prmNomeRecorrente);
+            comandoAtualizaoRecorrente.Parameters.Add(prmValorRecorrente);
+            comandoAtualizaoRecorrente.Parameters.Add(prmRecorrenciaRecorrente);
+            comandoAtualizaoRecorrente.Parameters.Add(prmCategoriaRecorrente);
+            adaptadorRecorrente.UpdateCommand = comandoAtualizaoRecorrente;
+
+            /************************* Comandos de remoção ************************/
+            SqlCommand comandoRemocaoMovimento = new SqlCommand("Delete from MOVIMENTO where ID_MOVIMENTO = @IdMovimento", conexaoFinanceiro);
+            // ID do movimento
+            SqlParameter prmIdMovimento = new SqlParameter("@IdMovimento", SqlDbType.Int);
+            prmIdMovimento.SourceColumn = "ID_MOVIMENTO";
+            prmIdMovimento.SourceVersion = DataRowVersion.Original;
+            comandoRemocaoMovimento.Parameters.Add(prmIdMovimento);
+            adaptadorMovimento.DeleteCommand = comandoRemocaoMovimento;
+
+            SqlCommand comandoRemocaoCategoria = new SqlCommand("Delete from CATEGORIA where ID_CATEGORIA = @IdCategoria", conexaoFinanceiro);
+            // ID da  categoria
+            SqlParameter prmIdCategoria = new SqlParameter("@IdCategoria", SqlDbType.Int);
+            prmIdCategoria.SourceColumn = "ID_CATEGORIA";
+            prmIdCategoria.SourceVersion = DataRowVersion.Original;
+            comandoRemocaoCategoria.Parameters.Add(prmIdCategoria);
+            adaptadorCategoria.DeleteCommand = comandoRemocaoCategoria;
+
+            SqlCommand comandoRemocaoRecorrente = new SqlCommand("Delete from MOVIMENTO_RECORRENTE where ID_RECORRENTE = @IdRecorrente", conexaoFinanceiro);
+            // ID da  categoria
+            SqlParameter prmIdRecorrente = new SqlParameter("@IdRecorrente", SqlDbType.Int);
+            prmIdRecorrente.SourceColumn = "ID_RECORRENTE";
+            prmIdRecorrente.SourceVersion = DataRowVersion.Original;
+            comandoRemocaoRecorrente.Parameters.Add(prmIdRecorrente);
+            adaptadorRecorrente.DeleteCommand = comandoRemocaoRecorrente;
 
             // Ação para esquema faltando
             adaptador.MissingSchemaAction = MissingSchemaAction.AddWithKey;
