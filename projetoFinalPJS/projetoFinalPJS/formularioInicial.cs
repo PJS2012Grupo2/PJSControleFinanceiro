@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace projetoFinalPJS
 {
@@ -37,6 +38,16 @@ namespace projetoFinalPJS
         {
             Form_Categoria Var_Form_Categoria = new Form_Categoria();
             Var_Form_Categoria.ShowDialog();
+        }
+
+        private void formularioInicial_Load(object sender, EventArgs e)
+        {
+            SqlConnection conexao = new SqlConnection();
+            conexao.ConnectionString = "Data Source=PC18LAB3\\MSSQLSERVER1;Initial Catalog=Financeiro;Integrated Security=SSPI";
+
+            SqlDataAdapter adaptador = new SqlDataAdapter();
+            SqlCommand comandoSelecao = new SqlCommand("Select * from Comprados", conexao);
+            adaptador.SelectCommand = comandoSelecao;
         }
     }
 }
