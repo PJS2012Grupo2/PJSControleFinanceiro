@@ -10,6 +10,5 @@ namespace projetoFinalPJS
         public String Nome_Categoria { get; set; }
         public float Orçamento_Categoria { get; set; }
         public float Orçamento_Restante { get; set; }
-
     }
 }

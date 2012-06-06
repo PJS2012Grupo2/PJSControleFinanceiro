@@ -42,15 +42,7 @@ namespace projetoFinalPJS
 
         private void formularioInicial_Load(object sender, EventArgs e)
         {
-            SqlConnection conexao = new SqlConnection();
-            conexao.ConnectionString = "Data Source=PC18LAB3\\MSSQLSERVER1;Initial Catalog=Financeiro;Integrated Security=SSPI";
-
-            SqlDataAdapter adaptador = new SqlDataAdapter();
-            SqlCommand comandoSelecao = new SqlCommand("Select * from Categoria", conexao);
-            adaptador.SelectCommand = comandoSelecao;
-
-            SqlCommand comandoInsercao = new SqlCommand("Insert into (Categoria) values (@nome, @limite)");
-            adaptador.SelectCommand = comandoInsercao;
+            
         }
     }
 }
