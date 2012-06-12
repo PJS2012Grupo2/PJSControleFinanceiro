@@ -167,6 +167,15 @@ namespace projetoFinalPJS
             adaptadorCategoria.Fill(dadosCategoria, "CATEGORIA");
             DataSet dadosRecorrente = new DataSet();
             adaptadorRecorrente.Fill(dadosRecorrente, "MOVIMENTO_RECORRENTE");
+            
+            try
+            {
+                conexaoFinanceiro.Open();
+            }
+            catch
+            {
+                MessageBox.Show("Não foi possível fazer a conexão com a base de dados.");
+            }
         }
 
         public formularioInicial()

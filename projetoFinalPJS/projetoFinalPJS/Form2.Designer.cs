@@ -93,6 +93,7 @@
             this.cadastrar.TabIndex = 18;
             this.cadastrar.Text = "Cadastrar";
             this.cadastrar.UseVisualStyleBackColor = true;
+            this.cadastrar.Click += new System.EventHandler(this.cadastrar_Click);
             // 
             // tbDescrição
             // 
