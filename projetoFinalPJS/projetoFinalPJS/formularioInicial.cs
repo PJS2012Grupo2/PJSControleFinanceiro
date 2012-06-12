@@ -19,7 +19,7 @@ namespace projetoFinalPJS
         {
             // Cria a conexão para a base de dados e seu adaptador
             SqlConnection conexaoFinanceiro = new SqlConnection();
-            conexaoFinanceiro.ConnectionString = "Data Source=PC01LAB3\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
+            conexaoFinanceiro.ConnectionString = "Data Source=PC15LAB3\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
             // Cria os adaptadores
             SqlDataAdapter adaptadorMovimento = new SqlDataAdapter();
             SqlDataAdapter adaptadorCategoria = new SqlDataAdapter();
@@ -99,23 +99,34 @@ namespace projetoFinalPJS
             comandoInsercaoRecorrente.Parameters.Add(prmCategoriaRecorrente);
 
             /**************** Comandos de atualização **********************/
-            SqlCommand comandoAtualizacaoMovimento = new SqlCommand("Update MOVIMENTO set DESCRICAO = @Descricao, VALOR = @Valor, DATACADASTRO = @DataCadastro, PARCELA = @Parcela, ID_CATEGORIA = @Cateoria where ID_MOVIMENTO = @IdMovimento", conexaoFinanceiro);
+            SqlCommand comandoAtualizacaoMovimento = new SqlCommand("Update MOVIMENTO set DESCRICAO = @Descricao, VALOR = @Valor, DATACADASTRO = @DataCadastro, PARCELA = @Parcela, ID_CATEGORIA = @Categoria where ID_MOVIMENTO = @IdMovimento", conexaoFinanceiro);
+            prmDescricaoMovimento = new SqlParameter("@Descricao", SqlDbType.VarChar, 50);
             comandoAtualizacaoMovimento.Parameters.Add(prmDescricaoMovimento);
+            prmValorMovimento = new SqlParameter("@Valor", SqlDbType.Money);
             comandoAtualizacaoMovimento.Parameters.Add(prmValorMovimento);
+            prmDataCadastroMovimento = new SqlParameter("@DataCadastro", SqlDbType.Date);
             comandoAtualizacaoMovimento.Parameters.Add(prmDataCadastroMovimento);
+            prmParcelaMovimento = new SqlParameter("@Parcela", SqlDbType.Int);
             comandoAtualizacaoMovimento.Parameters.Add(prmParcelaMovimento);
+            prmCategoriaMovimento = new SqlParameter("@Categoria", SqlDbType.Int);
             comandoAtualizacaoMovimento.Parameters.Add(prmCategoriaMovimento);
             adaptadorMovimento.UpdateCommand = comandoAtualizacaoMovimento;
 
             SqlCommand comandoAtualizacaoCategoria = new SqlCommand("Update CATEGORIA set NOME = @Nome, LIMITE = @Limite where ID_CATEGORIA = @IdCategoria", conexaoFinanceiro);
+            prmNomeCategoria = new SqlParameter("@Nome", SqlDbType.VarChar, 50);
             comandoAtualizacaoCategoria.Parameters.Add(prmNomeCategoria);
+            prmLimiteCategoria = new SqlParameter("@Limite", SqlDbType.Money);
             comandoAtualizacaoCategoria.Parameters.Add(prmLimiteCategoria);
             adaptadorCategoria.UpdateCommand = comandoAtualizacaoCategoria;
 
             SqlCommand comandoAtualizaoRecorrente = new SqlCommand("Update MOVIMENTO_RECORRENTE set NOME = @Nome, VALOR = @Valor, RECORRENCIA = @Recorrencia, ID_CATEGORIA = @IdCategoria", conexaoFinanceiro);
+            prmNomeRecorrente = new SqlParameter("@Nome", SqlDbType.VarChar, 30);
             comandoAtualizaoRecorrente.Parameters.Add(prmNomeRecorrente);
+            prmValorRecorrente = new SqlParameter("@Valor", SqlDbType.Money);
             comandoAtualizaoRecorrente.Parameters.Add(prmValorRecorrente);
+            prmRecorrenciaRecorrente = new SqlParameter("@Recorrencia", SqlDbType.VarChar, 20);
             comandoAtualizaoRecorrente.Parameters.Add(prmRecorrenciaRecorrente);
+            prmCategoriaRecorrente = new SqlParameter("@IdCategoria", SqlDbType.Int);
             comandoAtualizaoRecorrente.Parameters.Add(prmCategoriaRecorrente);
             adaptadorRecorrente.UpdateCommand = comandoAtualizaoRecorrente;
 
