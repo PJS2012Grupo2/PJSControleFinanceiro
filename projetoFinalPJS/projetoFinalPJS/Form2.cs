@@ -15,5 +15,29 @@ namespace projetoFinalPJS
         {
             InitializeComponent();
         }
+
+        private void cadastrar_Click(object sender, EventArgs e)
+        {
+            if (tbSaldo.Text.Trim() == "")
+            {
+                MessageBox.Show("Digite um valor de Saldo válido.");
+                tbSaldo.Focus();
+            }
+            else if (tbDescrição.Text.Trim() == "")
+            {
+                MessageBox.Show("Digite uma descrição.");
+                tbDescrição.Focus();
+            }
+            else if (tbValor.Text.Trim() == "")
+            {
+                MessageBox.Show("Digite um valor válido.");
+                tbValor.Focus();
+            }
+            else
+            {
+                
+            }
+
+        }
     }
 }

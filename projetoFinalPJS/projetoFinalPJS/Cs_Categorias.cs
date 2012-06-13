@@ -5,10 +5,21 @@ using System.Text;
 
 namespace projetoFinalPJS
 {
-    class Cs_Categorias
+    public class Cs_Categorias
     {
-        public String Nome_Categoria { get; set; }
+        public string Nome_Categoria { get; set; }
         public float Orçamento_Categoria { get; set; }
         public float Orçamento_Restante { get; set; }
     }
 }
+//<<<<<<< .merge_file_a04320
+//=======
+
+//        public Cs_Categorias(string descricao, float orcamento)
+//        {
+//            Nome_Categoria = descricao;
+//            Orçamento_Categoria = orcamento;
+//        }
+//>>>>>>> .merge_file_a02656
+//    }
+//}

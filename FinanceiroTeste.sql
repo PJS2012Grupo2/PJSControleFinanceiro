@@ -1,4 +1,5 @@
 create database FINANCEIRO;
+GO
 
 USE FINANCEIRO;
 GO
@@ -26,12 +27,13 @@ GO
 CREATE TABLE MOVIMENTO_RECORRENTE(
   ID_RECORRENTE INT PRIMARY KEY NOT NULL identity,
   NOME VARCHAR(30),
-  VALOR FLOAT,
+  VALOR MONEY,
   RECORRENCIA VARCHAR(20),
   ID_CATEGORIA INT FOREIGN KEY REFERENCES CATEGORIA(ID_CATEGORIA)
 );
 GO
 
+/*
 --Inserindo alguns registros para teste
 INSERT into CATEGORIA values ('Casa', 200.00);
 insert into CATEGORIA VALUES ('Carro', 230.00);
@@ -115,6 +117,13 @@ select CATEGORIA.NOME,
  group by CATEGORIA.nome;
 GO
 
+<<<<<<< .merge_file_a04244
 select * from CATEGORIA;
 go
 
+=======
+*/
+
+select * from CATEGORIA;
+go
+>>>>>>> .merge_file_a05052

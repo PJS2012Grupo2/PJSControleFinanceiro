@@ -32,7 +32,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.tbValor = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.tbCategoria = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.cadastrar = new System.Windows.Forms.Button();
             this.tbDescrição = new System.Windows.Forms.TextBox();
@@ -40,6 +39,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tbSaldo = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.cbCategoria = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // dtpData
@@ -76,13 +76,6 @@
             this.label6.TabIndex = 21;
             this.label6.Text = "Descrição";
             // 
-            // tbCategoria
-            // 
-            this.tbCategoria.Location = new System.Drawing.Point(38, 206);
-            this.tbCategoria.Name = "tbCategoria";
-            this.tbCategoria.Size = new System.Drawing.Size(211, 20);
-            this.tbCategoria.TabIndex = 20;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -100,6 +93,7 @@
             this.cadastrar.TabIndex = 18;
             this.cadastrar.Text = "Cadastrar";
             this.cadastrar.UseVisualStyleBackColor = true;
+            this.cadastrar.Click += new System.EventHandler(this.cadastrar_Click);
             // 
             // tbDescrição
             // 
@@ -142,18 +136,29 @@
             this.label4.TabIndex = 26;
             this.label4.Text = "Movimentação";
             // 
+            // cbCategoria
+            // 
+            this.cbCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCategoria.FormattingEnabled = true;
+            this.cbCategoria.Items.AddRange(new object[] {
+            "Sem Categoria"});
+            this.cbCategoria.Location = new System.Drawing.Point(38, 206);
+            this.cbCategoria.Name = "cbCategoria";
+            this.cbCategoria.Size = new System.Drawing.Size(211, 21);
+            this.cbCategoria.TabIndex = 27;
+            // 
             // Form_Movimentação
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(295, 411);
+            this.Controls.Add(this.cbCategoria);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.tbSaldo);
             this.Controls.Add(this.dtpData);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tbValor);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.tbCategoria);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.cadastrar);
             this.Controls.Add(this.tbDescrição);
@@ -173,7 +178,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tbValor;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox tbCategoria;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button cadastrar;
         private System.Windows.Forms.TextBox tbDescrição;
@@ -181,6 +185,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbSaldo;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox cbCategoria;
 
     }
 }
