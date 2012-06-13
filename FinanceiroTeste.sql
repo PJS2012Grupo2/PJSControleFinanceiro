@@ -33,6 +33,7 @@ CREATE TABLE MOVIMENTO_RECORRENTE(
 );
 GO
 
+/*
 --Inserindo alguns registros para teste
 INSERT into CATEGORIA values ('Casa', 200.00);
 insert into CATEGORIA VALUES ('Carro', 230.00);
@@ -115,3 +116,8 @@ select CATEGORIA.NOME,
  on CATEGORIA.ID_CATEGORIA = MOVIMENTO.ID_CATEGORIA
  group by CATEGORIA.nome;
 GO
+
+*/
+
+select * from CATEGORIA;
+go

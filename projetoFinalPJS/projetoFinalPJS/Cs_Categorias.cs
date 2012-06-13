@@ -5,11 +5,16 @@ using System.Text;
 
 namespace projetoFinalPJS
 {
-    class Cs_Categorias
+    public class Cs_Categorias
     {
-        public String Nome_Categoria { get; set; }
+        public string Nome_Categoria { get; set; }
         public float Orçamento_Categoria { get; set; }
         public float Orçamento_Restante { get; set; }
 
+        public Cs_Categorias(string descricao, float orcamento)
+        {
+            Nome_Categoria = descricao;
+            Orçamento_Categoria = orcamento;
+        }
     }
 }

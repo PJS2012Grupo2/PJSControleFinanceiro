@@ -85,6 +85,7 @@
             this.salvarCtg.TabIndex = 8;
             this.salvarCtg.Text = "Salvar";
             this.salvarCtg.UseVisualStyleBackColor = true;
+            this.salvarCtg.Click += new System.EventHandler(this.salvarCtg_Click);
             // 
             // Form_Categoria
             // 
