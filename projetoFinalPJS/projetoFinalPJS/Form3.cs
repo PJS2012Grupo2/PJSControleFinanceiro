@@ -37,7 +37,7 @@ namespace projetoFinalPJS
             Cs_Categorias categoria = new Cs_Categorias(tbDescriçãoCtg.Text, float.Parse(tbOrçamentoCtg.Text));
             formInicial.VisualizarCategoria(categoria);
 
-         //   conexao.Close();
+            //conexao.Close();
             Close();
         }
     }
