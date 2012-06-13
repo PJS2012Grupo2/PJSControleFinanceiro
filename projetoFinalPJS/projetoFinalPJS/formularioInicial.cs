@@ -14,22 +14,31 @@ namespace projetoFinalPJS
     {
 
         private List<Cs_Categorias> listaCategorias;
-
+        public SqlDataAdapter adaptadorMovimento;
+        public SqlDataAdapter adaptadorCategoria;
+        public SqlDataAdapter adaptadorRecorrente;
         private void formularioInicial_Load(object sender, EventArgs e)
+        {
+            conexaoDados();
+        }
+
+        public void conexaoDados()
         {
             // Cria a conexão para a base de dados e seu adaptador
             SqlConnection conexaoFinanceiro = new SqlConnection();
-            conexaoFinanceiro.ConnectionString = "Data Source=PC15LAB3\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
+            conexaoFinanceiro.ConnectionString = "Data Source=PC18LA3\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
+
+            //conexaoFinanceiro.Open();
             // Cria os adaptadores
-            SqlDataAdapter adaptadorMovimento = new SqlDataAdapter();
-            SqlDataAdapter adaptadorCategoria = new SqlDataAdapter();
-            SqlDataAdapter adaptadorRecorrente = new SqlDataAdapter();
+            adaptadorMovimento = new SqlDataAdapter();
+            adaptadorCategoria = new SqlDataAdapter();
+            adaptadorRecorrente = new SqlDataAdapter();
 
             // Cria o comando de seleção do adaptador
             SqlCommand comandoSelecaoMovimento = new SqlCommand("Select * from MOVIMENTO", conexaoFinanceiro);
             SqlCommand comandoSelecaoCategoria = new SqlCommand("Select * from CATEGORIA", conexaoFinanceiro);
             SqlCommand comandoSelecaoRecorrente = new SqlCommand("Select * from MOVIMENTO_RECORRENTE", conexaoFinanceiro);
-            
+
             adaptadorMovimento.SelectCommand = comandoSelecaoMovimento;
             adaptadorCategoria.SelectCommand = comandoSelecaoCategoria;
             adaptadorRecorrente.SelectCommand = comandoSelecaoRecorrente;
@@ -167,7 +176,7 @@ namespace projetoFinalPJS
             adaptadorCategoria.Fill(dadosCategoria, "CATEGORIA");
             DataSet dadosRecorrente = new DataSet();
             adaptadorRecorrente.Fill(dadosRecorrente, "MOVIMENTO_RECORRENTE");
-            
+
             try
             {
                 conexaoFinanceiro.Open();
@@ -178,11 +187,23 @@ namespace projetoFinalPJS
             }
         }
 
+
         public formularioInicial()
         {
             InitializeComponent();
             
-            dataGridView1.DataSource = listaCategorias;
+            //dataGridView1.DataSource = listaCategorias;
+        }
+
+        public void VisualizarCategoria(Cs_Categorias ctg)
+        {
+            ListViewItem itemDescricao = new ListViewItem(ctg.Nome_Categoria);
+
+            ListViewItem.ListViewSubItem itemLimite = new ListViewItem.ListViewSubItem(itemDescricao, ctg.Orçamento_Categoria.ToString());
+
+            itemDescricao.SubItems.Add(itemLimite);
+
+            listViewCategorias.Items.Add(itemDescricao);
         }
 
         private void entradaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -191,15 +212,16 @@ namespace projetoFinalPJS
             Var_Form_Movimentação.ShowDialog();
         }
 
-        private void saídaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void saidaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Form_Movimentação Var_Form_Movimentação = new Form_Movimentação();
-            Var_Form_Movimentação.ShowDialog();
+            Form_Movimentação Var_Form_Movimentação_2 = new Form_Movimentação();
+            Var_Form_Movimentação_2.ShowDialog();
         }
 
         private void categoriaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form_Categoria Var_Form_Categoria = new Form_Categoria();
+            Form_Categoria Var_Form_Categoria = new Form_Categoria(this, adaptadorCategoria);
+            //Form_Categoria Var_Form_Categoria = new Form_Categoria(this, SqlDataAdapter adaptador,DataSet dCategoria);
             Var_Form_Categoria.ShowDialog();
         }
     }
