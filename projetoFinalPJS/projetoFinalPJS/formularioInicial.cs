@@ -17,17 +17,16 @@ namespace projetoFinalPJS
         public SqlDataAdapter adaptadorMovimento;
         public SqlDataAdapter adaptadorCategoria;
         public SqlDataAdapter adaptadorRecorrente;
-<<<<<<< HEAD
         public SqlConnection conexaoFinanceiro;
-=======
 
-
->>>>>>> 0855acd8c93d102bb5d37b94176be292e6a80206
         private void formularioInicial_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'fINANCEIRODataSet.CATEGORIA' table. You can move, or remove it, as needed.
+            this.cATEGORIATableAdapter.Fill(this.fINANCEIRODataSet.CATEGORIA);
             try
             {
                 conexaoDados();
+                atualizaGridCategorias();
             }
             catch
             {
@@ -224,6 +223,11 @@ namespace projetoFinalPJS
             listViewCategorias.Items.Add(itemDescricao);
         }
 
+        public void atualizaGridCategorias()
+        {
+            dataGridViewCategorias.DataSource = adaptadorCategoria.SelectCommand;
+        }
+
         private void entradaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Form_Movimentação Var_Form_Movimentação = new Form_Movimentação(this, adaptadorMovimento);
@@ -239,7 +243,6 @@ namespace projetoFinalPJS
         private void categoriaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form_Categoria Var_Form_Categoria = new Form_Categoria(this, adaptadorCategoria);
-            //Form_Categoria Var_Form_Categoria = new Form_Categoria(this, SqlDataAdapter adaptador,DataSet dCategoria);
             Var_Form_Categoria.ShowDialog();
         }
     }
