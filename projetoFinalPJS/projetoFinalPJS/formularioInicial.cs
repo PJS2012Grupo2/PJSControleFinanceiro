@@ -17,10 +17,22 @@ namespace projetoFinalPJS
         public SqlDataAdapter adaptadorMovimento;
         public SqlDataAdapter adaptadorCategoria;
         public SqlDataAdapter adaptadorRecorrente;
+<<<<<<< HEAD
         public SqlConnection conexaoFinanceiro;
+=======
+
+
+>>>>>>> 0855acd8c93d102bb5d37b94176be292e6a80206
         private void formularioInicial_Load(object sender, EventArgs e)
         {
-            conexaoDados();
+            try
+            {
+                conexaoDados();
+            }
+            catch
+            {
+                MessageBox.Show("Não foi possível fazer a conexão com a base de dados.");
+            } 
         }
 
         public void conexaoDados()
@@ -29,7 +41,7 @@ namespace projetoFinalPJS
             conexaoFinanceiro = new SqlConnection();
             conexaoFinanceiro.ConnectionString = "Data Source=PC15LAB3\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
 
-            //conexaoFinanceiro.Open();
+            conexaoFinanceiro.Open();
             // Cria os adaptadores
             adaptadorMovimento = new SqlDataAdapter();
             adaptadorCategoria = new SqlDataAdapter();
@@ -178,13 +190,18 @@ namespace projetoFinalPJS
             DataSet dadosRecorrente = new DataSet();
             adaptadorRecorrente.Fill(dadosRecorrente, "MOVIMENTO_RECORRENTE");
 
-            try
+            SqlCommand comandoInicializar = new SqlCommand();
+            comandoInicializar.Connection = conexaoFinanceiro;
+            comandoInicializar.CommandText = "Select nome, limite from CATEGORIA";
+            comandoInicializar.ExecuteNonQuery();
+
+            SqlDataReader leitor = comandoInicializar.ExecuteReader();
+
+            while (leitor.Read())
             {
-                conexaoFinanceiro.Open();
-            }
-            catch
-            {
-                MessageBox.Show("Não foi possível fazer a conexão com a base de dados.");
+                //string nome; float limite;
+                Cs_Categorias categoria = new Cs_Categorias((string)leitor["nome"],(float.Parse(leitor["limite"].ToString())));
+                VisualizarCategoria(categoria);
             }
         }
 
