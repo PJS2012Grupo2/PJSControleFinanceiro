@@ -17,6 +17,7 @@ namespace projetoFinalPJS
         public SqlDataAdapter adaptadorMovimento;
         public SqlDataAdapter adaptadorCategoria;
         public SqlDataAdapter adaptadorRecorrente;
+        public SqlConnection conexaoFinanceiro;
         private void formularioInicial_Load(object sender, EventArgs e)
         {
             conexaoDados();
@@ -25,8 +26,8 @@ namespace projetoFinalPJS
         public void conexaoDados()
         {
             // Cria a conexão para a base de dados e seu adaptador
-            SqlConnection conexaoFinanceiro = new SqlConnection();
-            conexaoFinanceiro.ConnectionString = "Data Source=PC18LA3\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
+            conexaoFinanceiro = new SqlConnection();
+            conexaoFinanceiro.ConnectionString = "Data Source=PC15LAB3\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
 
             //conexaoFinanceiro.Open();
             // Cria os adaptadores
@@ -208,13 +209,13 @@ namespace projetoFinalPJS
 
         private void entradaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Form_Movimentação Var_Form_Movimentação = new Form_Movimentação();
+            Form_Movimentação Var_Form_Movimentação = new Form_Movimentação(this, adaptadorMovimento);
             Var_Form_Movimentação.ShowDialog();
         }
 
         private void saidaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Form_Movimentação Var_Form_Movimentação_2 = new Form_Movimentação();
+            Form_Movimentação Var_Form_Movimentação_2 = new Form_Movimentação(this, adaptadorMovimento);
             Var_Form_Movimentação_2.ShowDialog();
         }
 

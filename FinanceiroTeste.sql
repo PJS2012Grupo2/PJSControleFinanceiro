@@ -121,3 +121,6 @@ GO
 
 select * from CATEGORIA;
 go
+
+INSERT INTO CATEGORIA VALUES 
+('Sem Categoria', 0);
