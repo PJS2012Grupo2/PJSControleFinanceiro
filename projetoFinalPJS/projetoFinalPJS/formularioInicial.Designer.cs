@@ -57,7 +57,6 @@
             this.nOMEDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lIMITEDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cATEGORIABindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.fINANCEIRODataSet = new projetoFinalPJS.FINANCEIRODataSet();
             this.csCategoriasBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
             this.listViewCategorias = new System.Windows.Forms.ListView();
@@ -74,19 +73,12 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.csCategoriasBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.cATEGORIATableAdapter = new projetoFinalPJS.FINANCEIRODataSetTableAdapters.CATEGORIATableAdapter();
-            this.cATEGORIABindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCategorias)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cATEGORIABindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.fINANCEIRODataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.csCategoriasBindingSource1)).BeginInit();
             this.panel2.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.csCategoriasBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cATEGORIABindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -277,7 +269,6 @@
             this.iDCATEGORIADataGridViewTextBoxColumn,
             this.nOMEDataGridViewTextBoxColumn,
             this.lIMITEDataGridViewTextBoxColumn});
-            this.dataGridViewCategorias.DataSource = this.cATEGORIABindingSource1;
             this.dataGridViewCategorias.Location = new System.Drawing.Point(-2, 3);
             this.dataGridViewCategorias.Name = "dataGridViewCategorias";
             this.dataGridViewCategorias.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -310,12 +301,6 @@
             // cATEGORIABindingSource
             // 
             this.cATEGORIABindingSource.DataMember = "CATEGORIA";
-            this.cATEGORIABindingSource.DataSource = this.fINANCEIRODataSet;
-            // 
-            // fINANCEIRODataSet
-            // 
-            this.fINANCEIRODataSet.DataSetName = "FINANCEIRODataSet";
-            this.fINANCEIRODataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // panel2
             // 
@@ -456,19 +441,6 @@
             this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 20);
             this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
             // 
-            // csCategoriasBindingSource
-            // 
-            this.csCategoriasBindingSource.DataSource = typeof(projetoFinalPJS.Cs_Categorias);
-            // 
-            // cATEGORIATableAdapter
-            // 
-            this.cATEGORIATableAdapter.ClearBeforeFill = true;
-            // 
-            // cATEGORIABindingSource1
-            // 
-            this.cATEGORIABindingSource1.DataMember = "CATEGORIA";
-            this.cATEGORIABindingSource1.DataSource = this.fINANCEIRODataSet;
-            // 
             // formularioInicial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -490,16 +462,11 @@
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCategorias)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cATEGORIABindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.fINANCEIRODataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.csCategoriasBindingSource1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.csCategoriasBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cATEGORIABindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -549,9 +516,7 @@
         private System.Windows.Forms.ColumnHeader columnNome;
         private System.Windows.Forms.ColumnHeader columnLimite;
         private System.Windows.Forms.BindingSource csCategoriasBindingSource;
-        private FINANCEIRODataSet fINANCEIRODataSet;
         private System.Windows.Forms.BindingSource cATEGORIABindingSource;
-        private FINANCEIRODataSetTableAdapters.CATEGORIATableAdapter cATEGORIATableAdapter;
         private System.Windows.Forms.DataGridViewTextBoxColumn iDCATEGORIADataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nOMEDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn lIMITEDataGridViewTextBoxColumn;
