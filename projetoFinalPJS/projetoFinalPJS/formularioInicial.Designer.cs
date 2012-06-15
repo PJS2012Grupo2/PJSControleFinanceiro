@@ -52,16 +52,16 @@
             this.gerenciarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gastosParceladosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.dataGridViewCategorias = new System.Windows.Forms.DataGridView();
-            this.iDCATEGORIADataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nOMEDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lIMITEDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cATEGORIABindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.csCategoriasBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.panel2 = new System.Windows.Forms.Panel();
             this.listViewCategorias = new System.Windows.Forms.ListView();
             this.columnNome = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnLimite = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnRestante = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.listViewMovimentos = new System.Windows.Forms.ListView();
+            this.columnDescricao = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnValor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.cATEGORIABindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.csCategoriasBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.panel2 = new System.Windows.Forms.Panel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
@@ -73,18 +73,24 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.csCategoriasBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.columnDataCadastro = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnCategoria = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnParcelas = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnValorTotal = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCategorias)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cATEGORIABindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.csCategoriasBindingSource1)).BeginInit();
             this.panel2.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.csCategoriasBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.AutoSize = false;
-            this.menuStrip1.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.Menu;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.arquivoToolStripMenuItem,
             this.editarToolStripMenuItem,
@@ -251,52 +257,77 @@
             this.panel1.AutoSize = true;
             this.panel1.BackColor = System.Drawing.SystemColors.HighlightText;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Controls.Add(this.dataGridViewCategorias);
+            this.panel1.Controls.Add(this.listViewCategorias);
             this.panel1.Location = new System.Drawing.Point(0, 52);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(778, 261);
             this.panel1.TabIndex = 1;
             // 
-            // dataGridViewCategorias
+            // listViewCategorias
             // 
-            this.dataGridViewCategorias.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.listViewCategorias.Alignment = System.Windows.Forms.ListViewAlignment.SnapToGrid;
+            this.listViewCategorias.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewCategorias.AutoGenerateColumns = false;
-            this.dataGridViewCategorias.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
-            this.dataGridViewCategorias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewCategorias.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.iDCATEGORIADataGridViewTextBoxColumn,
-            this.nOMEDataGridViewTextBoxColumn,
-            this.lIMITEDataGridViewTextBoxColumn});
-            this.dataGridViewCategorias.Location = new System.Drawing.Point(-2, 3);
-            this.dataGridViewCategorias.Name = "dataGridViewCategorias";
-            this.dataGridViewCategorias.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dataGridViewCategorias.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewCategorias.Size = new System.Drawing.Size(773, 209);
-            this.dataGridViewCategorias.TabIndex = 0;
+            this.listViewCategorias.BackColor = System.Drawing.SystemColors.Menu;
+            this.listViewCategorias.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnNome,
+            this.columnLimite,
+            this.columnRestante});
+            this.listViewCategorias.FullRowSelect = true;
+            this.listViewCategorias.Location = new System.Drawing.Point(-2, -2);
+            this.listViewCategorias.Name = "listViewCategorias";
+            this.listViewCategorias.Size = new System.Drawing.Size(773, 180);
+            this.listViewCategorias.TabIndex = 0;
+            this.listViewCategorias.UseCompatibleStateImageBehavior = false;
+            this.listViewCategorias.View = System.Windows.Forms.View.Details;
             // 
-            // iDCATEGORIADataGridViewTextBoxColumn
+            // columnNome
             // 
-            this.iDCATEGORIADataGridViewTextBoxColumn.DataPropertyName = "ID_CATEGORIA";
-            this.iDCATEGORIADataGridViewTextBoxColumn.HeaderText = "ID_CATEGORIA";
-            this.iDCATEGORIADataGridViewTextBoxColumn.Name = "iDCATEGORIADataGridViewTextBoxColumn";
-            this.iDCATEGORIADataGridViewTextBoxColumn.ReadOnly = true;
-            this.iDCATEGORIADataGridViewTextBoxColumn.Width = 111;
+            this.columnNome.Text = "Nome";
+            this.columnNome.Width = 133;
             // 
-            // nOMEDataGridViewTextBoxColumn
+            // columnLimite
             // 
-            this.nOMEDataGridViewTextBoxColumn.DataPropertyName = "NOME";
-            this.nOMEDataGridViewTextBoxColumn.HeaderText = "NOME";
-            this.nOMEDataGridViewTextBoxColumn.Name = "nOMEDataGridViewTextBoxColumn";
-            this.nOMEDataGridViewTextBoxColumn.Width = 64;
+            this.columnLimite.Text = "Orçamento";
+            this.columnLimite.Width = 98;
             // 
-            // lIMITEDataGridViewTextBoxColumn
+            // columnRestante
             // 
-            this.lIMITEDataGridViewTextBoxColumn.DataPropertyName = "LIMITE";
-            this.lIMITEDataGridViewTextBoxColumn.HeaderText = "LIMITE";
-            this.lIMITEDataGridViewTextBoxColumn.Name = "lIMITEDataGridViewTextBoxColumn";
-            this.lIMITEDataGridViewTextBoxColumn.Width = 67;
+            this.columnRestante.Text = "Orçamento Restante";
+            this.columnRestante.Width = 117;
+            // 
+            // listViewMovimentos
+            // 
+            this.listViewMovimentos.Alignment = System.Windows.Forms.ListViewAlignment.SnapToGrid;
+            this.listViewMovimentos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewMovimentos.BackColor = System.Drawing.SystemColors.Window;
+            this.listViewMovimentos.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnDescricao,
+            this.columnValor,
+            this.columnDataCadastro,
+            this.columnCategoria,
+            this.columnParcelas,
+            this.columnValorTotal});
+            this.listViewMovimentos.FullRowSelect = true;
+            this.listViewMovimentos.Location = new System.Drawing.Point(-2, -2);
+            this.listViewMovimentos.Name = "listViewMovimentos";
+            this.listViewMovimentos.Size = new System.Drawing.Size(773, 190);
+            this.listViewMovimentos.TabIndex = 1;
+            this.listViewMovimentos.UseCompatibleStateImageBehavior = false;
+            this.listViewMovimentos.View = System.Windows.Forms.View.Details;
+            // 
+            // columnDescricao
+            // 
+            this.columnDescricao.Text = "Descrição";
+            this.columnDescricao.Width = 213;
+            // 
+            // columnValor
+            // 
+            this.columnValor.Text = "Limite";
+            this.columnValor.Width = 83;
             // 
             // cATEGORIABindingSource
             // 
@@ -310,39 +341,11 @@
             this.panel2.AutoSize = true;
             this.panel2.BackColor = System.Drawing.SystemColors.HighlightText;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel2.Controls.Add(this.listViewCategorias);
-            this.panel2.Location = new System.Drawing.Point(0, 256);
+            this.panel2.Controls.Add(this.listViewMovimentos);
+            this.panel2.Location = new System.Drawing.Point(0, 224);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(778, 163);
+            this.panel2.Size = new System.Drawing.Size(778, 195);
             this.panel2.TabIndex = 2;
-            // 
-            // listViewCategorias
-            // 
-            this.listViewCategorias.Alignment = System.Windows.Forms.ListViewAlignment.SnapToGrid;
-            this.listViewCategorias.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.listViewCategorias.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.listViewCategorias.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnNome,
-            this.columnLimite});
-            this.listViewCategorias.FullRowSelect = true;
-            this.listViewCategorias.Location = new System.Drawing.Point(-2, 0);
-            this.listViewCategorias.Name = "listViewCategorias";
-            this.listViewCategorias.Size = new System.Drawing.Size(773, 156);
-            this.listViewCategorias.TabIndex = 0;
-            this.listViewCategorias.UseCompatibleStateImageBehavior = false;
-            this.listViewCategorias.View = System.Windows.Forms.View.Details;
-            // 
-            // columnNome
-            // 
-            this.columnNome.Text = "Nome";
-            this.columnNome.Width = 229;
-            // 
-            // columnLimite
-            // 
-            this.columnLimite.Text = "Limite";
-            this.columnLimite.Width = 87;
             // 
             // toolStrip1
             // 
@@ -441,6 +444,26 @@
             this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 20);
             this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
             // 
+            // columnDataCadastro
+            // 
+            this.columnDataCadastro.Text = "Data de Cadastro";
+            this.columnDataCadastro.Width = 111;
+            // 
+            // columnCategoria
+            // 
+            this.columnCategoria.Text = "Categoria";
+            this.columnCategoria.Width = 169;
+            // 
+            // columnParcelas
+            // 
+            this.columnParcelas.Text = "Parcelas";
+            this.columnParcelas.Width = 89;
+            // 
+            // columnValorTotal
+            // 
+            this.columnValorTotal.Text = "Valor Total";
+            this.columnValorTotal.Width = 104;
+            // 
             // formularioInicial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -461,12 +484,14 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCategorias)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cATEGORIABindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.csCategoriasBindingSource1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.csCategoriasBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -512,7 +537,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn orçamentoRestanteDataGridViewTextBoxColumn;
         private System.Windows.Forms.ListView listViewCategorias;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
-        private System.Windows.Forms.DataGridView dataGridViewCategorias;
         private System.Windows.Forms.ColumnHeader columnNome;
         private System.Windows.Forms.ColumnHeader columnLimite;
         private System.Windows.Forms.BindingSource csCategoriasBindingSource;
@@ -521,5 +545,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nOMEDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn lIMITEDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource cATEGORIABindingSource1;
+        private System.Windows.Forms.ListView listViewMovimentos;
+        private System.Windows.Forms.ColumnHeader columnDescricao;
+        private System.Windows.Forms.ColumnHeader columnValor;
+        private System.Windows.Forms.ColumnHeader columnRestante;
+        private System.Windows.Forms.ColumnHeader columnDataCadastro;
+        private System.Windows.Forms.ColumnHeader columnCategoria;
+        private System.Windows.Forms.ColumnHeader columnParcelas;
+        private System.Windows.Forms.ColumnHeader columnValorTotal;
     }
 }

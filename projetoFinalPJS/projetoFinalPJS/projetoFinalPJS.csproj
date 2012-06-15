@@ -106,7 +106,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="app.config" />
     <None Include="Properties\DataSources\Cs_Categorias.datasource" />
     <None Include="Properties\DataSources\formularioInicial.datasource" />
     <None Include="Properties\DataSources\Form_Categoria.datasource" />

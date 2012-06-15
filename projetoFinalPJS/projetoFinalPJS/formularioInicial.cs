@@ -21,12 +21,9 @@ namespace projetoFinalPJS
 
         private void formularioInicial_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'fINANCEIRODataSet.CATEGORIA' table. You can move, or remove it, as needed.
-            this.cATEGORIATableAdapter.Fill(this.fINANCEIRODataSet.CATEGORIA);
             try
             {
                 conexaoDados();
-                atualizaGridCategorias();
             }
             catch
             {
@@ -221,11 +218,6 @@ namespace projetoFinalPJS
             itemDescricao.SubItems.Add(itemLimite);
 
             listViewCategorias.Items.Add(itemDescricao);
-        }
-
-        public void atualizaGridCategorias()
-        {
-            dataGridViewCategorias.DataSource = adaptadorCategoria.SelectCommand;
         }
 
         private void entradaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)
