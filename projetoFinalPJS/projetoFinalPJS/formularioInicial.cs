@@ -213,7 +213,7 @@ namespace projetoFinalPJS
         {
             ListViewItem itemDescricao = new ListViewItem(ctg.Nome_Categoria);
 
-            ListViewItem.ListViewSubItem itemLimite = new ListViewItem.ListViewSubItem(itemDescricao, ctg.Orçamento_Categoria.ToString());
+            ListViewItem.ListViewSubItem itemLimite = new ListViewItem.ListViewSubItem(itemDescricao, "R$"+ctg.Orçamento_Categoria.ToString());
 
             itemDescricao.SubItems.Add(itemLimite);
 

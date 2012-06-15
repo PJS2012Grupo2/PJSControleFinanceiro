@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Todas as Categorias");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formularioInicial));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.arquivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -275,12 +276,16 @@
             this.columnLimite,
             this.columnRestante});
             this.listViewCategorias.FullRowSelect = true;
+            listViewItem1.Checked = true;
+            listViewItem1.StateImageIndex = 1;
+            this.listViewCategorias.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem1});
             this.listViewCategorias.Location = new System.Drawing.Point(-2, -1);
             this.listViewCategorias.Name = "listViewCategorias";
             this.listViewCategorias.Size = new System.Drawing.Size(773, 157);
             this.listViewCategorias.TabIndex = 0;
             this.listViewCategorias.UseCompatibleStateImageBehavior = false;
-            this.listViewCategorias.View = System.Windows.Forms.View.Details;
+            this.listViewCategorias.View = System.Windows.Forms.View.Tile;
             // 
             // columnNome
             // 
