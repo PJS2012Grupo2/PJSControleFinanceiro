@@ -220,9 +220,21 @@ namespace projetoFinalPJS
             listViewCategorias.Items.Add(itemDescricao);
         }
 
-        public void AdicionaMovimento()
+        public void AdicionaMovimento(Cs_Movimento mvt)
         {
+            ListViewItem itemDescricao = new ListViewItem(mvt.descricao);
+            ListViewItem.ListViewSubItem itemValor = new ListViewItem.ListViewSubItem(itemDescricao, "R$" + mvt.valor.ToString());
+            ListViewItem.ListViewSubItem itemDataCadastro = new ListViewItem.ListViewSubItem(itemDescricao, mvt.dataCadastro.ToString());
+            ListViewItem.ListViewSubItem itemCategoria = new ListViewItem.ListViewSubItem(itemDescricao, mvt.categoria);
+            string parcela, valorTotal;
+            if (mvt.parcela <= 0) { parcela = ""; valorTotal = ""; } else { parcela = mvt.parcela.ToString(); valorTotal = mvt.valorTotal.ToString(); }
+            ListViewItem.ListViewSubItem itemParcela = new ListViewItem.ListViewSubItem(itemDescricao, parcela);
+            itemDescricao.SubItems.Add(itemValor);
+            itemDescricao.SubItems.Add(itemDataCadastro);
+            itemDescricao.SubItems.Add(itemCategoria);
+            itemDescricao.SubItems.Add(itemParcela);
 
+            listViewMovimentos.Items.Add(itemDescricao);
         }
 
         private void entradaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)
