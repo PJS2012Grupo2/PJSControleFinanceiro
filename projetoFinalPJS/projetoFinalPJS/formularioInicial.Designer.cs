@@ -76,7 +76,7 @@
             this.columnDataCadastro = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnCategoria = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnParcelas = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnValorTotal = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnTotal = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cATEGORIABindingSource)).BeginInit();
@@ -269,15 +269,15 @@
             this.listViewCategorias.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.listViewCategorias.BackColor = System.Drawing.SystemColors.Menu;
+            this.listViewCategorias.BackColor = System.Drawing.SystemColors.Window;
             this.listViewCategorias.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnNome,
             this.columnLimite,
             this.columnRestante});
             this.listViewCategorias.FullRowSelect = true;
-            this.listViewCategorias.Location = new System.Drawing.Point(-2, -2);
+            this.listViewCategorias.Location = new System.Drawing.Point(-2, -1);
             this.listViewCategorias.Name = "listViewCategorias";
-            this.listViewCategorias.Size = new System.Drawing.Size(773, 180);
+            this.listViewCategorias.Size = new System.Drawing.Size(773, 157);
             this.listViewCategorias.TabIndex = 0;
             this.listViewCategorias.UseCompatibleStateImageBehavior = false;
             this.listViewCategorias.View = System.Windows.Forms.View.Details;
@@ -310,11 +310,11 @@
             this.columnDataCadastro,
             this.columnCategoria,
             this.columnParcelas,
-            this.columnValorTotal});
+            this.columnTotal});
             this.listViewMovimentos.FullRowSelect = true;
             this.listViewMovimentos.Location = new System.Drawing.Point(-2, -2);
             this.listViewMovimentos.Name = "listViewMovimentos";
-            this.listViewMovimentos.Size = new System.Drawing.Size(773, 190);
+            this.listViewMovimentos.Size = new System.Drawing.Size(773, 206);
             this.listViewMovimentos.TabIndex = 1;
             this.listViewMovimentos.UseCompatibleStateImageBehavior = false;
             this.listViewMovimentos.View = System.Windows.Forms.View.Details;
@@ -322,12 +322,12 @@
             // columnDescricao
             // 
             this.columnDescricao.Text = "Descrição";
-            this.columnDescricao.Width = 213;
+            this.columnDescricao.Width = 216;
             // 
             // columnValor
             // 
-            this.columnValor.Text = "Limite";
-            this.columnValor.Width = 83;
+            this.columnValor.Text = "Valor";
+            this.columnValor.Width = 87;
             // 
             // cATEGORIABindingSource
             // 
@@ -342,9 +342,9 @@
             this.panel2.BackColor = System.Drawing.SystemColors.HighlightText;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel2.Controls.Add(this.listViewMovimentos);
-            this.panel2.Location = new System.Drawing.Point(0, 224);
+            this.panel2.Location = new System.Drawing.Point(0, 208);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(778, 195);
+            this.panel2.Size = new System.Drawing.Size(778, 211);
             this.panel2.TabIndex = 2;
             // 
             // toolStrip1
@@ -446,23 +446,23 @@
             // 
             // columnDataCadastro
             // 
-            this.columnDataCadastro.Text = "Data de Cadastro";
-            this.columnDataCadastro.Width = 111;
+            this.columnDataCadastro.Text = "Data do Cadastro";
+            this.columnDataCadastro.Width = 106;
             // 
             // columnCategoria
             // 
             this.columnCategoria.Text = "Categoria";
-            this.columnCategoria.Width = 169;
+            this.columnCategoria.Width = 157;
             // 
             // columnParcelas
             // 
             this.columnParcelas.Text = "Parcelas";
-            this.columnParcelas.Width = 89;
+            this.columnParcelas.Width = 87;
             // 
-            // columnValorTotal
+            // columnTotal
             // 
-            this.columnValorTotal.Text = "Valor Total";
-            this.columnValorTotal.Width = 104;
+            this.columnTotal.Text = "Valor Total";
+            this.columnTotal.Width = 112;
             // 
             // formularioInicial
             // 
@@ -552,6 +552,6 @@
         private System.Windows.Forms.ColumnHeader columnDataCadastro;
         private System.Windows.Forms.ColumnHeader columnCategoria;
         private System.Windows.Forms.ColumnHeader columnParcelas;
-        private System.Windows.Forms.ColumnHeader columnValorTotal;
+        private System.Windows.Forms.ColumnHeader columnTotal;
     }
 }
