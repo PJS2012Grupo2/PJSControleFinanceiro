@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.tbDescriçãoCtg = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -36,26 +35,17 @@
             this.salvarCtg = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(79, 24);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Categoria";
-            // 
             // tbDescriçãoCtg
             // 
-            this.tbDescriçãoCtg.Location = new System.Drawing.Point(41, 88);
+            this.tbDescriçãoCtg.Location = new System.Drawing.Point(12, 25);
             this.tbDescriçãoCtg.Name = "tbDescriçãoCtg";
-            this.tbDescriçãoCtg.Size = new System.Drawing.Size(136, 20);
+            this.tbDescriçãoCtg.Size = new System.Drawing.Size(192, 20);
             this.tbDescriçãoCtg.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(38, 72);
+            this.label2.Location = new System.Drawing.Point(12, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 13);
             this.label2.TabIndex = 2;
@@ -64,7 +54,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(38, 141);
+            this.label4.Location = new System.Drawing.Point(12, 48);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(34, 13);
             this.label4.TabIndex = 6;
@@ -72,14 +62,14 @@
             // 
             // tbOrçamentoCtg
             // 
-            this.tbOrçamentoCtg.Location = new System.Drawing.Point(41, 157);
+            this.tbOrçamentoCtg.Location = new System.Drawing.Point(12, 64);
             this.tbOrçamentoCtg.Name = "tbOrçamentoCtg";
-            this.tbOrçamentoCtg.Size = new System.Drawing.Size(136, 20);
+            this.tbOrçamentoCtg.Size = new System.Drawing.Size(192, 20);
             this.tbOrçamentoCtg.TabIndex = 7;
             // 
             // salvarCtg
             // 
-            this.salvarCtg.Location = new System.Drawing.Point(102, 198);
+            this.salvarCtg.Location = new System.Drawing.Point(129, 114);
             this.salvarCtg.Name = "salvarCtg";
             this.salvarCtg.Size = new System.Drawing.Size(75, 23);
             this.salvarCtg.TabIndex = 8;
@@ -91,16 +81,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(216, 233);
+            this.ClientSize = new System.Drawing.Size(216, 149);
             this.Controls.Add(this.salvarCtg);
             this.Controls.Add(this.tbOrçamentoCtg);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tbDescriçãoCtg);
-            this.Controls.Add(this.label1);
             this.Name = "Form_Categoria";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form3";
+            this.Text = "Categoria";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -108,7 +97,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbDescriçãoCtg;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
