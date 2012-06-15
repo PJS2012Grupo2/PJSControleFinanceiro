@@ -21,8 +21,6 @@ namespace projetoFinalPJS
 
         private void formularioInicial_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'fINANCEIRODataSet.CATEGORIA' table. You can move, or remove it, as needed.
-            this.cATEGORIATableAdapter.Fill(this.fINANCEIRODataSet.CATEGORIA);
             try
             {
                 conexaoDados();
@@ -38,7 +36,7 @@ namespace projetoFinalPJS
         {
             // Cria a conexão para a base de dados e seu adaptador
             conexaoFinanceiro = new SqlConnection();
-            conexaoFinanceiro.ConnectionString = "Data Source=PC15LAB3\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
+            conexaoFinanceiro.ConnectionString = "Data Source=PC18LA3\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
 
             conexaoFinanceiro.Open();
             // Cria os adaptadores
@@ -202,6 +200,8 @@ namespace projetoFinalPJS
                 Cs_Categorias categoria = new Cs_Categorias((string)leitor["nome"],(float.Parse(leitor["limite"].ToString())));
                 VisualizarCategoria(categoria);
             }
+
+            leitor.Close();
         }
 
 
@@ -243,6 +243,12 @@ namespace projetoFinalPJS
         private void categoriaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form_Categoria Var_Form_Categoria = new Form_Categoria(this, adaptadorCategoria);
+            Var_Form_Categoria.ShowDialog();
+        }
+
+        private void listViewCategorias_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            FormAltCategoria Var_Form_Categoria = new FormAltCategoria(this,adaptadorCategoria);
             Var_Form_Categoria.ShowDialog();
         }
     }

@@ -68,16 +68,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cs_Categorias.cs" />
-    <Compile Include="FINANCEIROCache.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FINANCEIROCache.sync</DependentUpon>
-    </Compile>
-    <Compile Include="FINANCEIRODataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FINANCEIRODataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Form2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -89,6 +79,12 @@
     </Compile>
     <Compile Include="Form3.Designer.cs">
       <DependentUpon>Form3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormAltCategoria.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAltCategoria.Designer.cs">
+      <DependentUpon>FormAltCategoria.cs</DependentUpon>
     </Compile>
     <Compile Include="formularioInicial.cs">
       <SubType>Form</SubType>
@@ -104,6 +100,9 @@
     <EmbeddedResource Include="Form3.resx">
       <DependentUpon>Form3.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormAltCategoria.resx">
+      <DependentUpon>FormAltCategoria.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formularioInicial.resx">
       <DependentUpon>formularioInicial.cs</DependentUpon>
     </EmbeddedResource>
@@ -116,23 +115,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="app.config" />
-    <None Include="FINANCEIROCache.sync">
-      <Generator>MSDataSyncGenerator</Generator>
-      <LastGenOutput>FINANCEIROCache.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="FINANCEIRODataSet.xsc">
-      <DependentUpon>FINANCEIRODataSet.xsd</DependentUpon>
-    </None>
-    <None Include="FINANCEIRODataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>FINANCEIRODataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="FINANCEIRODataSet.xss">
-      <DependentUpon>FINANCEIRODataSet.xsd</DependentUpon>
-    </None>
     <None Include="Properties\DataSources\Cs_Categorias.datasource" />
     <None Include="Properties\DataSources\formularioInicial.datasource" />
     <None Include="Properties\DataSources\Form_Categoria.datasource" />
@@ -151,9 +133,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FINANCEIRO.sdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="SQLScripts\FINANCEIROCache.dbo.CATEGORIA.sql" />
     <Content Include="SQLScripts\FINANCEIROCache.FINANCEIRO.sql" />
     <Content Include="SQLUndoScripts\FINANCEIROCache.dbo.CATEGORIA.disable.sql" />
