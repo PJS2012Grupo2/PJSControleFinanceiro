@@ -68,7 +68,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cs_Categorias.cs" />
-    <Compile Include="Cs_Movimento.cs" />
+    <Compile Include="Cs_Movimento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cs_Movimento.Designer.cs">
+      <DependentUpon>Cs_Movimento.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form2.cs">
       <SubType>Form</SubType>
     </Compile>

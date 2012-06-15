@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace projetoFinalPJS
 {
@@ -222,19 +223,19 @@ namespace projetoFinalPJS
 
         public void AdicionaMovimento(Cs_Movimento mvt)
         {
-            ListViewItem itemDescricao = new ListViewItem(mvt.descricao);
-            ListViewItem.ListViewSubItem itemValor = new ListViewItem.ListViewSubItem(itemDescricao, "R$" + mvt.valor.ToString());
-            ListViewItem.ListViewSubItem itemDataCadastro = new ListViewItem.ListViewSubItem(itemDescricao, mvt.dataCadastro.ToString());
-            ListViewItem.ListViewSubItem itemCategoria = new ListViewItem.ListViewSubItem(itemDescricao, mvt.categoria);
-            string parcela, valorTotal;
-            if (mvt.parcela <= 0) { parcela = ""; valorTotal = ""; } else { parcela = mvt.parcela.ToString(); valorTotal = mvt.valorTotal.ToString(); }
-            ListViewItem.ListViewSubItem itemParcela = new ListViewItem.ListViewSubItem(itemDescricao, parcela);
-            itemDescricao.SubItems.Add(itemValor);
-            itemDescricao.SubItems.Add(itemDataCadastro);
-            itemDescricao.SubItems.Add(itemCategoria);
-            itemDescricao.SubItems.Add(itemParcela);
+            //ListViewItem itemDescricao = new ListViewItem(mvt.descricao);
+            //ListViewItem.ListViewSubItem itemValor = new ListViewItem.ListViewSubItem(itemDescricao, "R$" + mvt.valor.ToString());
+            //ListViewItem.ListViewSubItem itemDataCadastro = new ListViewItem.ListViewSubItem(itemDescricao, mvt.dataCadastro.ToString());
+            //ListViewItem.ListViewSubItem itemCategoria = new ListViewItem.ListViewSubItem(itemDescricao, mvt.categoria);
+            //string parcela, valorTotal;
+            //if (mvt.parcela <= 0) { parcela = ""; valorTotal = ""; } else { parcela = mvt.parcela.ToString(); valorTotal = mvt.valorTotal.ToString(); }
+            //ListViewItem.ListViewSubItem itemParcela = new ListViewItem.ListViewSubItem(itemDescricao, parcela);
+            //itemDescricao.SubItems.Add(itemValor);
+            //itemDescricao.SubItems.Add(itemDataCadastro);
+            //itemDescricao.SubItems.Add(itemCategoria);
+            //itemDescricao.SubItems.Add(itemParcela);
 
-            listViewMovimentos.Items.Add(itemDescricao);
+            //listViewMovimentos.Items.Add(itemDescricao);
         }
 
         private void entradaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -253,6 +254,11 @@ namespace projetoFinalPJS
         {
             Form_Categoria Var_Form_Categoria = new Form_Categoria(this, adaptadorCategoria);
             Var_Form_Categoria.ShowDialog();
+        }
+
+        private void toolStripButton7_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("calc");
         }
     }
 }
