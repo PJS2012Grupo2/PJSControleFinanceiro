@@ -54,6 +54,7 @@ namespace projetoFinalPJS
                 dMovimento.Tables["MOVIMENTO"].Rows.Add(novoMovimento);
                 adaptadorMovimento.Update(dMovimento, "MOVIMENTO");
                 adaptadorMovimento.Fill(dMovimento, "MOVIMENTO");
+                formularioInicial.AdicionaMovimento();
 
                 Close();
             }

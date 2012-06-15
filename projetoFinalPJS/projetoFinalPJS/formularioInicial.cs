@@ -220,6 +220,11 @@ namespace projetoFinalPJS
             listViewCategorias.Items.Add(itemDescricao);
         }
 
+        public void AdicionaMovimento()
+        {
+
+        }
+
         private void entradaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Form_Movimentação Var_Form_Movimentação = new Form_Movimentação(this, adaptadorMovimento);
