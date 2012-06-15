@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="buscaCategoria.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="buscaCategoria.Designer.cs">
+      <DependentUpon>buscaCategoria.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cs_Categorias.cs" />
     <Compile Include="Form2.cs">
       <SubType>Form</SubType>
@@ -67,6 +73,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="buscaCategoria.resx">
+      <DependentUpon>buscaCategoria.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form2.resx">
       <DependentUpon>Form2.cs</DependentUpon>
     </EmbeddedResource>

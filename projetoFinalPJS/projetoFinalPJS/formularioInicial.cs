@@ -17,6 +17,7 @@ namespace projetoFinalPJS
         public SqlDataAdapter adaptadorMovimento;
         public SqlDataAdapter adaptadorCategoria;
         public SqlDataAdapter adaptadorRecorrente;
+        public DataRow[] busca;
 
 
         private void formularioInicial_Load(object sender, EventArgs e)
@@ -25,7 +26,7 @@ namespace projetoFinalPJS
             {
                 conexaoDados();
             }
-            catch
+            catch (Exception exc)
             {
                 MessageBox.Show("Não foi possível fazer a conexão com a base de dados.");
             } 
@@ -35,9 +36,8 @@ namespace projetoFinalPJS
         {
             // Cria a conexão para a base de dados e seu adaptador
             SqlConnection conexaoFinanceiro = new SqlConnection();
-            conexaoFinanceiro.ConnectionString = "Data Source=PC18LA3\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
-
-            conexaoFinanceiro.Open();
+            conexaoFinanceiro.ConnectionString = "Data Source=PC12LAB3\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
+            //conexaoFinanceiro.Open();
             // Cria os adaptadores
             adaptadorMovimento = new SqlDataAdapter();
             adaptadorCategoria = new SqlDataAdapter();
@@ -188,17 +188,16 @@ namespace projetoFinalPJS
 
             SqlCommand comandoInicializar = new SqlCommand();
             comandoInicializar.Connection = conexaoFinanceiro;
+            conexaoFinanceiro.Open();
             comandoInicializar.CommandText = "Select nome, limite from CATEGORIA";
-            comandoInicializar.ExecuteNonQuery();
-
             SqlDataReader leitor = comandoInicializar.ExecuteReader();
-
             while (leitor.Read())
             {
                 //string nome; float limite;
                 Cs_Categorias categoria = new Cs_Categorias((string)leitor["nome"],(float.Parse(leitor["limite"].ToString())));
                 VisualizarCategoria(categoria);
             }
+            conexaoFinanceiro.Close();
         }
 
 
@@ -220,6 +219,20 @@ namespace projetoFinalPJS
             listViewCategorias.Items.Add(itemDescricao);
         }
 
+        public void FiltrarCategoria(DataRow[] busca)
+        {
+            foreach (DataRow p in busca)
+            {
+                //ListViewItem nome = new ListViewItem((string)p["Nome"].ToString());
+                ListViewItem nome = new ListViewItem(p["Nome"].ToString());
+                ListViewItem.ListViewSubItem limite = new ListViewItem.ListViewSubItem(nome, p["Limite"].ToString());
+
+                nome.SubItems.Add(limite);
+                listViewCategorias.Items.Add(nome);
+            }
+            
+        }
+
         private void entradaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Form_Movimentação Var_Form_Movimentação = new Form_Movimentação();
@@ -237,6 +250,12 @@ namespace projetoFinalPJS
             Form_Categoria Var_Form_Categoria = new Form_Categoria(this, adaptadorCategoria);
             //Form_Categoria Var_Form_Categoria = new Form_Categoria(this, SqlDataAdapter adaptador,DataSet dCategoria);
             Var_Form_Categoria.ShowDialog();
+        }
+
+        private void categoriaToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            buscaCategoria busca = new buscaCategoria(this, adaptadorCategoria);
+            busca.ShowDialog();
         }
     }
 }
