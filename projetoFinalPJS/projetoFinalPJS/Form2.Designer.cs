@@ -46,7 +46,7 @@
             // 
             this.dtpData.CustomFormat = "yyyy/dd/MM";
             this.dtpData.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpData.Location = new System.Drawing.Point(38, 321);
+            this.dtpData.Location = new System.Drawing.Point(38, 239);
             this.dtpData.Name = "dtpData";
             this.dtpData.Size = new System.Drawing.Size(211, 20);
             this.dtpData.TabIndex = 24;
@@ -54,7 +54,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(35, 305);
+            this.label2.Location = new System.Drawing.Point(35, 223);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(30, 13);
             this.label2.TabIndex = 23;
@@ -62,7 +62,7 @@
             // 
             // tbValor
             // 
-            this.tbValor.Location = new System.Drawing.Point(38, 264);
+            this.tbValor.Location = new System.Drawing.Point(38, 200);
             this.tbValor.Name = "tbValor";
             this.tbValor.Size = new System.Drawing.Size(211, 20);
             this.tbValor.TabIndex = 22;
@@ -70,7 +70,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(35, 132);
+            this.label6.Location = new System.Drawing.Point(35, 105);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(55, 13);
             this.label6.TabIndex = 21;
@@ -79,7 +79,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(35, 190);
+            this.label5.Location = new System.Drawing.Point(35, 144);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(52, 13);
             this.label5.TabIndex = 19;
@@ -87,7 +87,7 @@
             // 
             // cadastrar
             // 
-            this.cadastrar.Location = new System.Drawing.Point(174, 376);
+            this.cadastrar.Location = new System.Drawing.Point(174, 265);
             this.cadastrar.Name = "cadastrar";
             this.cadastrar.Size = new System.Drawing.Size(75, 23);
             this.cadastrar.TabIndex = 18;
@@ -97,7 +97,7 @@
             // 
             // tbDescrição
             // 
-            this.tbDescrição.Location = new System.Drawing.Point(38, 148);
+            this.tbDescrição.Location = new System.Drawing.Point(38, 121);
             this.tbDescrição.Name = "tbDescrição";
             this.tbDescrição.Size = new System.Drawing.Size(211, 20);
             this.tbDescrição.TabIndex = 17;
@@ -105,7 +105,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(35, 248);
+            this.label3.Location = new System.Drawing.Point(35, 184);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(31, 13);
             this.label3.TabIndex = 16;
@@ -142,7 +142,7 @@
             this.cbCategoria.FormattingEnabled = true;
             this.cbCategoria.Items.AddRange(new object[] {
             "Sem Categoria"});
-            this.cbCategoria.Location = new System.Drawing.Point(38, 206);
+            this.cbCategoria.Location = new System.Drawing.Point(38, 160);
             this.cbCategoria.Name = "cbCategoria";
             this.cbCategoria.Size = new System.Drawing.Size(211, 21);
             this.cbCategoria.TabIndex = 27;
@@ -151,7 +151,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(295, 411);
+            this.ClientSize = new System.Drawing.Size(295, 301);
             this.Controls.Add(this.cbCategoria);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.tbSaldo);
