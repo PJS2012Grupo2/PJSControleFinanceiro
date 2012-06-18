@@ -12,16 +12,35 @@ namespace projetoFinalPJS
 {
     public partial class Form_Movimentação : Form
     {
+    
         SqlDataAdapter adaptadorMovimento;
+        SqlDataAdapter preencherCategoria;
         private formularioInicial formularioInicial;
+        SqlConnection conexao = new SqlConnection(@"Data Source=ROPAS-PC\SQLEXPRESS;Initial Catalog=FINANCEIRO;Integrated Security=SSPI");
+        SqlCommand comando = new SqlCommand();
 
         public Form_Movimentação(formularioInicial formularioInicial, SqlDataAdapter adaptadorMovimento)
         {
             InitializeComponent();
             this.formularioInicial = formularioInicial;
             this.adaptadorMovimento = adaptadorMovimento;
+            comando.Connection = conexao;
+            conexao.Open();
+            comando.CommandText = "select count (NOME) from CATEGORIA";
+            Object retorno = comando.ExecuteScalar();
+            int qtd_categorias=Convert.ToInt32(retorno);
+            conexao.Close();
+            string[] eCivil = new string[qtd_categorias];
+            conexao.Open();
+            for (int cont = 1; cont <= qtd_categorias; cont++)
+            { 
+            comando.CommandText = "select NOME from CATEGORIA where ID_CATEGORIA="+cont+"";
+            Object name=comando.ExecuteScalar();
+            eCivil[cont-1] = name.ToString();
+            }
+            conexao.Close();
 
-            this.cbCategoria.DataSource=
+            this.cbCategoria.DataSource = eCivil;
         }
 
         private void cadastrar_Click(object sender, EventArgs e)
