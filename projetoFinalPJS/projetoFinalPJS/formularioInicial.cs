@@ -36,7 +36,7 @@ namespace projetoFinalPJS
         {
             // Cria a conexão para a base de dados e seu adaptador
             conexaoFinanceiro = new SqlConnection();
-            conexaoFinanceiro.ConnectionString = "Data Source=PC15LAB3\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
+            conexaoFinanceiro.ConnectionString = @"Data Source=ROPAS-PC\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
 
             conexaoFinanceiro.Open();
             // Cria os adaptadores

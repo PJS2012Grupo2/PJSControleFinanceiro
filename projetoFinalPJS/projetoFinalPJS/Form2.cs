@@ -20,6 +20,8 @@ namespace projetoFinalPJS
             InitializeComponent();
             this.formularioInicial = formularioInicial;
             this.adaptadorMovimento = adaptadorMovimento;
+
+            this.cbCategoria.DataSource=
         }
 
         private void cadastrar_Click(object sender, EventArgs e)
@@ -60,5 +62,8 @@ namespace projetoFinalPJS
                 Close();
             }
         }
+
+        
+        
     }
 }
