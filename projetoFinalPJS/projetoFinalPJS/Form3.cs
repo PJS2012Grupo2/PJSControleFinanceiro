@@ -14,11 +14,13 @@ namespace projetoFinalPJS
     {
         formularioInicial formInicial;
         SqlDataAdapter adaptadorCategoria;
-        public Form_Categoria(formularioInicial form, SqlDataAdapter dCategoria)
+        bool acao;
+        public Form_Categoria(formularioInicial form, SqlDataAdapter dCategoria, bool acao)
         {
             InitializeComponent();
             formInicial = form;
             adaptadorCategoria = dCategoria;
+            this.acao = acao;
         }
 
         private void salvarCtg_Click(object sender, EventArgs e)
@@ -36,6 +38,11 @@ namespace projetoFinalPJS
             formInicial.VisualizarCategoria(categoria);
 
             Close();
+        }
+
+        private void Form_Categoria_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

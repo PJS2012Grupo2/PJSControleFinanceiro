@@ -101,6 +101,7 @@
             this.Name = "Form_Categoria";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form3";
+            this.Load += new System.EventHandler(this.Form_Categoria_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

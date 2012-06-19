@@ -14,6 +14,8 @@ namespace projetoFinalPJS
     {
         private formularioInicial formularioInicial;
         private SqlDataAdapter adaptadorCategoria;
+        bool acao;
+
         public FormAltCategoria(formularioInicial formularioInicial, SqlDataAdapter adaptadorCategoria)
         {
             InitializeComponent();
@@ -51,7 +53,7 @@ namespace projetoFinalPJS
 
         private void btAlterar_Click(object sender, EventArgs e)
         {
-            Form_Categoria Var_Form_Categoria = new Form_Categoria(this.formularioInicial, adaptadorCategoria);
+            Form_Categoria Var_Form_Categoria = new Form_Categoria(this.formularioInicial, adaptadorCategoria,acao);
             Var_Form_Categoria.ShowDialog();
         }
     }

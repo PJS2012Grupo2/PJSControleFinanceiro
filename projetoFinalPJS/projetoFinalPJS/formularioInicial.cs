@@ -18,6 +18,7 @@ namespace projetoFinalPJS
         public SqlDataAdapter adaptadorCategoria;
         public SqlDataAdapter adaptadorRecorrente;
         public SqlConnection conexaoFinanceiro;
+        public bool acao;
 
         private void formularioInicial_Load(object sender, EventArgs e)
         {
@@ -242,7 +243,7 @@ namespace projetoFinalPJS
 
         private void categoriaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form_Categoria Var_Form_Categoria = new Form_Categoria(this, adaptadorCategoria);
+            Form_Categoria Var_Form_Categoria = new Form_Categoria(this, adaptadorCategoria,acao);
             Var_Form_Categoria.ShowDialog();
         }
 
