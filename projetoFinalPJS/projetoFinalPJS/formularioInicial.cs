@@ -19,6 +19,8 @@ namespace projetoFinalPJS
         public SqlDataAdapter adaptadorCategoria;
         public SqlDataAdapter adaptadorRecorrente;
         public SqlConnection conexaoFinanceiro;
+        public SqlConnection conn = new SqlConnection(@"Data Source=ROPAS-PC\SQLEXPRESS;Initial Catalog=FINANCEIRO;Integrated Security=SSPI");
+        
 
         private void formularioInicial_Load(object sender, EventArgs e)
         {
@@ -205,7 +207,14 @@ namespace projetoFinalPJS
 
         public formularioInicial()
         {
-            InitializeComponent();
+              InitializeComponent(); 
+          
+                conn.Open();
+                SqlCommand comando = new SqlCommand();
+                comando.CommandText = "select * from SALDO";
+                Object tt_saldo = comando.ExecuteScalar();
+                toolStripStatusLabel1.Text = tt_saldo.ToString();
+                conn.Close();
             
             //dataGridView1.DataSource = listaCategorias;
         }
@@ -259,6 +268,11 @@ namespace projetoFinalPJS
         private void toolStripButton7_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("calc");
+        }
+
+        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
