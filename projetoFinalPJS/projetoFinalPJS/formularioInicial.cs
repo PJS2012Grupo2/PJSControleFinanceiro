@@ -191,14 +191,48 @@ namespace projetoFinalPJS
             comandoInicializar.CommandText = "Select nome, limite from CATEGORIA";
             comandoInicializar.ExecuteNonQuery();
 
-            SqlDataReader leitor = comandoInicializar.ExecuteReader();
-
+            SqlCommand comandoInicializarMovimentos = new SqlCommand();
+            comandoInicializarMovimentos.Connection = conexaoFinanceiro;
+            comandoInicializarMovimentos.CommandText = "Select DESCRICAO, VALOR, DATA_CADASTRO, PARCELA, VALOR_TOTAL, ID_CATEGORIA FROM MOVIMENTO";
+            
+            SqlDataReader leitor = comandoInicializar.ExecuteReader();            
             while (leitor.Read())
             {
                 //string nome; float limite;
                 Cs_Categorias categoria = new Cs_Categorias((string)leitor["nome"],(float.Parse(leitor["limite"].ToString())));
                 VisualizarCategoria(categoria);
             }
+            leitor.Close();
+
+            SqlDataReader leitorMovimentos = comandoInicializarMovimentos.ExecuteReader();
+            int prc;
+            float total;
+            while (leitorMovimentos.Read())
+            {
+                if (int.TryParse(leitorMovimentos["PARCELA"].ToString(), out prc))
+                {
+                    prc = int.Parse(leitorMovimentos["PARCELA"].ToString());
+                    total = float.Parse(leitorMovimentos["VALOR_TOTAL"].ToString());
+                }
+                else
+                {
+                    prc = 0; total = 0;
+                }
+
+                SqlCommand achaCategoria = conexaoFinanceiro.CreateCommand();
+                achaCategoria.CommandText = "SELECT NOME FROM CATEGORIA WHERE ID_CATEGORIA = '" + int.Parse(leitorMovimentos["ID_CATEGORIA"].ToString()) + "'";
+                string nomeCategoria = ((string)achaCategoria.ExecuteScalar());
+
+                Cs_Movimento movimento = new Cs_Movimento(
+                    (string)leitorMovimentos["DESCRICAO"],
+                    float.Parse(leitorMovimentos["VALOR"].ToString()),
+                    (DateTime)leitorMovimentos["DATA_CADASTRO"],
+                    prc,
+                    total, //(float)leitorMovimentos["VALOR_TOTAL"],
+                    nomeCategoria);//leitorMovimentos["ID_CATEGORIA"].ToString());
+                AdicionaMovimento(movimento);
+            }
+            leitorMovimentos.Close();
         }
 
 
