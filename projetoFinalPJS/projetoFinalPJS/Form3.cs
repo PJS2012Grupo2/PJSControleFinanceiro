@@ -23,6 +23,21 @@ namespace projetoFinalPJS
             this.acao = acao;
         }
 
+        public void preencherFormulario()
+        {
+            SqlCommand comandoSelectCat = new SqlCommand();
+          //  comandoSelectCat.Connection = formularioInicial.conexaoFinanceiro;
+            comandoSelectCat.CommandText = "Select nome, limite from CATEGORIA";
+            comandoSelectCat.ExecuteNonQuery();
+
+            SqlDataReader leitor = comandoSelectCat.ExecuteReader();
+
+            while (leitor.Read())
+            {
+               
+            }
+        }
+
         private void salvarCtg_Click(object sender, EventArgs e)
         {
             DataSet dCategoria = new DataSet();
@@ -38,11 +53,6 @@ namespace projetoFinalPJS
             formInicial.VisualizarCategoria(categoria);
 
             Close();
-        }
-
-        private void Form_Categoria_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

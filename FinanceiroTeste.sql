@@ -122,5 +122,7 @@ GO
 select * from CATEGORIA;
 go
 
+select * from MOVIMENTO;
+
 INSERT INTO CATEGORIA VALUES 
 ('Sem Categoria', 0);

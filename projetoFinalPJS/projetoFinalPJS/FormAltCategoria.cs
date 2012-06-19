@@ -54,6 +54,7 @@ namespace projetoFinalPJS
         private void btAlterar_Click(object sender, EventArgs e)
         {
             Form_Categoria Var_Form_Categoria = new Form_Categoria(this.formularioInicial, adaptadorCategoria,acao);
+            Var_Form_Categoria.preencherFormulario();
             Var_Form_Categoria.ShowDialog();
         }
     }
