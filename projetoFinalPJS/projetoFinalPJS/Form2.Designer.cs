@@ -44,7 +44,7 @@
             // dtpData
             // 
             this.dtpData.CustomFormat = "yyyy/dd/MM";
-            this.dtpData.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpData.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpData.Location = new System.Drawing.Point(179, 143);
             this.dtpData.Name = "dtpData";
             this.dtpData.Size = new System.Drawing.Size(104, 20);

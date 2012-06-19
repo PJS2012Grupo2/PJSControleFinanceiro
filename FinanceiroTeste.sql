@@ -124,3 +124,6 @@ go
 
 INSERT INTO CATEGORIA VALUES 
 ('Sem Categoria', 0);
+
+
+select * from movimento;
