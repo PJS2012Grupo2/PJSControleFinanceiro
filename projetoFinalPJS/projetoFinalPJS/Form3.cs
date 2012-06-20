@@ -23,8 +23,6 @@ namespace projetoFinalPJS
 
         private void salvarCtg_Click(object sender, EventArgs e)
         {
-            formInicial.conexaoDados();
-
             DataSet dCategoria = new DataSet();
             adaptadorCategoria.Fill(dCategoria, "CATEGORIA");
             DataRow novaCategoria = dCategoria.Tables["CATEGORIA"].NewRow();
@@ -37,7 +35,6 @@ namespace projetoFinalPJS
             Cs_Categorias categoria = new Cs_Categorias(tbDescriçãoCtg.Text, float.Parse(tbOrçamentoCtg.Text));
             formInicial.VisualizarCategoria(categoria);
 
-            //conexao.Close();
             Close();
         }
     }
