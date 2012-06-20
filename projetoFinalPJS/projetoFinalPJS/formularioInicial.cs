@@ -219,20 +219,28 @@ namespace projetoFinalPJS
                     prc = 0; total = 0;
                 }
 
-                SqlCommand achaCategoria = conexaoFinanceiro.CreateCommand();
-                achaCategoria.CommandText = "SELECT NOME FROM CATEGORIA WHERE ID_CATEGORIA = '" + int.Parse(leitorMovimentos["ID_CATEGORIA"].ToString()) + "'";
-                string nomeCategoria = ((string)achaCategoria.ExecuteScalar());
-
+                
                 Cs_Movimento movimento = new Cs_Movimento(
                     (string)leitorMovimentos["DESCRICAO"],
                     float.Parse(leitorMovimentos["VALOR"].ToString()),
                     (DateTime)leitorMovimentos["DATA_CADASTRO"],
                     prc,
                     total, //(float)leitorMovimentos["VALOR_TOTAL"],
-                    nomeCategoria);//leitorMovimentos["ID_CATEGORIA"].ToString());
+                    leitorMovimentos["ID_CATEGORIA"].ToString()
+                );
                 AdicionaMovimento(movimento);
             }
             leitorMovimentos.Close();
+            string nomeCategoria = "";
+            SqlCommand achaCategoria = conexaoFinanceiro.CreateCommand();
+            foreach (ListViewItem item in listViewMovimentos.Items)
+            {
+                achaCategoria.CommandText = "SELECT NOME FROM CATEGORIA WHERE ID_CATEGORIA = @IdCategoria";
+                achaCategoria.Parameters.Clear();
+                achaCategoria.Parameters.AddWithValue("@IdCategoria", int.Parse(item.SubItems[3].Text));
+                nomeCategoria = ((string)achaCategoria.ExecuteScalar());
+                item.SubItems[3].Text = nomeCategoria;
+            }
         }
 
 
