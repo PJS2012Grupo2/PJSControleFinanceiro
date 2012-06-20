@@ -15,11 +15,12 @@ namespace projetoFinalPJS
     {
 
         private List<Cs_Categorias> listaCategorias;
+        
         public SqlDataAdapter adaptadorMovimento;
         public SqlDataAdapter adaptadorCategoria;
         public SqlDataAdapter adaptadorRecorrente;
         public SqlConnection conexaoFinanceiro;
-        public SqlConnection conn = new SqlConnection(@"Data Source=ROPAS-PC\SQLEXPRESS;Initial Catalog=FINANCEIRO;Integrated Security=SSPI");
+        
         
 
         private void formularioInicial_Load(object sender, EventArgs e)
@@ -42,20 +43,25 @@ namespace projetoFinalPJS
 
             conexaoFinanceiro.Open();
             // Cria os adaptadores
+           
             adaptadorMovimento = new SqlDataAdapter();
             adaptadorCategoria = new SqlDataAdapter();
             adaptadorRecorrente = new SqlDataAdapter();
 
             // Cria o comando de seleção do adaptador
+            SqlCommand comandoSelecaoSaldo = new SqlCommand("Select * from SALDO", conexaoFinanceiro);
             SqlCommand comandoSelecaoMovimento = new SqlCommand("Select * from MOVIMENTO", conexaoFinanceiro);
             SqlCommand comandoSelecaoCategoria = new SqlCommand("Select * from CATEGORIA", conexaoFinanceiro);
             SqlCommand comandoSelecaoRecorrente = new SqlCommand("Select * from MOVIMENTO_RECORRENTE", conexaoFinanceiro);
 
+           
             adaptadorMovimento.SelectCommand = comandoSelecaoMovimento;
             adaptadorCategoria.SelectCommand = comandoSelecaoCategoria;
             adaptadorRecorrente.SelectCommand = comandoSelecaoRecorrente;
 
             /* -------------- Comandos de inserção ------------------ */
+
+
             SqlCommand comandoInsercaoMovimento = new SqlCommand("Insert into MOVIMENTO (DESCRICAO, VALOR, DATA_CADASTRO, ID_CATEGORIA) values (@Descricao, @Valor, @DataCadastro, @Categoria)", conexaoFinanceiro);
             // Descrição
             SqlParameter prmDescricaoMovimento = new SqlParameter("@Descricao", SqlDbType.VarChar, 50);
@@ -120,6 +126,10 @@ namespace projetoFinalPJS
             comandoInsercaoRecorrente.Parameters.Add(prmCategoriaRecorrente);
 
             /**************** Comandos de atualização **********************/
+            
+
+
+
             SqlCommand comandoAtualizacaoMovimento = new SqlCommand("Update MOVIMENTO set DESCRICAO = @Descricao, VALOR = @Valor, DATACADASTRO = @DataCadastro, PARCELA = @Parcela, ID_CATEGORIA = @Categoria where ID_MOVIMENTO = @IdMovimento", conexaoFinanceiro);
             prmDescricaoMovimento = new SqlParameter("@Descricao", SqlDbType.VarChar, 50);
             comandoAtualizacaoMovimento.Parameters.Add(prmDescricaoMovimento);
@@ -183,6 +193,8 @@ namespace projetoFinalPJS
 
             // Cria os datasets
             DataSet dadosMovimento = new DataSet();
+        
+
             adaptadorMovimento.Fill(dadosMovimento, "MOVIMENTO");
             DataSet dadosCategoria = new DataSet();
             adaptadorCategoria.Fill(dadosCategoria, "CATEGORIA");
@@ -191,6 +203,7 @@ namespace projetoFinalPJS
 
             SqlCommand comandoInicializar = new SqlCommand();
             comandoInicializar.Connection = conexaoFinanceiro;
+           
             comandoInicializar.CommandText = "Select nome, limite from CATEGORIA";
             comandoInicializar.ExecuteNonQuery();
 
@@ -207,16 +220,23 @@ namespace projetoFinalPJS
 
         public formularioInicial()
         {
-              InitializeComponent(); 
-          
-                conn.Open();
-                SqlCommand comando = new SqlCommand();
-                comando.CommandText = "select * from SALDO";
-                Object tt_saldo = comando.ExecuteScalar();
-                toolStripStatusLabel1.Text = tt_saldo.ToString();
-                conn.Close();
-            
-            //dataGridView1.DataSource = listaCategorias;
+              InitializeComponent();
+              try
+              {
+                  SqlConnection conn = new SqlConnection(@"Data Source=ROPAS-PC\SQLEXPRESS;Initial Catalog=FINANCEIRO;Integrated Security=SSPI");
+                  conn.Open();
+                  SqlCommand comando = new SqlCommand();
+                  comando.Connection = conn;
+                  comando.CommandText = "select * from SALDO";
+                  Object total_saldo = comando.ExecuteScalar();
+                  toolStripStatusLabel1.Text ="Lembretes: Saldo="+ total_saldo.ToString()+ "";
+                  conn.Close();
+              }
+              catch (Exception c)
+              {
+                  MessageBox.Show("erro", "erro", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+              }
+            //dataGridView1.DataSource = listaC ategorias;
         }
 
         public void VisualizarCategoria(Cs_Categorias ctg)

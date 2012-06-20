@@ -58,12 +58,8 @@ namespace projetoFinalPJS
 
         private void cadastrar_Click(object sender, EventArgs e)
         {
-            if (tbSaldo.Text.Trim() == "")
-            {
-                MessageBox.Show("Digite um valor de Saldo válido.");
-                tbSaldo.Focus();
-            }
-            else if (tbDescrição.Text.Trim() == "")
+            
+            if (tbDescrição.Text.Trim() == "")
             {
                 MessageBox.Show("Digite uma descrição.");
                 tbDescrição.Focus();
@@ -90,6 +86,18 @@ namespace projetoFinalPJS
                 adaptadorMovimento.Fill(dMovimento, "MOVIMENTO");
                 //Cs_Movimento movimento = new Cs_Movimento(tbDescrição.Text, float.Parse(tbValor.Text), DateTime.Parse(dtpData.Text), 0, 0, cbCategoria.Text);
                 //formularioInicial.AdicionaMovimento(movimento);
+
+                 Saldo total_saldo= new Saldo(float.Parse(tbValor.Text));
+                 float total = float.Parse(tbValor.Text);
+                
+                 // comando da inserção 
+                 comando.CommandText = "UPDATE SALDO SET TOTAL = TOTAL+ ("+total+")";
+                 // abre a conexão
+                 conexao.Open();
+                 //executa a inserção dos dados no sql 
+                 comando.ExecuteNonQuery();
+                 conexao.Close();
+ 
 
                 Close();
             }

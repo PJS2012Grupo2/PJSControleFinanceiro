@@ -48,11 +48,13 @@ INSERT INTO SALDO VALUES(
 0.0);
 GO
 
-UPDATE SALDO SET TOTAL=TOTAL-4
+UPDATE SALDO SET TOTAL=TOTAL+0.0
 GO
 
 SELECT * FROM SALDO
 GO
+
+delete from saldo where total = 1200.00
 
 /*
 --Inserindo alguns registros para teste
