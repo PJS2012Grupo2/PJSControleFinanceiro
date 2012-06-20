@@ -13,7 +13,7 @@ namespace projetoFinalPJS
     public partial class Form_Categoria : Form
     {
         formularioInicial formInicial;
-        SqlDataAdapter adaptadorCategoria;
+        public SqlDataAdapter adaptadorCategoria;
         public Form_Categoria(formularioInicial form, SqlDataAdapter dCategoria)
         {
             InitializeComponent();

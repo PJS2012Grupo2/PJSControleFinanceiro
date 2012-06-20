@@ -14,9 +14,9 @@ namespace projetoFinalPJS
     {
         string[] parcelar = { "Sim", "Não" };
         SqlDataAdapter adaptadorMovimento;
-        SqlDataAdapter preencherCategoria;
+       // SqlDataAdapter preencherCategoria;
         private formularioInicial formularioInicial;
-        SqlConnection conexao = new SqlConnection(@"Data Source=ROPAS-PC\SQLEXPRESS;Initial Catalog=FINANCEIRO;Integrated Security=SSPI");
+        SqlConnection conexao = new SqlConnection(@"Data Source=PC18LA3\SQLEXPRESS;Initial Catalog=FINANCEIRO;Integrated Security=SSPI");
         SqlCommand comando = new SqlCommand();
 
         public Form_Movimentação(formularioInicial formularioInicial, SqlDataAdapter adaptadorMovimento)
@@ -32,13 +32,14 @@ namespace projetoFinalPJS
             Object retorno = comando.ExecuteScalar();
             int qtd_categorias=Convert.ToInt32(retorno);
             conexao.Close();
+            Object name = new Object();
             string[] TiposCategorias = new string[qtd_categorias];
             conexao.Open();
             for (int cont = 1; cont <= qtd_categorias; cont++)
             { 
-            comando.CommandText = "select NOME from CATEGORIA where ID_CATEGORIA="+cont+"";
-            Object name=comando.ExecuteScalar();
-            TiposCategorias[cont-1] = name.ToString(); 
+                comando.CommandText = "select NOME from CATEGORIA where ID_CATEGORIA = "+cont+"";
+                name=comando.ExecuteScalar();
+                TiposCategorias[cont-1] = name.ToString(); 
             }
             conexao.Close();
             this.cbCategoria.DataSource = TiposCategorias;
@@ -106,9 +107,7 @@ namespace projetoFinalPJS
         {
             numericUpDown1.Enabled = true;
             label4.Enabled = true;
-        }
-
-        
+        }     
         
     }
 }

@@ -13,15 +13,13 @@ namespace projetoFinalPJS
 {
     public partial class formularioInicial : Form
     {
-
-        private List<Cs_Categorias> listaCategorias;
+        //private List<Cs_Categorias> lista;
         public SqlDataAdapter adaptadorMovimento;
-        public SqlDataAdapter adaptadorCategoria;
+        public SqlDataAdapter adaptadorCategoria = new SqlDataAdapter();
         public SqlDataAdapter adaptadorRecorrente;
         public SqlConnection conexaoFinanceiro;
-        public SqlConnection conn = new SqlConnection(@"Data Source=ROPAS-PC\SQLEXPRESS;Initial Catalog=FINANCEIRO;Integrated Security=SSPI");
+        public DataSet dadosCategoria = new DataSet();
         
-
         private void formularioInicial_Load(object sender, EventArgs e)
         {
             try
@@ -30,20 +28,20 @@ namespace projetoFinalPJS
             }
             catch
             {
-                MessageBox.Show("Não foi possível fazer a conexão com a base de dados.");
+               MessageBox.Show("Não foi possível fazer a conexão com a base de dados.");
             } 
         }
 
         public void conexaoDados()
         {
             // Cria a conexão para a base de dados e seu adaptador
-            conexaoFinanceiro = new SqlConnection();
-            conexaoFinanceiro.ConnectionString = @"Data Source=ROPAS-PC\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
+          conexaoFinanceiro = new SqlConnection();
+            conexaoFinanceiro.ConnectionString = @"Data Source=PC18LA3\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
 
-            conexaoFinanceiro.Open();
+         conexaoFinanceiro.Open();
             // Cria os adaptadores
             adaptadorMovimento = new SqlDataAdapter();
-            adaptadorCategoria = new SqlDataAdapter();
+          //  adaptadorCategoria = new SqlDataAdapter();
             adaptadorRecorrente = new SqlDataAdapter();
 
             // Cria o comando de seleção do adaptador
@@ -184,7 +182,7 @@ namespace projetoFinalPJS
             // Cria os datasets
             DataSet dadosMovimento = new DataSet();
             adaptadorMovimento.Fill(dadosMovimento, "MOVIMENTO");
-            DataSet dadosCategoria = new DataSet();
+            
             adaptadorCategoria.Fill(dadosCategoria, "CATEGORIA");
             DataSet dadosRecorrente = new DataSet();
             adaptadorRecorrente.Fill(dadosRecorrente, "MOVIMENTO_RECORRENTE");
@@ -194,14 +192,14 @@ namespace projetoFinalPJS
             comandoInicializar.CommandText = "Select nome, limite from CATEGORIA";
             comandoInicializar.ExecuteNonQuery();
 
-            SqlDataReader leitor = comandoInicializar.ExecuteReader();
+          SqlDataReader leitor = comandoInicializar.ExecuteReader();
 
-            while (leitor.Read())
-            {
-                //string nome; float limite;
-                Cs_Categorias categoria = new Cs_Categorias((string)leitor["nome"],(float.Parse(leitor["limite"].ToString())));
-                VisualizarCategoria(categoria);
-            }
+          while (leitor.Read())
+          {
+              //string nome; float limite;
+              Cs_Categorias categoria = new Cs_Categorias((string)leitor["nome"],(float.Parse(leitor["limite"].ToString())));
+              VisualizarCategoria(categoria);
+          }
         }
 
 
@@ -209,8 +207,10 @@ namespace projetoFinalPJS
         {
               InitializeComponent(); 
           
-                conn.Open();
+                SqlConnection conn = new SqlConnection(@"Data Source=PC18LA3\SQLEXPRESS;Initial Catalog=FINANCEIRO;Integrated Security=SSPI");
                 SqlCommand comando = new SqlCommand();
+                comando.Connection = conn;
+                conn.Open();
                 comando.CommandText = "select * from SALDO";
                 Object tt_saldo = comando.ExecuteScalar();
                 toolStripStatusLabel1.Text = tt_saldo.ToString();
@@ -273,6 +273,12 @@ namespace projetoFinalPJS
         private void toolStripStatusLabel1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void categoriasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormAltCategoria Var_Alt_Categorias = new FormAltCategoria(this, adaptadorCategoria);
+            Var_Alt_Categorias.ShowDialog(this);
         }
     }
 }
