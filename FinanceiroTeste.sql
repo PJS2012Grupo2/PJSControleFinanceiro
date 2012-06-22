@@ -12,8 +12,11 @@ CREATE TABLE CATEGORIA (
    LIMITE MONEY NOT NULL
 );
 GO
+ select * from categoria;
+go
 
-
+delete from categoria where nome in ('reforma')
+go
 
 CREATE TABLE MOVIMENTO (
   ID_MOVIMENTO INT PRIMARY KEY NOT NULL IDENTITY,
@@ -26,7 +29,10 @@ CREATE TABLE MOVIMENTO (
   );
 GO
 
-select * from movimento
+select * from MOVIMENTO_RECORRENTE
+
+delete from MOVIMENTO_RECORRENTE where id_categoria in (4)
+go
 
 CREATE TABLE MOVIMENTO_RECORRENTE(
   ID_RECORRENTE INT PRIMARY KEY NOT NULL identity,

@@ -44,6 +44,7 @@
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
@@ -93,7 +94,7 @@
             // 
             // cadastrar
             // 
-            this.cadastrar.Location = new System.Drawing.Point(208, 233);
+            this.cadastrar.Location = new System.Drawing.Point(208, 273);
             this.cadastrar.Name = "cadastrar";
             this.cadastrar.Size = new System.Drawing.Size(75, 23);
             this.cadastrar.TabIndex = 18;
@@ -148,7 +149,7 @@
             // 
             this.groupBox1.Controls.Add(this.radioButton2);
             this.groupBox1.Controls.Add(this.radioButton1);
-            this.groupBox1.Location = new System.Drawing.Point(15, 182);
+            this.groupBox1.Location = new System.Drawing.Point(18, 221);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(155, 36);
             this.groupBox1.TabIndex = 29;
@@ -182,7 +183,7 @@
             // numericUpDown1
             // 
             this.numericUpDown1.Enabled = false;
-            this.numericUpDown1.Location = new System.Drawing.Point(139, 233);
+            this.numericUpDown1.Location = new System.Drawing.Point(142, 276);
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(31, 20);
             this.numericUpDown1.TabIndex = 30;
@@ -191,17 +192,29 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Enabled = false;
-            this.label4.Location = new System.Drawing.Point(15, 238);
+            this.label4.Location = new System.Drawing.Point(15, 283);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(103, 13);
             this.label4.TabIndex = 31;
             this.label4.Text = "Número de Parcelas";
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(21, 184);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(117, 17);
+            this.checkBox1.TabIndex = 32;
+            this.checkBox1.Text = "Tornar Permanente";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // Form_Movimentação
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(295, 268);
+            this.ClientSize = new System.Drawing.Size(295, 305);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.groupBox1);
@@ -219,6 +232,7 @@
             this.Name = "Form_Movimentação";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Entrada e Saída";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Movimentação_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
@@ -240,11 +254,12 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbSaldo;
         private System.Windows.Forms.ComboBox cbCategoria;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label4;
+        public System.Windows.Forms.CheckBox checkBox1;
+        public System.Windows.Forms.GroupBox groupBox1;
 
     }
 }

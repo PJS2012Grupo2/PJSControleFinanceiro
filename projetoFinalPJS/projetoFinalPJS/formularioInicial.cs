@@ -20,6 +20,7 @@ namespace projetoFinalPJS
         public SqlDataAdapter adaptadorCategoria;
         public SqlDataAdapter adaptadorRecorrente;
         public SqlConnection conexaoFinanceiro;
+        public bool var_Saida = false;
         
         
 
@@ -269,8 +270,13 @@ namespace projetoFinalPJS
 
         private void entradaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+
+
             Form_Movimentação Var_Form_Movimentação = new Form_Movimentação(this, adaptadorMovimento);
+            Var_Form_Movimentação.checkBox1.Enabled = false;
+            Var_Form_Movimentação.groupBox1.Enabled = false;
             Var_Form_Movimentação.ShowDialog();
+            
         }
 
         private void saidaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -294,5 +300,46 @@ namespace projetoFinalPJS
         {
 
         }
+
+       
+
+        private void entradaDeValoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void saídaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)
+        {  
+            var_Saida = true; 
+            Form_Movimentação Var_Form_Movimentação = new Form_Movimentação(this, adaptadorMovimento);
+            Var_Form_Movimentação.ShowDialog();
+          
+        }
+
+        public bool valor_Negativo()
+        {
+            bool negativo = var_Saida;
+            return negativo;
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            entradaDeValoresToolStripMenuItem1_Click(sender, e);
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            saídaDeValoresToolStripMenuItem1_Click(sender, e);
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            categoriaToolStripMenuItem_Click(sender, e);
+        }
+
+
+
+
+
     }
 }

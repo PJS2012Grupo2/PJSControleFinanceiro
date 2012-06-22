@@ -53,7 +53,7 @@ namespace projetoFinalPJS
             Object total_saldo = comando.ExecuteScalar();
             tbSaldo.Text = total_saldo.ToString();
             conexao.Close();
-
+            groupBox1.Enabled = true;
         }
 
         private void cadastrar_Click(object sender, EventArgs e)
@@ -89,15 +89,30 @@ namespace projetoFinalPJS
 
                  Saldo total_saldo= new Saldo(float.Parse(tbValor.Text));
                  float total = float.Parse(tbValor.Text);
-                
-                 // comando da inserção 
-                 comando.CommandText = "UPDATE SALDO SET TOTAL = TOTAL+ ("+total+")";
-                 // abre a conexão
-                 conexao.Open();
-                 //executa a inserção dos dados no sql 
-                 comando.ExecuteNonQuery();
-                 conexao.Close();
- 
+                 bool negativar=formularioInicial.valor_Negativo();
+                 if (negativar == false)
+                 {
+                     // comando da inserção 
+                     comando.CommandText = "UPDATE SALDO SET TOTAL = TOTAL+ (" + total + ")";
+                     // abre a conexão
+                     conexao.Open();
+                     //executa a inserção dos dados no sql 
+                     comando.ExecuteNonQuery();
+                     conexao.Close();
+                 }
+                 else
+                 { 
+                 
+                   // comando da inserção 
+                     comando.CommandText = "UPDATE SALDO SET TOTAL = TOTAL- (" + total + ")";
+                     // abre a conexão
+                     conexao.Open();
+                     //executa a inserção dos dados no sql 
+                     comando.ExecuteNonQuery();
+                     conexao.Close();
+                     
+                 }
+                 
 
                 Close();
             }
@@ -114,6 +129,39 @@ namespace projetoFinalPJS
         {
             numericUpDown1.Enabled = true;
             label4.Enabled = true;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (groupBox1.Enabled == true)
+            {
+                groupBox1.Enabled = false;
+            }
+            else
+            {
+                groupBox1.Enabled = true;
+            }
+        }
+
+        private void Form_Movimentação_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            formularioInicial.var_Saida = false;
+            InitializeComponent();
+            try
+            {
+                SqlConnection conn = new SqlConnection(@"Data Source=ROPAS-PC\SQLEXPRESS;Initial Catalog=FINANCEIRO;Integrated Security=SSPI");
+                conn.Open();
+                SqlCommand comando = new SqlCommand();
+                comando.Connection = conn;
+                comando.CommandText = "select * from SALDO";
+                Object total_saldo = comando.ExecuteScalar();
+                formularioInicial.toolStripStatusLabel1.Text = "Lembretes: Saldo=" + total_saldo.ToString() + "";
+                conn.Close();
+            }
+            catch (Exception c)
+            {
+                MessageBox.Show("erro", "erro", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         
