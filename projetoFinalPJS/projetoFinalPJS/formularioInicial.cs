@@ -20,6 +20,7 @@ namespace projetoFinalPJS
         public SqlDataAdapter adaptadorCategoria;
         public SqlDataAdapter adaptadorRecorrente;
         public SqlConnection conexaoFinanceiro;
+        public DataRow[] busca;
         
         
 
@@ -266,6 +267,107 @@ namespace projetoFinalPJS
 
             //listViewMovimentos.Items.Add(itemDescricao);
         }
+        public void FiltrarCategoria(DataRow[] busca)
+        {
+            foreach (DataRow p in busca)
+            {
+                listViewCategorias.Items.Clear();
+                ListViewItem nome = new ListViewItem(p["Nome"].ToString());
+                ListViewItem.ListViewSubItem limite = new ListViewItem.ListViewSubItem(nome, p["Limite"].ToString());
+
+                nome.SubItems.Add(limite);
+                listViewCategorias.Items.Add(nome);
+            }
+
+        }
+
+        public void FiltrarMovimento(DataRow[] busca)
+        {
+            foreach (DataRow p in busca)
+            {
+                listViewMovimentos.Items.Clear();
+                ListViewItem nome = new ListViewItem(p["Nome"].ToString());
+                ListViewItem.ListViewSubItem descricao = new ListViewItem.ListViewSubItem(nome, p["DESCRICAO"].ToString());
+                ListViewItem.ListViewSubItem valor = new ListViewItem.ListViewSubItem(nome, p["VALOR"].ToString());
+                ListViewItem.ListViewSubItem dataCadastro = new ListViewItem.ListViewSubItem(nome, p["DATA_CADASTRO"].ToString());
+                ListViewItem.ListViewSubItem parcela = new ListViewItem.ListViewSubItem(nome, p["PARCELA"].ToString());
+                ListViewItem.ListViewSubItem valorTotal = new ListViewItem.ListViewSubItem(nome, p["VALOR_TOTAL"].ToString());
+
+                nome.SubItems.Add(descricao);
+                nome.SubItems.Add(valor);
+                nome.SubItems.Add(dataCadastro);
+                nome.SubItems.Add(parcela);
+                nome.SubItems.Add(valorTotal);
+                listViewMovimentos.Items.Add(nome);
+
+            }
+        }
+        public void FiltrarData(DataRow[] busca)
+        {
+            foreach (DataRow p in busca)
+            {
+                listViewMovimentos.Items.Clear();
+                ListViewItem nome = new ListViewItem(p["Nome"].ToString());
+                ListViewItem.ListViewSubItem descricao = new ListViewItem.ListViewSubItem(nome, p["DESCRICAO"].ToString());
+                ListViewItem.ListViewSubItem valor = new ListViewItem.ListViewSubItem(nome, p["VALOR"].ToString());
+                ListViewItem.ListViewSubItem dataCadastro = new ListViewItem.ListViewSubItem(nome, p["DATA_CADASTRO"].ToString());
+                ListViewItem.ListViewSubItem parcela = new ListViewItem.ListViewSubItem(nome, p["PARCELA"].ToString());
+                ListViewItem.ListViewSubItem valorTotal = new ListViewItem.ListViewSubItem(nome, p["VALOR_TOTAL"].ToString());
+
+                nome.SubItems.Add(descricao);
+                nome.SubItems.Add(valor);
+                nome.SubItems.Add(dataCadastro);
+                nome.SubItems.Add(parcela);
+                nome.SubItems.Add(valorTotal);
+                listViewMovimentos.Items.Add(nome);
+            }
+        }
+
+        public void FiltrarRecorrentes(DataRow[] busca)
+        {
+            foreach (DataRow p in busca)
+            {
+                listViewMovimentos.Items.Clear();
+                ListViewItem nome = new ListViewItem(p["Nome"].ToString());
+                ListViewItem.ListViewSubItem descricao = new ListViewItem.ListViewSubItem(nome, p["DESCRICAO"].ToString());
+                ListViewItem.ListViewSubItem valor = new ListViewItem.ListViewSubItem(nome, p["VALOR"].ToString());
+                ListViewItem.ListViewSubItem dataCadastro = new ListViewItem.ListViewSubItem(nome, p["RECORRENCIA"].ToString());
+                ListViewItem.ListViewSubItem parcela = new ListViewItem.ListViewSubItem(nome, p["PARCELA"].ToString());
+                ListViewItem.ListViewSubItem valorTotal = new ListViewItem.ListViewSubItem(nome, p["VALOR_TOTAL"].ToString());
+
+                nome.SubItems.Add(descricao);
+                nome.SubItems.Add(valor);
+                nome.SubItems.Add(dataCadastro);
+                nome.SubItems.Add(parcela);
+                nome.SubItems.Add(valorTotal);
+                listViewMovimentos.Items.Add(nome);
+            }
+        }
+
+        private void categoriaToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            buscaCategoria busca = new buscaCategoria(this, adaptadorCategoria);
+            busca.ShowDialog();
+        }
+
+        private void movimentoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            buscaMovimento busca = new buscaMovimento(this, adaptadorMovimento);
+            busca.ShowDialog();
+        }
+
+        private void movimentoRecorrenteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            buscaRecorrente busca = new buscaRecorrente(this, adaptadorRecorrente);
+            busca.ShowDialog();
+        }
+
+        private void dataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            buscaData busca = new buscaData(this, adaptadorRecorrente);
+            busca.ShowDialog();
+        }
+
 
         private void entradaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -294,5 +396,7 @@ namespace projetoFinalPJS
         {
 
         }
+
+        
     }
 }

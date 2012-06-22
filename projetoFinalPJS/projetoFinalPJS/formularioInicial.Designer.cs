@@ -79,6 +79,11 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.csCategoriasBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.consultaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.categoriaToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.movimentoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.movimentoRecorrenteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cATEGORIABindingSource)).BeginInit();
@@ -197,7 +202,8 @@
             // ferramentasToolStripMenuItem
             // 
             this.ferramentasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.relatóriosToolStripMenuItem});
+            this.relatóriosToolStripMenuItem,
+            this.consultaToolStripMenuItem});
             this.ferramentasToolStripMenuItem.Name = "ferramentasToolStripMenuItem";
             this.ferramentasToolStripMenuItem.Size = new System.Drawing.Size(84, 26);
             this.ferramentasToolStripMenuItem.Text = "Ferramentas";
@@ -479,6 +485,42 @@
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
             this.toolStripStatusLabel2.Size = new System.Drawing.Size(0, 17);
             // 
+            // consultaToolStripMenuItem
+            // 
+            this.consultaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.categoriaToolStripMenuItem2,
+            this.movimentoToolStripMenuItem,
+            this.movimentoRecorrenteToolStripMenuItem,
+            this.dataToolStripMenuItem});
+            this.consultaToolStripMenuItem.Name = "consultaToolStripMenuItem";
+            this.consultaToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.consultaToolStripMenuItem.Text = "Consulta";
+            // 
+            // categoriaToolStripMenuItem2
+            // 
+            this.categoriaToolStripMenuItem2.Name = "categoriaToolStripMenuItem2";
+            this.categoriaToolStripMenuItem2.Size = new System.Drawing.Size(196, 22);
+            this.categoriaToolStripMenuItem2.Text = "Categoria";
+            this.categoriaToolStripMenuItem2.Click += new System.EventHandler(this.categoriaToolStripMenuItem2_Click);
+            // 
+            // movimentoToolStripMenuItem
+            // 
+            this.movimentoToolStripMenuItem.Name = "movimentoToolStripMenuItem";
+            this.movimentoToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.movimentoToolStripMenuItem.Text = "Movimento";
+            // 
+            // movimentoRecorrenteToolStripMenuItem
+            // 
+            this.movimentoRecorrenteToolStripMenuItem.Name = "movimentoRecorrenteToolStripMenuItem";
+            this.movimentoRecorrenteToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.movimentoRecorrenteToolStripMenuItem.Text = "Movimento Recorrente";
+            // 
+            // dataToolStripMenuItem
+            // 
+            this.dataToolStripMenuItem.Name = "dataToolStripMenuItem";
+            this.dataToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.dataToolStripMenuItem.Text = "Data";
+            // 
             // formularioInicial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -569,5 +611,10 @@
         private System.Windows.Forms.ToolStripButton toolStripButton7;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         public System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripMenuItem consultaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem categoriaToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem movimentoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem movimentoRecorrenteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dataToolStripMenuItem;
     }
 }
