@@ -119,94 +119,94 @@ namespace projetoFinalPJS
 
             /* -------------- Comandos de inserção ------------------ */
             SqlCommand comandoInsercaoMovimento = new SqlCommand("Insert into MOVIMENTO (DESCRICAO, VALOR, DATA_CADASTRO, ID_CATEGORIA) values (@Descricao, @Valor, @DataCadastro, @Categoria)", conexaoFinanceiro);
-            SqlParameter prmDescricaoMovimento = new SqlParameter("@Descricao", SqlDbType.VarChar, 50);
-            prmDescricaoMovimento.SourceColumn = "DESCRICAO";
+            SqlParameter prmDescricaoMovimento  = new SqlParameter("@Descricao", SqlDbType.VarChar, 50);
+            prmDescricaoMovimento.SourceColumn  = "DESCRICAO";
             prmDescricaoMovimento.SourceVersion = DataRowVersion.Current;
             comandoInsercaoMovimento.Parameters.Add(prmDescricaoMovimento);
 
-            SqlParameter prmValorMovimento = new SqlParameter("@Valor", SqlDbType.Money);
-            prmValorMovimento.SourceColumn = "VALOR";
+            SqlParameter prmValorMovimento  = new SqlParameter("@Valor", SqlDbType.Money);
+            prmValorMovimento.SourceColumn  = "VALOR";
             prmValorMovimento.SourceVersion = DataRowVersion.Current;
             comandoInsercaoMovimento.Parameters.Add(prmValorMovimento);
 
-            SqlParameter prmDataCadastroMovimento = new SqlParameter("@DataCadastro", SqlDbType.Date);
-            prmDataCadastroMovimento.SourceColumn = "DATA_CADASTRO";
-            prmDataCadastroMovimento.SourceVersion = DataRowVersion.Current;
+            SqlParameter prmDataCadastroMovimento   = new SqlParameter("@DataCadastro", SqlDbType.Date);
+            prmDataCadastroMovimento.SourceColumn   = "DATA_CADASTRO";
+            prmDataCadastroMovimento.SourceVersion  = DataRowVersion.Current;
             comandoInsercaoMovimento.Parameters.Add(prmDataCadastroMovimento);
 
-            SqlParameter prmParcelaMovimento = new SqlParameter("@Parcela", SqlDbType.Int);
-            prmParcelaMovimento.SourceColumn = "PARCELA";
-            prmParcelaMovimento.SourceVersion = DataRowVersion.Current;
+            SqlParameter prmParcelaMovimento    = new SqlParameter("@Parcela", SqlDbType.Int);
+            prmParcelaMovimento.SourceColumn    = "PARCELA";
+            prmParcelaMovimento.SourceVersion   = DataRowVersion.Current;
             comandoInsercaoMovimento.Parameters.Add(prmParcelaMovimento);
 
-            SqlParameter prmCategoriaMovimento = new SqlParameter("@Categoria", SqlDbType.Int);
-            prmCategoriaMovimento.SourceColumn = "ID_CATEGORIA";
+            SqlParameter prmCategoriaMovimento  = new SqlParameter("@Categoria", SqlDbType.Int);
+            prmCategoriaMovimento.SourceColumn  = "ID_CATEGORIA";
             prmCategoriaMovimento.SourceVersion = DataRowVersion.Current;
             comandoInsercaoMovimento.Parameters.Add(prmCategoriaMovimento);
             adaptadorMovimento.InsertCommand = comandoInsercaoMovimento;
 
             SqlCommand comandoInsercaoCategoria = new SqlCommand("Insert into CATEGORIA (NOME, LIMITE) values (@Nome, @Limite)", conexaoFinanceiro);
-            SqlParameter prmNomeCategoria = new SqlParameter("@Nome", SqlDbType.VarChar, 50);
-            prmNomeCategoria.SourceColumn = "NOME";
-            prmNomeCategoria.SourceVersion = DataRowVersion.Current;
+            SqlParameter prmNomeCategoria       = new SqlParameter("@Nome", SqlDbType.VarChar, 50);
+            prmNomeCategoria.SourceColumn       = "NOME";
+            prmNomeCategoria.SourceVersion      = DataRowVersion.Current;
             comandoInsercaoCategoria.Parameters.Add(prmNomeCategoria);
 
-            SqlParameter prmLimiteCategoria = new SqlParameter("@Limite", SqlDbType.Money);
-            prmLimiteCategoria.SourceColumn = "LIMITE";
-            prmLimiteCategoria.SourceVersion = DataRowVersion.Current;
+            SqlParameter prmLimiteCategoria     = new SqlParameter("@Limite", SqlDbType.Money);
+            prmLimiteCategoria.SourceColumn     = "LIMITE";
+            prmLimiteCategoria.SourceVersion    = DataRowVersion.Current;
             comandoInsercaoCategoria.Parameters.Add(prmLimiteCategoria);
             adaptadorCategoria.InsertCommand = comandoInsercaoCategoria;
 
             SqlCommand comandoInsercaoRecorrente = new SqlCommand("Insert into MOVIMENTO_RECORRENTE (NOME, VALOR, RECORRENCIA, ID_CATEGORIA) values (@Nome, @Valor, @Recorrencia, @IdCategoria)", conexaoFinanceiro);
-            SqlParameter prmNomeRecorrente = new SqlParameter("@Nome", SqlDbType.VarChar, 30);
-            prmNomeRecorrente.SourceColumn = "NOME";
-            prmNomeRecorrente.SourceVersion = DataRowVersion.Current;
+            SqlParameter prmNomeRecorrente       = new SqlParameter("@Nome", SqlDbType.VarChar, 30);
+            prmNomeRecorrente.SourceColumn       = "NOME";
+            prmNomeRecorrente.SourceVersion      = DataRowVersion.Current;
             comandoInsercaoRecorrente.Parameters.Add(prmNomeRecorrente);
 
-            SqlParameter prmValorRecorrente = new SqlParameter("@Valor", SqlDbType.Money);
-            prmValorRecorrente.SourceColumn = "VALOR";
+            SqlParameter prmValorRecorrente  = new SqlParameter("@Valor", SqlDbType.Money);
+            prmValorRecorrente.SourceColumn  = "VALOR";
             prmValorRecorrente.SourceVersion = DataRowVersion.Current;
             comandoInsercaoRecorrente.Parameters.Add(prmValorRecorrente);
 
-            SqlParameter prmRecorrenciaRecorrente = new SqlParameter("@Recorrencia", SqlDbType.VarChar, 20);
-            prmValorRecorrente.SourceColumn = "RECORRENCIA";
-            prmValorRecorrente.SourceVersion = DataRowVersion.Current;
+            SqlParameter prmRecorrenciaRecorrente   = new SqlParameter("@Recorrencia", SqlDbType.VarChar, 20);
+            prmValorRecorrente.SourceColumn         = "RECORRENCIA";
+            prmValorRecorrente.SourceVersion        = DataRowVersion.Current;
             comandoInsercaoRecorrente.Parameters.Add(prmRecorrenciaRecorrente);
 
             SqlParameter prmCategoriaRecorrente = new SqlParameter("@IdCategoria", SqlDbType.Int);
-            prmValorRecorrente.SourceColumn = "ID_CATEGORIA";
-            prmValorRecorrente.SourceVersion = DataRowVersion.Current;
+            prmValorRecorrente.SourceColumn     = "ID_CATEGORIA";
+            prmValorRecorrente.SourceVersion    = DataRowVersion.Current;
             comandoInsercaoRecorrente.Parameters.Add(prmCategoriaRecorrente);
 
             /* -------------- Comandos de atualização ------------------ */
-            SqlCommand comandoAtualizacaoMovimento = new SqlCommand("Update MOVIMENTO set DESCRICAO = @Descricao, VALOR = @Valor, DATA_CADASTRO = @DataCadastro, PARCELA = @Parcela, ID_CATEGORIA = @Categoria where ID_MOVIMENTO = @IdMovimento", conexaoFinanceiro);
-            SqlParameter prmIdMovimento = new SqlParameter("@IdMovimento", SqlDbType.Int);
-            prmIdMovimento.SourceColumn = "ID_Movimento";
-            prmIdMovimento.SourceVersion = DataRowVersion.Original;
+            SqlCommand comandoAtualizacaoMovimento  = new SqlCommand("Update MOVIMENTO set DESCRICAO = @Descricao, VALOR = @Valor, DATA_CADASTRO = @DataCadastro, PARCELA = @Parcela, ID_CATEGORIA = @Categoria where ID_MOVIMENTO = @IdMovimento", conexaoFinanceiro);
+            SqlParameter prmIdMovimento             = new SqlParameter("@IdMovimento", SqlDbType.Int);
+            prmIdMovimento.SourceColumn             = "ID_Movimento";
+            prmIdMovimento.SourceVersion            = DataRowVersion.Original;
             comandoAtualizacaoMovimento.Parameters.Add(prmIdMovimento);
             
             prmDescricaoMovimento = new SqlParameter("@Descricao", SqlDbType.VarChar, 50);
-            prmDescricaoMovimento.SourceColumn = "Descricao";
+            prmDescricaoMovimento.SourceColumn  = "Descricao";
             prmDescricaoMovimento.SourceVersion = DataRowVersion.Current;
             comandoAtualizacaoMovimento.Parameters.Add(prmDescricaoMovimento);
             
             prmValorMovimento = new SqlParameter("@Valor", SqlDbType.Money);
-            prmValorMovimento.SourceColumn = "Valor";
+            prmValorMovimento.SourceColumn  = "Valor";
             prmValorMovimento.SourceVersion = DataRowVersion.Current;
             comandoAtualizacaoMovimento.Parameters.Add(prmValorMovimento);
             
             prmDataCadastroMovimento = new SqlParameter("@DataCadastro", SqlDbType.Date);
-            prmDataCadastroMovimento.SourceColumn = "Data_Cadastro";
-            prmDataCadastroMovimento.SourceVersion = DataRowVersion.Current;
+            prmDataCadastroMovimento.SourceColumn   = "Data_Cadastro";
+            prmDataCadastroMovimento.SourceVersion  = DataRowVersion.Current;
             comandoAtualizacaoMovimento.Parameters.Add(prmDataCadastroMovimento);
             
             prmParcelaMovimento = new SqlParameter("@Parcela", SqlDbType.Int);
-            prmParcelaMovimento.SourceColumn = "Parcela";
-            prmParcelaMovimento.SourceVersion = DataRowVersion.Current;
+            prmParcelaMovimento.SourceColumn    = "Parcela";
+            prmParcelaMovimento.SourceVersion   = DataRowVersion.Current;
             comandoAtualizacaoMovimento.Parameters.Add(prmParcelaMovimento);
             
             prmCategoriaMovimento = new SqlParameter("@Categoria", SqlDbType.Int);
-            prmCategoriaMovimento.SourceColumn = "ID_Categoria";
+            prmCategoriaMovimento.SourceColumn  = "ID_Categoria";
             prmCategoriaMovimento.SourceVersion = DataRowVersion.Current;
             comandoAtualizacaoMovimento.Parameters.Add(prmCategoriaMovimento);
             adaptadorMovimento.UpdateCommand = comandoAtualizacaoMovimento;
@@ -232,22 +232,22 @@ namespace projetoFinalPJS
             /* -------------- Comandos de remoção ------------------ */
             SqlCommand comandoRemocaoMovimento = new SqlCommand("Delete from MOVIMENTO where ID_MOVIMENTO = @IdMovimento", conexaoFinanceiro);
             prmIdMovimento = new SqlParameter("@IdMovimento", SqlDbType.Int);
-            prmIdMovimento.SourceColumn = "ID_MOVIMENTO";
-            prmIdMovimento.SourceVersion = DataRowVersion.Original;
+            prmIdMovimento.SourceColumn     = "ID_MOVIMENTO";
+            prmIdMovimento.SourceVersion    = DataRowVersion.Original;
             comandoRemocaoMovimento.Parameters.Add(prmIdMovimento);
             adaptadorMovimento.DeleteCommand = comandoRemocaoMovimento;
 
             SqlCommand comandoRemocaoCategoria = new SqlCommand("Delete from CATEGORIA where ID_CATEGORIA = @IdCategoria", conexaoFinanceiro);
-            SqlParameter prmIdCategoria = new SqlParameter("@IdCategoria", SqlDbType.Int);
-            prmIdCategoria.SourceColumn = "ID_CATEGORIA";
-            prmIdCategoria.SourceVersion = DataRowVersion.Original;
+            SqlParameter prmIdCategoria     = new SqlParameter("@IdCategoria", SqlDbType.Int);
+            prmIdCategoria.SourceColumn     = "ID_CATEGORIA";
+            prmIdCategoria.SourceVersion    = DataRowVersion.Original;
             comandoRemocaoCategoria.Parameters.Add(prmIdCategoria);
             adaptadorCategoria.DeleteCommand = comandoRemocaoCategoria;
 
             SqlCommand comandoRemocaoRecorrente = new SqlCommand("Delete from MOVIMENTO_RECORRENTE where ID_RECORRENTE = @IdRecorrente", conexaoFinanceiro);
-            SqlParameter prmIdRecorrente = new SqlParameter("@IdRecorrente", SqlDbType.Int);
-            prmIdRecorrente.SourceColumn = "ID_RECORRENTE";
-            prmIdRecorrente.SourceVersion = DataRowVersion.Original;
+            SqlParameter prmIdRecorrente    = new SqlParameter("@IdRecorrente", SqlDbType.Int);
+            prmIdRecorrente.SourceColumn    = "ID_RECORRENTE";
+            prmIdRecorrente.SourceVersion   = DataRowVersion.Original;
             comandoRemocaoRecorrente.Parameters.Add(prmIdRecorrente);
             adaptadorRecorrente.DeleteCommand = comandoRemocaoRecorrente;
 
@@ -375,6 +375,11 @@ namespace projetoFinalPJS
             // Remoção de um registro com a tecla Delete
             if (e.KeyCode == Keys.Delete && listViewMovimentos.SelectedItems.Count > 0)
                 removeMovimento(dadosFinanceiro.Tables["Movimento"].Rows.Find(listViewMovimentos.SelectedItems[0].Tag));
+        }
+
+        private void listViewCategorias_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

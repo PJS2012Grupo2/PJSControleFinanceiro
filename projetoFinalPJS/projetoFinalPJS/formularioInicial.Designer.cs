@@ -280,12 +280,13 @@
             listViewItem1.StateImageIndex = 1;
             this.listViewCategorias.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1});
-            this.listViewCategorias.Location = new System.Drawing.Point(-2, -1);
+            this.listViewCategorias.Location = new System.Drawing.Point(-2, -2);
             this.listViewCategorias.Name = "listViewCategorias";
-            this.listViewCategorias.Size = new System.Drawing.Size(964, 157);
+            this.listViewCategorias.Size = new System.Drawing.Size(769, 157);
             this.listViewCategorias.TabIndex = 0;
             this.listViewCategorias.UseCompatibleStateImageBehavior = false;
             this.listViewCategorias.View = System.Windows.Forms.View.Tile;
+            this.listViewCategorias.SelectedIndexChanged += new System.EventHandler(this.listViewCategorias_SelectedIndexChanged);
             // 
             // columnNome
             // 
