@@ -83,7 +83,6 @@ namespace projetoFinalPJS
             SqlDataReader leitorCategorias = comandoInicializarCategorias.ExecuteReader();
             while (leitorCategorias.Read())
             {
-                //string nome; float limite;
                 Cs_Categorias categoria = new Cs_Categorias((string)leitorCategorias["nome"], (float.Parse(leitorCategorias["limite"].ToString())));
                 VisualizarCategoria(categoria);
             }
@@ -295,6 +294,7 @@ namespace projetoFinalPJS
             itemDescricao.SubItems.Add(itemCategoria);
             itemDescricao.SubItems.Add(itemParcela);
             if (!alt)
+                // Apenas atribui uma tag ao movimento (equivalente a seu ID no BD) se for uma inserção
                 itemDescricao.Tag = idMovimento;
 
             return itemDescricao;
@@ -363,17 +363,18 @@ namespace projetoFinalPJS
             verificaSelecaoMovimentos();
         }
 
-        private void listViewMovimentos_MouseLeave(object sender, EventArgs e)
+        public void removeMovimento(DataRow movDel)
         {
-            verificaSelecaoMovimentos();
+            movDel.Delete();
+            adaptadorMovimento.Update(dadosFinanceiro, "Movimento");
+            listViewMovimentos.SelectedItems[0].Remove();
         }
 
         private void listViewMovimentos_KeyDown(object sender, KeyEventArgs e)
         {
+            // Remoção de um registro com a tecla Delete
             if (e.KeyCode == Keys.Delete && listViewMovimentos.SelectedItems.Count > 0)
-                dadosFinanceiro.Tables["Movimento"].Rows.Find(listViewMovimentos.SelectedItems[0].Tag).Delete();
-            adaptadorMovimento.Update(dadosFinanceiro, "Movimento");
-            listViewMovimentos.SelectedItems[0].Remove();
+                removeMovimento(dadosFinanceiro.Tables["Movimento"].Rows.Find(listViewMovimentos.SelectedItems[0].Tag));
         }
     }
 }
