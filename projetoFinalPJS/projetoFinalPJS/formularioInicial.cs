@@ -36,7 +36,8 @@ namespace projetoFinalPJS
         {
             // Cria a conexão para a base de dados e seu adaptador
             conexaoFinanceiro = new SqlConnection();
-            conexaoFinanceiro.ConnectionString = "Data Source=PC15LAB3\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
+            conexaoFinanceiro.ConnectionString = "Data Source=YURI-PC\\YURISQL;Initial Catalog=Financeiro;Integrated Security=SSPI";
+            //conexaoFinanceiro.ConnectionString = "Data Source=PC15LAB3\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
 
             conexaoFinanceiro.Open();
             // Cria os adaptadores
@@ -328,12 +329,12 @@ namespace projetoFinalPJS
             if (listViewMovimentos.SelectedItems.Count != 0)
             {
                 entradaDeValoresToolStripMenuItem.Enabled = true;
-                saídaDeValoresToolStripMenuItem1.Enabled = true;
+                saídaDeValoresToolStripMenuItem.Enabled = true;
             }
             else
             {
                 entradaDeValoresToolStripMenuItem.Enabled = false;
-                saídaDeValoresToolStripMenuItem1.Enabled = false;
+                saídaDeValoresToolStripMenuItem.Enabled = false;
             }
         }
 
@@ -346,6 +347,16 @@ namespace projetoFinalPJS
         {
             FormAlteracaoMovimentos formAlt = new FormAlteracaoMovimentos(adaptadorMovimento, this, listViewMovimentos.SelectedItems[0]);
             formAlt.ShowDialog();
+        }
+
+        private void listViewMovimentos_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            verificaSelecaoMovimentos();
+        }
+
+        private void listViewMovimentos_MouseLeave(object sender, EventArgs e)
+        {
+            verificaSelecaoMovimentos();
         }
     }
 }

@@ -325,6 +325,7 @@
             this.listViewMovimentos.View = System.Windows.Forms.View.Details;
             this.listViewMovimentos.SelectedIndexChanged += new System.EventHandler(this.listViewMovimentos_SelectedIndexChanged);
             this.listViewMovimentos.DoubleClick += new System.EventHandler(this.listViewMovimentos_DoubleClick);
+            this.listViewMovimentos.MouseLeave += new System.EventHandler(this.listViewMovimentos_MouseLeave);
             // 
             // columnDescricao
             // 
