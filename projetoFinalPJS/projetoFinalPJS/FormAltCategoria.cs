@@ -57,8 +57,6 @@ namespace projetoFinalPJS
             Var_Form_Categoria.ShowDialog();
         }
 
-
-        /*
         public void limparListView(int id)
         {
             SqlCommand comandoLimpar = new SqlCommand();
@@ -70,17 +68,15 @@ namespace projetoFinalPJS
 
             while (leitor.Read())
             {
-                if (leitor["Nome"] != categoriaExcluida)
+                if (leitor["Nome"].ToString() == categoriaExcluida.Text)
                 {
-                    listaCategoria.
+                    listaCategoria.Items.Remove(categoriaExcluida);
                 }
-
             }
             leitor.Close(); 
 
         }
-         * 
-         */
+      
         private void btExcluir_Click(object sender, EventArgs e)
         {
             DataSet DeleteCategoria = new DataSet();
@@ -97,6 +93,7 @@ namespace projetoFinalPJS
                 comandoUpdate.ExecuteNonQuery();
                 SqlDataReader leitor = comandoUpdate.ExecuteReader();
                 leitor.Close();
+                limparListView(id);
                 adaptadorCategoria.Update(DeleteCategoria, "CATEGORIA");
             }
 
