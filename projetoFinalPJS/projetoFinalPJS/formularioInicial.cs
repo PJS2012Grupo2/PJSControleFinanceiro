@@ -18,14 +18,60 @@ namespace projetoFinalPJS
         public SqlConnection conexaoFinanceiro;
         public DataSet dadosFinanceiro;
 
+        public formularioInicial()
+        {
+            InitializeComponent();
+        }
+
+        private void carregaMovimentos()
+        {
+            SqlCommand comandoInicializarMovimentos = new SqlCommand();
+            comandoInicializarMovimentos.Connection = conexaoFinanceiro;
+            comandoInicializarMovimentos.CommandText = "Select ID_MOVIMENTO, DESCRICAO, VALOR, DATA_CADASTRO, PARCELA, VALOR_TOTAL, ID_CATEGORIA FROM MOVIMENTO";
+            SqlDataReader leitorMovimentos = comandoInicializarMovimentos.ExecuteReader();
+            int prc;
+            float total;
+            while (leitorMovimentos.Read())
+            {
+                if (int.TryParse(leitorMovimentos["PARCELA"].ToString(), out prc))
+                {
+                    prc = int.Parse(leitorMovimentos["PARCELA"].ToString());
+                    total = float.Parse(leitorMovimentos["VALOR_TOTAL"].ToString());
+                }
+                else
+                {
+                    prc = 0; total = 0;
+                }
+
+                Cs_Movimento movimento = new Cs_Movimento(
+                    (string)leitorMovimentos["DESCRICAO"],
+                    float.Parse(leitorMovimentos["VALOR"].ToString()),
+                    (DateTime)leitorMovimentos["DATA_CADASTRO"],
+                    prc,
+                    total, //(float)leitorMovimentos["VALOR_TOTAL"],
+                    leitorMovimentos["ID_CATEGORIA"].ToString()
+                );
+                AdicionaMovimento(movimento, int.Parse(leitorMovimentos["ID_MOVIMENTO"].ToString()));
+            }
+            leitorMovimentos.Close();
+            string nomeCategoria = "";
+            SqlCommand achaCategoria = conexaoFinanceiro.CreateCommand();
+            foreach (ListViewItem item in listViewMovimentos.Items)
+            {
+                achaCategoria.CommandText = "SELECT NOME FROM CATEGORIA WHERE ID_CATEGORIA = @IdCategoria";
+                achaCategoria.Parameters.Clear();
+                achaCategoria.Parameters.AddWithValue("@IdCategoria", int.Parse(item.SubItems[3].Text));
+                nomeCategoria = ((string)achaCategoria.ExecuteScalar());
+                item.SubItems[3].Text = nomeCategoria;
+            }
+        }
+
         private void carregaCategorias()
         {
             SqlCommand comandoInicializarCategorias = new SqlCommand();
             comandoInicializarCategorias.Connection = conexaoFinanceiro;
             comandoInicializarCategorias.CommandText = "Select nome, limite from CATEGORIA";
             comandoInicializarCategorias.ExecuteNonQuery();
-
-
             SqlDataReader leitorCategorias = comandoInicializarCategorias.ExecuteReader();
             while (leitorCategorias.Read())
             {
@@ -34,13 +80,7 @@ namespace projetoFinalPJS
                 VisualizarCategoria(categoria);
             }
             leitorCategorias.Close();
-        }
-
-        private void formularioInicial_Load(object sender, EventArgs e)
-        {
-                conexaoDados();
-                verificaSelecaoMovimentos();
-        }
+        }        
         
         public void conexaoDados()
         {
@@ -216,53 +256,7 @@ namespace projetoFinalPJS
             adaptadorRecorrente.Fill(dadosFinanceiro, "Movimento_Recorrente");
 
             carregaCategorias();
-
-            SqlCommand comandoInicializarMovimentos = new SqlCommand();
-            comandoInicializarMovimentos.Connection = conexaoFinanceiro;
-            comandoInicializarMovimentos.CommandText = "Select ID_MOVIMENTO, DESCRICAO, VALOR, DATA_CADASTRO, PARCELA, VALOR_TOTAL, ID_CATEGORIA FROM MOVIMENTO";
-            SqlDataReader leitorMovimentos = comandoInicializarMovimentos.ExecuteReader();
-            int prc;
-            float total;
-            while (leitorMovimentos.Read())
-            {
-                if (int.TryParse(leitorMovimentos["PARCELA"].ToString(), out prc))
-                {
-                    prc = int.Parse(leitorMovimentos["PARCELA"].ToString());
-                    total = float.Parse(leitorMovimentos["VALOR_TOTAL"].ToString());
-                }
-                else
-                {
-                    prc = 0; total = 0;
-                }
-                
-                Cs_Movimento movimento = new Cs_Movimento(
-                    (string)leitorMovimentos["DESCRICAO"],
-                    float.Parse(leitorMovimentos["VALOR"].ToString()),
-                    (DateTime)leitorMovimentos["DATA_CADASTRO"],
-                    prc,
-                    total, //(float)leitorMovimentos["VALOR_TOTAL"],
-                    leitorMovimentos["ID_CATEGORIA"].ToString()
-                );
-                AdicionaMovimento(movimento, int.Parse(leitorMovimentos["ID_MOVIMENTO"].ToString()));
-            }
-            leitorMovimentos.Close();
-            string nomeCategoria = "";
-            SqlCommand achaCategoria = conexaoFinanceiro.CreateCommand();
-            foreach (ListViewItem item in listViewMovimentos.Items)
-            {
-                achaCategoria.CommandText = "SELECT NOME FROM CATEGORIA WHERE ID_CATEGORIA = @IdCategoria";
-                achaCategoria.Parameters.Clear();
-                achaCategoria.Parameters.AddWithValue("@IdCategoria", int.Parse(item.SubItems[3].Text));
-                nomeCategoria = ((string)achaCategoria.ExecuteScalar());
-                item.SubItems[3].Text = nomeCategoria;
-            }
-        }
-        
-        public formularioInicial()
-        {
-            InitializeComponent();
-            
-            //dataGridView1.DataSource = listaCategorias;
+            carregaMovimentos();
         }
 
         public void VisualizarCategoria(Cs_Categorias ctg)
@@ -274,6 +268,14 @@ namespace projetoFinalPJS
             itemDescricao.SubItems.Add(itemLimite);
 
             listViewCategorias.Items.Add(itemDescricao);
+        }
+
+        private void formularioInicial_Load(object sender, EventArgs e)
+        {
+            // Carregamento do Form: 
+            // Tenta fazer a conexao no BD e então carregar os dados no ListView
+            conexaoDados();
+            verificaSelecaoMovimentos();
         }
 
         public void AdicionaMovimento(Cs_Movimento mvt, int idMovimento)
@@ -317,6 +319,21 @@ namespace projetoFinalPJS
             listViewMovimentos.Items[i] = itemDescricao;
         }
 
+        // Desabilita ou habilita o botão de edição de movimento no menu
+        private void verificaSelecaoMovimentos()
+        {   
+            if (listViewMovimentos.SelectedItems.Count != 0)
+            {
+                entradaDeValoresToolStripMenuItem.Enabled = true;
+                saídaDeValoresToolStripMenuItem.Enabled = true;
+            }
+            else
+            {
+                entradaDeValoresToolStripMenuItem.Enabled = false;
+                saídaDeValoresToolStripMenuItem.Enabled = false;
+            }
+        }
+
         private void entradaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Form_Movimentação Var_Form_Movimentação = new Form_Movimentação(this, adaptadorMovimento);
@@ -333,22 +350,7 @@ namespace projetoFinalPJS
         {
             Form_Categoria Var_Form_Categoria = new Form_Categoria(this, adaptadorCategoria);
             Var_Form_Categoria.ShowDialog();
-        }
-
-        private void verificaSelecaoMovimentos()
-        {
-            // Desabilita ou habilita o botão de edição de movimento no menu
-            if (listViewMovimentos.SelectedItems.Count != 0)
-            {
-                entradaDeValoresToolStripMenuItem.Enabled = true;
-                saídaDeValoresToolStripMenuItem.Enabled = true;
-            }
-            else
-            {
-                entradaDeValoresToolStripMenuItem.Enabled = false;
-                saídaDeValoresToolStripMenuItem.Enabled = false;
-            }
-        }
+        }        
 
         private void listViewMovimentos_SelectedIndexChanged(object sender, EventArgs e)
         {
