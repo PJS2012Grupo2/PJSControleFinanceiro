@@ -55,7 +55,7 @@ namespace projetoFinalPJS
                 adaptadorMovimento.Update(dMovimento, "MOVIMENTO");
                 adaptadorMovimento.Fill(dMovimento, "MOVIMENTO");
                 Cs_Movimento movimento = new Cs_Movimento(tbDescrição.Text, float.Parse(tbValor.Text), DateTime.Parse(dtpData.Text), 0, 0, cbCategoria.Text);
-                formularioInicial.AdicionaMovimento(movimento);
+                formularioInicial.AdicionaMovimento(movimento, int.Parse(novoMovimento["ID_MOVIMENTO"].ToString()));
 
                 Close();
             }

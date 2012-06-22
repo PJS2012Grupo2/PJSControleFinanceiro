@@ -62,12 +62,22 @@ namespace projetoFinalPJS
                 achaCategoria.CommandText = "SELECT ID_CATEGORIA FROM CATEGORIA WHERE NOME = '" + cbCategoria.Text + "'";
                 int numeroCategoria = ((int)achaCategoria.ExecuteScalar());
                 novoMovimento["Id_Categoria"] = numeroCategoria;
-                dMovimento.Tables["MOVIMENTO"].Rows.Add(novoMovimento);
+                SqlCommand achaMovimento = formularioInicial.conexaoFinanceiro.CreateCommand();
+                achaMovimento.CommandText = "SELECT ID_CATEGORIA FROM CATEGORIA WHERE NOME = '" + cbCategoria.Text + "'";
+                foreach (DataRow registro in dMovimento.Tables["MOVIMENTO"].Rows)
+                {
+                    if (int.Parse(registro["ID_MOVIMENTO"].ToString()) == int.Parse(itemAlt.Tag.ToString()))
+                    {
+                        DataRow altRegistro = dMovimento.Tables["MOVIMENTO"].Rows.Find(int.Parse(itemAlt.Tag.ToString()));
+                        altRegistro["Descricao"] = tbDescrição.Text;
+                        altRegistro["Valor"] = float.Parse(tbValor.Text.Replace("R$", ""));
+                        altRegistro["DATA_CADASTRO"] = DateTime.Parse(dtpData.Text);
+                        break;
+                    }
+                }
                 adaptadorMovimento.Update(dMovimento, "MOVIMENTO");
-                adaptadorMovimento.Fill(dMovimento, "MOVIMENTO");
                 Cs_Movimento movimento = new Cs_Movimento(tbDescrição.Text, float.Parse(tbValor.Text.Replace("R$", "")), DateTime.Parse(dtpData.Text), 0, 0, cbCategoria.Text);
-                formularioInicial.AlteraMovimento(movimento, itemAlt);
-
+                formularioInicial.AlteraMovimento(movimento, int.Parse(itemAlt.Tag.ToString()));
                 Close();
             }
         }

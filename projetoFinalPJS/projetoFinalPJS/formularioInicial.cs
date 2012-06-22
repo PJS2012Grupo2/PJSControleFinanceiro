@@ -119,16 +119,36 @@ namespace projetoFinalPJS
             comandoInsercaoRecorrente.Parameters.Add(prmCategoriaRecorrente);
 
             /**************** Comandos de atualização **********************/
-            SqlCommand comandoAtualizacaoMovimento = new SqlCommand("Update MOVIMENTO set DESCRICAO = @Descricao, VALOR = @Valor, DATACADASTRO = @DataCadastro, PARCELA = @Parcela, ID_CATEGORIA = @Categoria where ID_MOVIMENTO = @IdMovimento", conexaoFinanceiro);
+            SqlCommand comandoAtualizacaoMovimento = new SqlCommand("Update MOVIMENTO set DESCRICAO = @Descricao, VALOR = @Valor, DATA_CADASTRO = @DataCadastro, PARCELA = @Parcela, ID_CATEGORIA = @Categoria where ID_MOVIMENTO = @IdMovimento", conexaoFinanceiro);
+            // Id Movimento
+            SqlParameter prmIdMovimento = new SqlParameter("@IdMovimento", SqlDbType.Int);
+            prmIdMovimento.SourceColumn = "ID_Movimento";
+            prmIdMovimento.SourceVersion = DataRowVersion.Original;
+            comandoAtualizacaoMovimento.Parameters.Add(prmIdMovimento);
+            // Descricao
             prmDescricaoMovimento = new SqlParameter("@Descricao", SqlDbType.VarChar, 50);
+            prmDescricaoMovimento.SourceColumn = "Descricao";
+            prmDescricaoMovimento.SourceVersion = DataRowVersion.Current;
             comandoAtualizacaoMovimento.Parameters.Add(prmDescricaoMovimento);
+            // Valor
             prmValorMovimento = new SqlParameter("@Valor", SqlDbType.Money);
+            prmValorMovimento.SourceColumn = "Valor";
+            prmValorMovimento.SourceVersion = DataRowVersion.Current;
             comandoAtualizacaoMovimento.Parameters.Add(prmValorMovimento);
+            // Data Cadastro
             prmDataCadastroMovimento = new SqlParameter("@DataCadastro", SqlDbType.Date);
+            prmDataCadastroMovimento.SourceColumn = "Data_Cadastro";
+            prmDataCadastroMovimento.SourceVersion = DataRowVersion.Current;
             comandoAtualizacaoMovimento.Parameters.Add(prmDataCadastroMovimento);
+            // Parcela
             prmParcelaMovimento = new SqlParameter("@Parcela", SqlDbType.Int);
+            prmParcelaMovimento.SourceColumn = "Parcela";
+            prmParcelaMovimento.SourceVersion = DataRowVersion.Current;
             comandoAtualizacaoMovimento.Parameters.Add(prmParcelaMovimento);
+            // Categoria
             prmCategoriaMovimento = new SqlParameter("@Categoria", SqlDbType.Int);
+            prmCategoriaMovimento.SourceColumn = "ID_Categoria";
+            prmCategoriaMovimento.SourceVersion = DataRowVersion.Current;
             comandoAtualizacaoMovimento.Parameters.Add(prmCategoriaMovimento);
             adaptadorMovimento.UpdateCommand = comandoAtualizacaoMovimento;
 
@@ -153,7 +173,7 @@ namespace projetoFinalPJS
             /************************* Comandos de remoção ************************/
             SqlCommand comandoRemocaoMovimento = new SqlCommand("Delete from MOVIMENTO where ID_MOVIMENTO = @IdMovimento", conexaoFinanceiro);
             // ID do movimento
-            SqlParameter prmIdMovimento = new SqlParameter("@IdMovimento", SqlDbType.Int);
+            prmIdMovimento = new SqlParameter("@IdMovimento", SqlDbType.Int);
             prmIdMovimento.SourceColumn = "ID_MOVIMENTO";
             prmIdMovimento.SourceVersion = DataRowVersion.Original;
             comandoRemocaoMovimento.Parameters.Add(prmIdMovimento);
@@ -193,9 +213,6 @@ namespace projetoFinalPJS
             comandoInicializar.CommandText = "Select nome, limite from CATEGORIA";
             comandoInicializar.ExecuteNonQuery();
 
-            SqlCommand comandoInicializarMovimentos = new SqlCommand();
-            comandoInicializarMovimentos.Connection = conexaoFinanceiro;
-            comandoInicializarMovimentos.CommandText = "Select DESCRICAO, VALOR, DATA_CADASTRO, PARCELA, VALOR_TOTAL, ID_CATEGORIA FROM MOVIMENTO";
             
             SqlDataReader leitor = comandoInicializar.ExecuteReader();            
             while (leitor.Read())
@@ -206,6 +223,9 @@ namespace projetoFinalPJS
             }
             leitor.Close();
 
+            SqlCommand comandoInicializarMovimentos = new SqlCommand();
+            comandoInicializarMovimentos.Connection = conexaoFinanceiro;
+            comandoInicializarMovimentos.CommandText = "Select ID_MOVIMENTO, DESCRICAO, VALOR, DATA_CADASTRO, PARCELA, VALOR_TOTAL, ID_CATEGORIA FROM MOVIMENTO";
             SqlDataReader leitorMovimentos = comandoInicializarMovimentos.ExecuteReader();
             int prc;
             float total;
@@ -220,7 +240,6 @@ namespace projetoFinalPJS
                 {
                     prc = 0; total = 0;
                 }
-
                 
                 Cs_Movimento movimento = new Cs_Movimento(
                     (string)leitorMovimentos["DESCRICAO"],
@@ -230,7 +249,7 @@ namespace projetoFinalPJS
                     total, //(float)leitorMovimentos["VALOR_TOTAL"],
                     leitorMovimentos["ID_CATEGORIA"].ToString()
                 );
-                AdicionaMovimento(movimento);
+                AdicionaMovimento(movimento, int.Parse(leitorMovimentos["ID_MOVIMENTO"].ToString()));
             }
             leitorMovimentos.Close();
             string nomeCategoria = "";
@@ -244,8 +263,7 @@ namespace projetoFinalPJS
                 item.SubItems[3].Text = nomeCategoria;
             }
         }
-
-
+        
         public formularioInicial()
         {
             InitializeComponent();
@@ -264,7 +282,7 @@ namespace projetoFinalPJS
             listViewCategorias.Items.Add(itemDescricao);
         }
 
-        public void AdicionaMovimento(Cs_Movimento mvt)
+        public void AdicionaMovimento(Cs_Movimento mvt, int idMovimento)
         {
             ListViewItem itemDescricao = new ListViewItem(mvt.descricao);
             ListViewItem.ListViewSubItem itemValor = new ListViewItem.ListViewSubItem(itemDescricao, "R$" + mvt.valor.ToString());
@@ -277,16 +295,16 @@ namespace projetoFinalPJS
             itemDescricao.SubItems.Add(itemDataCadastro);
             itemDescricao.SubItems.Add(itemCategoria);
             itemDescricao.SubItems.Add(itemParcela);
-
+            itemDescricao.Tag = idMovimento;
             listViewMovimentos.Items.Add(itemDescricao);
         }
 
-        public void AlteraMovimento(Cs_Movimento mvt, ListViewItem itemAlterado)
+        public void AlteraMovimento(Cs_Movimento mvt, int tagItemAlterado)
         {
             int i;
             for (i = 0; i < listViewMovimentos.Items.Count; i++)
             {
-                if (listViewMovimentos.Items[i] == itemAlterado)
+                if (int.Parse(listViewMovimentos.Items[i].Tag.ToString()) == tagItemAlterado)
                 {
                     break;
                 }
@@ -302,7 +320,7 @@ namespace projetoFinalPJS
             itemDescricao.SubItems.Add(itemDataCadastro);
             itemDescricao.SubItems.Add(itemCategoria);
             itemDescricao.SubItems.Add(itemParcela);
-            listViewMovimentos.Items[i] = itemAlterado;
+            listViewMovimentos.Items[i] = itemDescricao;
         }
 
         private void entradaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)

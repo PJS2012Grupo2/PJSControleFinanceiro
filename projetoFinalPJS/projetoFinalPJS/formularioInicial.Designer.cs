@@ -101,7 +101,7 @@
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.menuStrip1.ShowItemToolTips = true;
-            this.menuStrip1.Size = new System.Drawing.Size(773, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(769, 30);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -261,7 +261,7 @@
             this.panel1.Controls.Add(this.listViewCategorias);
             this.panel1.Location = new System.Drawing.Point(0, 52);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(778, 261);
+            this.panel1.Size = new System.Drawing.Size(969, 261);
             this.panel1.TabIndex = 1;
             // 
             // listViewCategorias
@@ -282,7 +282,7 @@
             listViewItem1});
             this.listViewCategorias.Location = new System.Drawing.Point(-2, -1);
             this.listViewCategorias.Name = "listViewCategorias";
-            this.listViewCategorias.Size = new System.Drawing.Size(773, 157);
+            this.listViewCategorias.Size = new System.Drawing.Size(964, 157);
             this.listViewCategorias.TabIndex = 0;
             this.listViewCategorias.UseCompatibleStateImageBehavior = false;
             this.listViewCategorias.View = System.Windows.Forms.View.Tile;
@@ -319,7 +319,7 @@
             this.listViewMovimentos.FullRowSelect = true;
             this.listViewMovimentos.Location = new System.Drawing.Point(-2, -2);
             this.listViewMovimentos.Name = "listViewMovimentos";
-            this.listViewMovimentos.Size = new System.Drawing.Size(773, 206);
+            this.listViewMovimentos.Size = new System.Drawing.Size(769, 206);
             this.listViewMovimentos.TabIndex = 1;
             this.listViewMovimentos.UseCompatibleStateImageBehavior = false;
             this.listViewMovimentos.View = System.Windows.Forms.View.Details;
@@ -368,7 +368,7 @@
             this.panel2.Controls.Add(this.listViewMovimentos);
             this.panel2.Location = new System.Drawing.Point(0, 208);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(778, 211);
+            this.panel2.Size = new System.Drawing.Size(969, 211);
             this.panel2.TabIndex = 2;
             // 
             // toolStrip1
@@ -382,7 +382,7 @@
             this.toolStripButton6});
             this.toolStrip1.Location = new System.Drawing.Point(0, 30);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(773, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(769, 25);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -449,7 +449,7 @@
             this.toolStripDropDownButton1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 412);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(773, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(769, 22);
             this.statusStrip1.TabIndex = 4;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -477,7 +477,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Info;
-            this.ClientSize = new System.Drawing.Size(773, 434);
+            this.ClientSize = new System.Drawing.Size(769, 434);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.panel2);
@@ -540,19 +540,12 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.BindingSource csCategoriasBindingSource1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nomeCategoriaDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn orçamentoCategoriaDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn orçamentoRestanteDataGridViewTextBoxColumn;
         private System.Windows.Forms.ListView listViewCategorias;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ColumnHeader columnNome;
         private System.Windows.Forms.ColumnHeader columnLimite;
         private System.Windows.Forms.BindingSource csCategoriasBindingSource;
         private System.Windows.Forms.BindingSource cATEGORIABindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn iDCATEGORIADataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nOMEDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn lIMITEDataGridViewTextBoxColumn;
-        private System.Windows.Forms.BindingSource cATEGORIABindingSource1;
         private System.Windows.Forms.ListView listViewMovimentos;
         private System.Windows.Forms.ColumnHeader columnDescricao;
         private System.Windows.Forms.ColumnHeader columnValor;

@@ -121,3 +121,5 @@ select CATEGORIA.NOME,
 GO
 
 */
+select * from MOVIMENTO
+
