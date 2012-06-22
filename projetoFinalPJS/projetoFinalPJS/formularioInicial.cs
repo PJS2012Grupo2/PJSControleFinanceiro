@@ -66,6 +66,14 @@ namespace projetoFinalPJS
             }
         }
 
+        public void VisualizarCategoria(Cs_Categorias ctg)
+        {
+            ListViewItem itemDescricao = new ListViewItem(ctg.Nome_Categoria);
+            ListViewItem.ListViewSubItem itemLimite = new ListViewItem.ListViewSubItem(itemDescricao, "R$" + ctg.Orçamento_Categoria.ToString());
+            itemDescricao.SubItems.Add(itemLimite);
+            listViewCategorias.Items.Add(itemDescricao);
+        }
+
         private void carregaCategorias()
         {
             SqlCommand comandoInicializarCategorias = new SqlCommand();
@@ -77,10 +85,7 @@ namespace projetoFinalPJS
             {
                 //string nome; float limite;
                 Cs_Categorias categoria = new Cs_Categorias((string)leitorCategorias["nome"], (float.Parse(leitorCategorias["limite"].ToString())));
-                ListViewItem itemDescricao = new ListViewItem(categoria.Nome_Categoria);
-                ListViewItem.ListViewSubItem itemLimite = new ListViewItem.ListViewSubItem(itemDescricao, "R$" + categoria.Orçamento_Categoria.ToString());
-                itemDescricao.SubItems.Add(itemLimite);
-                listViewCategorias.Items.Add(itemDescricao);
+                VisualizarCategoria(categoria);
             }
             leitorCategorias.Close();
         }        
