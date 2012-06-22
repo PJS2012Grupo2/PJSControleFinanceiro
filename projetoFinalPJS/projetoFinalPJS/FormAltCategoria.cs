@@ -15,6 +15,7 @@ namespace projetoFinalPJS
         private formularioInicial formularioInicial;
         private SqlDataAdapter adaptadorCategoria;
         int id;
+        bool acao;
         public FormAltCategoria(formularioInicial formularioInicial, SqlDataAdapter adaptadorCategoria)
         {
             InitializeComponent();
@@ -53,7 +54,8 @@ namespace projetoFinalPJS
 
         private void btAlterar_Click(object sender, EventArgs e)
         {
-            Form_Categoria Var_Form_Categoria = new Form_Categoria(this.formularioInicial, adaptadorCategoria);
+            Form_Categoria Var_Form_Categoria = new Form_Categoria(this.formularioInicial, adaptadorCategoria,false,id);
+            Var_Form_Categoria.preencherCategoria(id);
             Var_Form_Categoria.ShowDialog();
         }
 
@@ -86,14 +88,15 @@ namespace projetoFinalPJS
             if (resposta == DialogResult.Yes)
             {
                 DataRow registro = DeleteCategoria.Tables["CATEGORIA"].Rows.Find(id);
-                registro.Delete();
                 SqlCommand comandoUpdate = new SqlCommand();
                 comandoUpdate.Connection = formularioInicial.conexaoFinanceiro;
                 comandoUpdate.CommandText = ("Update Movimento set id_categoria = 1 where id_categoria = " + id);
                 comandoUpdate.ExecuteNonQuery();
                 SqlDataReader leitor = comandoUpdate.ExecuteReader();
                 leitor.Close();
+                registro.Delete();
                 limparListView(id);
+                formularioInicial.limparListViewInicial(id);
                 adaptadorCategoria.Update(DeleteCategoria, "CATEGORIA");
             }
 

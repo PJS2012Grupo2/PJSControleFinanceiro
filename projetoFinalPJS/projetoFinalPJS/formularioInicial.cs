@@ -19,6 +19,7 @@ namespace projetoFinalPJS
         public SqlDataAdapter adaptadorRecorrente;
         public SqlConnection conexaoFinanceiro;
         public DataSet dadosCategoria = new DataSet();
+        bool acao;
         
         private void formularioInicial_Load(object sender, EventArgs e)
         {
@@ -36,7 +37,7 @@ namespace projetoFinalPJS
         {
             // Cria a conexão para a base de dados e seu adaptador
           conexaoFinanceiro = new SqlConnection();
-            conexaoFinanceiro.ConnectionString = @"Data Source=PC18LA3\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
+            conexaoFinanceiro.ConnectionString = @"Data Source=PC09LAB3\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
 
          conexaoFinanceiro.Open();
             // Cria os adaptadores
@@ -207,7 +208,7 @@ namespace projetoFinalPJS
         {
               InitializeComponent(); 
           
-                SqlConnection conn = new SqlConnection(@"Data Source=PC18LA3\SQLEXPRESS;Initial Catalog=FINANCEIRO;Integrated Security=SSPI");
+                SqlConnection conn = new SqlConnection(@"Data Source=PC09LAB3\SQLEXPRESS;Initial Catalog=FINANCEIRO;Integrated Security=SSPI");
                 SqlCommand comando = new SqlCommand();
                 comando.Connection = conn;
                 conn.Open();
@@ -261,7 +262,7 @@ namespace projetoFinalPJS
 
         private void categoriaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form_Categoria Var_Form_Categoria = new Form_Categoria(this, adaptadorCategoria);
+            Form_Categoria Var_Form_Categoria = new Form_Categoria(this, adaptadorCategoria,true,0);
             Var_Form_Categoria.ShowDialog();
         }
 
@@ -279,6 +280,26 @@ namespace projetoFinalPJS
         {
             FormAltCategoria Var_Alt_Categorias = new FormAltCategoria(this, adaptadorCategoria);
             Var_Alt_Categorias.ShowDialog(this);
+        }
+
+        public void limparListViewInicial(int id)
+        {
+            SqlCommand comandoLimpar = new SqlCommand();
+            comandoLimpar.Connection = conexaoFinanceiro;
+            comandoLimpar.CommandText = ("Select nome from Categoria where id_categoria = " + id);
+            comandoLimpar.ExecuteNonQuery();
+            ListViewItem categoriaExcluida = listViewCategorias.SelectedItems[0];
+            SqlDataReader leitor = comandoLimpar.ExecuteReader();
+
+            while (leitor.Read())
+            {
+                if (leitor["Nome"].ToString() == categoriaExcluida.Text)
+                {
+                    listViewCategorias.Items.Remove(categoriaExcluida);
+                }
+            }
+            leitor.Close();
+
         }
     }
 }
