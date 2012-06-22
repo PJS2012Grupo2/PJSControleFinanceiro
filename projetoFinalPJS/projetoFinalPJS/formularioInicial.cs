@@ -39,9 +39,7 @@ namespace projetoFinalPJS
                     total = float.Parse(leitorMovimentos["VALOR_TOTAL"].ToString());
                 }
                 else
-                {
                     prc = 0; total = 0;
-                }
 
                 Cs_Movimento movimento = new Cs_Movimento(
                     (string)leitorMovimentos["DESCRICAO"],
@@ -56,6 +54,8 @@ namespace projetoFinalPJS
             leitorMovimentos.Close();
             string nomeCategoria = "";
             SqlCommand achaCategoria = conexaoFinanceiro.CreateCommand();
+
+            // Troca o ID da categoria pelo nome da categoria na exibição do ListView
             foreach (ListViewItem item in listViewMovimentos.Items)
             {
                 achaCategoria.CommandText = "SELECT NOME FROM CATEGORIA WHERE ID_CATEGORIA = @IdCategoria";
@@ -77,7 +77,10 @@ namespace projetoFinalPJS
             {
                 //string nome; float limite;
                 Cs_Categorias categoria = new Cs_Categorias((string)leitorCategorias["nome"], (float.Parse(leitorCategorias["limite"].ToString())));
-                VisualizarCategoria(categoria);
+                ListViewItem itemDescricao = new ListViewItem(categoria.Nome_Categoria);
+                ListViewItem.ListViewSubItem itemLimite = new ListViewItem.ListViewSubItem(itemDescricao, "R$" + categoria.Orçamento_Categoria.ToString());
+                itemDescricao.SubItems.Add(itemLimite);
+                listViewCategorias.Items.Add(itemDescricao);
             }
             leitorCategorias.Close();
         }        
@@ -95,8 +98,7 @@ namespace projetoFinalPJS
             catch
             {
                 MessageBox.Show("Não foi possível fazer a conexão com a base de dados.");
-            }
-            
+            }            
             // Adaptadores
             adaptadorMovimento  = new SqlDataAdapter();
             adaptadorCategoria  = new SqlDataAdapter();
@@ -223,7 +225,7 @@ namespace projetoFinalPJS
             comandoAtualizaoRecorrente.Parameters.Add(prmCategoriaRecorrente);
             adaptadorRecorrente.UpdateCommand = comandoAtualizaoRecorrente;
 
-            /************************* Comandos de remoção ************************/
+            /* -------------- Comandos de remoção ------------------ */
             SqlCommand comandoRemocaoMovimento = new SqlCommand("Delete from MOVIMENTO where ID_MOVIMENTO = @IdMovimento", conexaoFinanceiro);
             prmIdMovimento = new SqlParameter("@IdMovimento", SqlDbType.Int);
             prmIdMovimento.SourceColumn = "ID_MOVIMENTO";
@@ -259,69 +261,57 @@ namespace projetoFinalPJS
             carregaMovimentos();
         }
 
-        public void VisualizarCategoria(Cs_Categorias ctg)
-        {
-            ListViewItem itemDescricao = new ListViewItem(ctg.Nome_Categoria);
-
-            ListViewItem.ListViewSubItem itemLimite = new ListViewItem.ListViewSubItem(itemDescricao, "R$"+ctg.Orçamento_Categoria.ToString());
-
-            itemDescricao.SubItems.Add(itemLimite);
-
-            listViewCategorias.Items.Add(itemDescricao);
-        }
-
         private void formularioInicial_Load(object sender, EventArgs e)
         {
-            // Carregamento do Form: 
-            // Tenta fazer a conexao no BD e então carregar os dados no ListView
             conexaoDados();
             verificaSelecaoMovimentos();
         }
 
-        public void AdicionaMovimento(Cs_Movimento mvt, int idMovimento)
+        private ListViewItem ConstroiItemMovimento(Cs_Movimento mvt, bool alt=false, int idMovimento=0)
         {
             ListViewItem itemDescricao = new ListViewItem(mvt.descricao);
             ListViewItem.ListViewSubItem itemValor = new ListViewItem.ListViewSubItem(itemDescricao, "R$" + mvt.valor.ToString());
             ListViewItem.ListViewSubItem itemDataCadastro = new ListViewItem.ListViewSubItem(itemDescricao, mvt.dataCadastro.ToString());
             ListViewItem.ListViewSubItem itemCategoria = new ListViewItem.ListViewSubItem(itemDescricao, mvt.categoria);
             string parcela, valorTotal;
-            if (mvt.parcela <= 0) { parcela = ""; valorTotal = ""; } else { parcela = mvt.parcela.ToString(); valorTotal = mvt.valorTotal.ToString(); }
+            if (mvt.parcela <= 0)
+            {
+                parcela = "";
+                valorTotal = "";
+            }
+            else
+            {
+                parcela = mvt.parcela.ToString();
+                valorTotal = mvt.valorTotal.ToString();
+            }
             ListViewItem.ListViewSubItem itemParcela = new ListViewItem.ListViewSubItem(itemDescricao, parcela);
             itemDescricao.SubItems.Add(itemValor);
             itemDescricao.SubItems.Add(itemDataCadastro);
             itemDescricao.SubItems.Add(itemCategoria);
             itemDescricao.SubItems.Add(itemParcela);
-            itemDescricao.Tag = idMovimento;
-            listViewMovimentos.Items.Add(itemDescricao);
+            if (!alt)
+                itemDescricao.Tag = idMovimento;
+
+            return itemDescricao;
+        }
+
+        public void AdicionaMovimento(Cs_Movimento mvt, int idMovimento)
+        {
+            listViewMovimentos.Items.Add(ConstroiItemMovimento(mvt, false, idMovimento));
         }
 
         public void AlteraMovimento(Cs_Movimento mvt, int tagItemAlterado)
         {
             int i;
             for (i = 0; i < listViewMovimentos.Items.Count; i++)
-            {
                 if (int.Parse(listViewMovimentos.Items[i].Tag.ToString()) == tagItemAlterado)
-                {
                     break;
-                }
-            }
-            ListViewItem itemDescricao = new ListViewItem(mvt.descricao);
-            ListViewItem.ListViewSubItem itemValor = new ListViewItem.ListViewSubItem(itemDescricao, "R$" + mvt.valor.ToString());
-            ListViewItem.ListViewSubItem itemDataCadastro = new ListViewItem.ListViewSubItem(itemDescricao, mvt.dataCadastro.ToString());
-            ListViewItem.ListViewSubItem itemCategoria = new ListViewItem.ListViewSubItem(itemDescricao, mvt.categoria);
-            string parcela, valorTotal;
-            if (mvt.parcela <= 0) { parcela = ""; valorTotal = ""; } else { parcela = mvt.parcela.ToString(); valorTotal = mvt.valorTotal.ToString(); }
-            ListViewItem.ListViewSubItem itemParcela = new ListViewItem.ListViewSubItem(itemDescricao, parcela);
-            itemDescricao.SubItems.Add(itemValor);
-            itemDescricao.SubItems.Add(itemDataCadastro);
-            itemDescricao.SubItems.Add(itemCategoria);
-            itemDescricao.SubItems.Add(itemParcela);
-            listViewMovimentos.Items[i] = itemDescricao;
+            listViewMovimentos.Items[i] = ConstroiItemMovimento(mvt, true);
         }
-
-        // Desabilita ou habilita o botão de edição de movimento no menu
+        
         private void verificaSelecaoMovimentos()
-        {   
+        {
+            // Desabilita ou habilita o botão de edição de movimento no menu
             if (listViewMovimentos.SelectedItems.Count != 0)
             {
                 entradaDeValoresToolStripMenuItem.Enabled = true;
