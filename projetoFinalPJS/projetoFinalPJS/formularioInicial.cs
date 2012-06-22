@@ -220,6 +220,7 @@ namespace projetoFinalPJS
             //dataGridView1.DataSource = listaCategorias;
         }
 
+        // Método que visualiza todas as categorias inseridas
         public void VisualizarCategoria(Cs_Categorias ctg)
         {
             ListViewItem itemDescricao = new ListViewItem(ctg.Nome_Categoria);
@@ -282,6 +283,8 @@ namespace projetoFinalPJS
             Var_Alt_Categorias.ShowDialog(this);
         }
 
+        // Metodo para limpar os registros excluidos da tabela CATEGORIA
+        // dentro do listView do formularioInicial
         public void limparListViewInicial(int id)
         {
             SqlCommand comandoLimpar = new SqlCommand();
