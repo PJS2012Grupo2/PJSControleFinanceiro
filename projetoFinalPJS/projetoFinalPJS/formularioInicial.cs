@@ -66,11 +66,12 @@ namespace projetoFinalPJS
             }
         }
 
-        public void VisualizarCategoria(Cs_Categorias ctg)
+        public void VisualizarCategoria(Cs_Categorias ctg, int idCategoria)
         {
             ListViewItem itemDescricao = new ListViewItem(ctg.Nome_Categoria);
             ListViewItem.ListViewSubItem itemLimite = new ListViewItem.ListViewSubItem(itemDescricao, "R$" + ctg.Orçamento_Categoria.ToString());
             itemDescricao.SubItems.Add(itemLimite);
+            itemDescricao.Tag = idCategoria;
             listViewCategorias.Items.Add(itemDescricao);
         }
 
@@ -84,7 +85,7 @@ namespace projetoFinalPJS
             while (leitorCategorias.Read())
             {
                 Cs_Categorias categoria = new Cs_Categorias((string)leitorCategorias["nome"], (float.Parse(leitorCategorias["limite"].ToString())));
-                VisualizarCategoria(categoria);
+                VisualizarCategoria(categoria, int.Parse(leitorCategorias["ID_Categoria"].ToString()));
             }
             leitorCategorias.Close();
         }        
@@ -93,8 +94,8 @@ namespace projetoFinalPJS
         {
             // Cria a conexão para a base de dados e seu adaptador
             conexaoFinanceiro = new SqlConnection();
-            conexaoFinanceiro.ConnectionString = "Data Source=YURI-PC\\YURISQL;Initial Catalog=Financeiro;Integrated Security=SSPI";
-            //conexaoFinanceiro.ConnectionString = "Data Source=PC15LAB3\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
+            //conexaoFinanceiro.ConnectionString = "Data Source=YURI-PC\\YURISQL;Initial Catalog=Financeiro;Integrated Security=SSPI";
+            conexaoFinanceiro.ConnectionString = "Data Source=PC15LAB3\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
             try
             {
                 conexaoFinanceiro.Open();
