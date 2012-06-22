@@ -32,31 +32,37 @@ namespace projetoFinalPJS
                 conn.Open();
                 SqlCommand comando = new SqlCommand();
                 comando.Connection = conn;
-                comando.CommandText = "select count (ID_CATEGORIA) from CATEGORIA";
+                comando.CommandText = "select COUNT (ID_CATEGORIA) from CATEGORIA";
                 Object total_categoria = comando.ExecuteScalar();
                 int total_categ=Convert.ToInt32(total_categoria);
-                int cont;
-                for (cont = 1; cont <= total_categ; cont++)
-                {
-                    comando.CommandText = "select NOME from CATEGORIA where ID_CATEGORIA ="+cont;
+                
+                
+
+                    comando.CommandText = "select NOME from CATEGORIA where NOME LIKE '%"+tbDescriçãoCtg.Text.ToUpper()+"%'";
                     Object nome_Categoria = comando.ExecuteScalar();
-                 
 
-                    if (tbDescriçãoCtg.Text.Equals(nome_Categoria.ToString()))
+                    if (nome_Categoria != null)
                     {
-                        MessageBox.Show("Esta categoria já existe", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Hand);
-                         break;
+
+                        if (tbDescriçãoCtg.Text.ToUpper().Equals(nome_Categoria.ToString().ToUpper()))
+                        {
+                            MessageBox.Show("Esta categoria já existe", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                     
+                        }
                     }
-
-                }
-
-             if (cont>total_categ)
+                    
+                    if (nome_Categoria==null)
                     {
-                       comando.CommandText = "insert into CATEGORIA (NOME,LIMITE) values('"+tbDescriçãoCtg.Text+"','"+Convert.ToDecimal(tbOrçamentoCtg.Text)+"')";
+                       comando.CommandText = "insert into CATEGORIA (NOME,LIMITE) values('"+tbDescriçãoCtg.Text.ToUpper()+"','"+Convert.ToDecimal(tbOrçamentoCtg.Text)+"')";
                        comando.ExecuteScalar();
                       
                     }
 
+
+
+                
+
+             
                     conn.Close();
              
 

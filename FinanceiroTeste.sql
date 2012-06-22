@@ -15,7 +15,7 @@ GO
  select * from categoria;
 go
 
-delete from categoria where nome in ('reforma')
+delete from categoria where nome in ('ração')
 go
 
 CREATE TABLE MOVIMENTO (
