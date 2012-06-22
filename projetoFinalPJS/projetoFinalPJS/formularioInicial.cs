@@ -66,7 +66,7 @@ namespace projetoFinalPJS
             }
         }
 
-        public void VisualizarCategoria(Cs_Categorias ctg, int idCategoria)
+        public void VisualizarCategoria(Cs_Categorias ctg, int idCategoria=0)
         {
             ListViewItem itemDescricao = new ListViewItem(ctg.Nome_Categoria);
             ListViewItem.ListViewSubItem itemLimite = new ListViewItem.ListViewSubItem(itemDescricao, "R$" + ctg.Orçamento_Categoria.ToString());
@@ -79,7 +79,7 @@ namespace projetoFinalPJS
         {
             SqlCommand comandoInicializarCategorias = new SqlCommand();
             comandoInicializarCategorias.Connection = conexaoFinanceiro;
-            comandoInicializarCategorias.CommandText = "Select nome, limite from CATEGORIA";
+            comandoInicializarCategorias.CommandText = "Select id_categoria, nome, limite from CATEGORIA";
             comandoInicializarCategorias.ExecuteNonQuery();
             SqlDataReader leitorCategorias = comandoInicializarCategorias.ExecuteReader();
             while (leitorCategorias.Read())
@@ -378,9 +378,21 @@ namespace projetoFinalPJS
                 removeMovimento(dadosFinanceiro.Tables["Movimento"].Rows.Find(listViewMovimentos.SelectedItems[0].Tag));
         }
 
-        private void listViewCategorias_SelectedIndexChanged(object sender, EventArgs e)
+        private void listViewCategorias_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
+            if (listViewCategorias.SelectedItems.Count > 0 && listViewCategorias.Items.IndexOf(listViewCategorias.SelectedItems[0]) != 0)
+            {
+                int idCat = int.Parse(listViewCategorias.SelectedItems[0].Tag.ToString());
 
+                listViewMovimentos.Items.Clear();
+                foreach (ListViewItem itemMovimento in listViewMovimentos.Items)
+                {
+                    if (int.Parse(itemMovimento.Tag.ToString()) == idCat)
+                    {
+                        listViewMovimentos.Items.Add(itemMovimento);
+                    }
+                }
+            }
         }
     }
 }

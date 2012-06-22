@@ -286,7 +286,7 @@
             this.listViewCategorias.TabIndex = 0;
             this.listViewCategorias.UseCompatibleStateImageBehavior = false;
             this.listViewCategorias.View = System.Windows.Forms.View.Tile;
-            this.listViewCategorias.SelectedIndexChanged += new System.EventHandler(this.listViewCategorias_SelectedIndexChanged);
+            this.listViewCategorias.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.listViewCategorias_ItemSelectionChanged);
             // 
             // columnNome
             // 

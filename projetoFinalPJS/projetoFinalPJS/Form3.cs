@@ -33,7 +33,7 @@ namespace projetoFinalPJS
             adaptadorCategoria.Fill(dCategoria, "CATEGORIA");
 
             Cs_Categorias categoria = new Cs_Categorias(tbDescriçãoCtg.Text, float.Parse(tbOrçamentoCtg.Text));
-            formInicial.VisualizarCategoria(categoria);
+            formInicial.VisualizarCategoria(categoria, int.Parse(novaCategoria["ID_Categoria"].ToString()));
 
             Close();
         }
