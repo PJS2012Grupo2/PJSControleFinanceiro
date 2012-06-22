@@ -18,6 +18,9 @@ namespace projetoFinalPJS
         public SqlDataAdapter adaptadorCategoria;
         public SqlDataAdapter adaptadorRecorrente;
         public SqlConnection conexaoFinanceiro;
+        DataSet dadosMovimento;
+        DataSet dadosCategoria;
+        DataSet dadosRecorrente;
 
         private void formularioInicial_Load(object sender, EventArgs e)
         {
@@ -32,6 +35,7 @@ namespace projetoFinalPJS
             } 
         }
 
+        
         public void conexaoDados()
         {
             // Cria a conexão para a base de dados e seu adaptador
@@ -201,11 +205,11 @@ namespace projetoFinalPJS
             adaptadorRecorrente.MissingSchemaAction = MissingSchemaAction.AddWithKey;
 
             // Cria os datasets
-            DataSet dadosMovimento = new DataSet();
+            dadosMovimento = new DataSet();
             adaptadorMovimento.Fill(dadosMovimento, "MOVIMENTO");
-            DataSet dadosCategoria = new DataSet();
+            dadosCategoria = new DataSet();
             adaptadorCategoria.Fill(dadosCategoria, "CATEGORIA");
-            DataSet dadosRecorrente = new DataSet();
+            dadosRecorrente = new DataSet();
             adaptadorRecorrente.Fill(dadosRecorrente, "MOVIMENTO_RECORRENTE");
 
             SqlCommand comandoInicializar = new SqlCommand();
@@ -375,6 +379,14 @@ namespace projetoFinalPJS
         private void listViewMovimentos_MouseLeave(object sender, EventArgs e)
         {
             verificaSelecaoMovimentos();
+        }
+
+        private void listViewMovimentos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete && listViewMovimentos.SelectedItems.Count > 0)
+                dadosMovimento.Tables["Movimento"].Rows.Find(listViewMovimentos.SelectedItems[0].Tag).Delete();
+            adaptadorMovimento.Update(dadosMovimento, "Movimento");
+            listViewMovimentos.SelectedItems[0].Remove();
         }
     }
 }
