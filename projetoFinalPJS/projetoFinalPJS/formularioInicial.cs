@@ -24,6 +24,7 @@ namespace projetoFinalPJS
             try
             {
                 conexaoDados();
+                verificaSelecaoMovimentos();
             }
             catch
             {
@@ -295,6 +296,26 @@ namespace projetoFinalPJS
         {
             Form_Categoria Var_Form_Categoria = new Form_Categoria(this, adaptadorCategoria);
             Var_Form_Categoria.ShowDialog();
+        }
+
+        private void verificaSelecaoMovimentos()
+        {
+            // Desabilita ou habilita o botão de edição de movimento no menu
+            if (listViewMovimentos.SelectedItems.Count != 0)
+            {
+                entradaDeValoresToolStripMenuItem.Enabled = true;
+                saídaDeValoresToolStripMenuItem1.Enabled = true;
+            }
+            else
+            {
+                entradaDeValoresToolStripMenuItem.Enabled = false;
+                saídaDeValoresToolStripMenuItem1.Enabled = false;
+            }
+        }
+
+        private void listViewMovimentos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            verificaSelecaoMovimentos();
         }
     }
 }

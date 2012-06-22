@@ -60,6 +60,10 @@
             this.listViewMovimentos = new System.Windows.Forms.ListView();
             this.columnDescricao = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnValor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnDataCadastro = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnCategoria = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnParcelas = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnTotal = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cATEGORIABindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.csCategoriasBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
@@ -74,10 +78,6 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.csCategoriasBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.columnDataCadastro = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnCategoria = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnParcelas = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnTotal = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cATEGORIABindingSource)).BeginInit();
@@ -323,6 +323,7 @@
             this.listViewMovimentos.TabIndex = 1;
             this.listViewMovimentos.UseCompatibleStateImageBehavior = false;
             this.listViewMovimentos.View = System.Windows.Forms.View.Details;
+            this.listViewMovimentos.SelectedIndexChanged += new System.EventHandler(this.listViewMovimentos_SelectedIndexChanged);
             // 
             // columnDescricao
             // 
@@ -333,6 +334,26 @@
             // 
             this.columnValor.Text = "Valor";
             this.columnValor.Width = 87;
+            // 
+            // columnDataCadastro
+            // 
+            this.columnDataCadastro.Text = "Data do Cadastro";
+            this.columnDataCadastro.Width = 106;
+            // 
+            // columnCategoria
+            // 
+            this.columnCategoria.Text = "Categoria";
+            this.columnCategoria.Width = 157;
+            // 
+            // columnParcelas
+            // 
+            this.columnParcelas.Text = "Parcelas";
+            this.columnParcelas.Width = 87;
+            // 
+            // columnTotal
+            // 
+            this.columnTotal.Text = "Valor Total";
+            this.columnTotal.Width = 112;
             // 
             // cATEGORIABindingSource
             // 
@@ -448,26 +469,6 @@
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
             this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 20);
             this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
-            // 
-            // columnDataCadastro
-            // 
-            this.columnDataCadastro.Text = "Data do Cadastro";
-            this.columnDataCadastro.Width = 106;
-            // 
-            // columnCategoria
-            // 
-            this.columnCategoria.Text = "Categoria";
-            this.columnCategoria.Width = 157;
-            // 
-            // columnParcelas
-            // 
-            this.columnParcelas.Text = "Parcelas";
-            this.columnParcelas.Width = 87;
-            // 
-            // columnTotal
-            // 
-            this.columnTotal.Text = "Valor Total";
-            this.columnTotal.Width = 112;
             // 
             // formularioInicial
             // 
