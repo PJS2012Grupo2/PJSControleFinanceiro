@@ -280,6 +280,30 @@ namespace projetoFinalPJS
             listViewMovimentos.Items.Add(itemDescricao);
         }
 
+        public void AlteraMovimento(Cs_Movimento mvt, ListViewItem itemAlterado)
+        {
+            int i;
+            for (i = 0; i < listViewMovimentos.Items.Count; i++)
+            {
+                if (listViewMovimentos.Items[i] == itemAlterado)
+                {
+                    break;
+                }
+            }
+            ListViewItem itemDescricao = new ListViewItem(mvt.descricao);
+            ListViewItem.ListViewSubItem itemValor = new ListViewItem.ListViewSubItem(itemDescricao, "R$" + mvt.valor.ToString());
+            ListViewItem.ListViewSubItem itemDataCadastro = new ListViewItem.ListViewSubItem(itemDescricao, mvt.dataCadastro.ToString());
+            ListViewItem.ListViewSubItem itemCategoria = new ListViewItem.ListViewSubItem(itemDescricao, mvt.categoria);
+            string parcela, valorTotal;
+            if (mvt.parcela <= 0) { parcela = ""; valorTotal = ""; } else { parcela = mvt.parcela.ToString(); valorTotal = mvt.valorTotal.ToString(); }
+            ListViewItem.ListViewSubItem itemParcela = new ListViewItem.ListViewSubItem(itemDescricao, parcela);
+            itemDescricao.SubItems.Add(itemValor);
+            itemDescricao.SubItems.Add(itemDataCadastro);
+            itemDescricao.SubItems.Add(itemCategoria);
+            itemDescricao.SubItems.Add(itemParcela);
+            listViewMovimentos.Items[i] = itemAlterado;
+        }
+
         private void entradaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Form_Movimentação Var_Form_Movimentação = new Form_Movimentação(this, adaptadorMovimento);

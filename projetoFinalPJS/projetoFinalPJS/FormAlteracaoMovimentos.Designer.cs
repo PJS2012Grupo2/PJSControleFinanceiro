@@ -135,6 +135,7 @@
             this.alterar.TabIndex = 38;
             this.alterar.Text = "Alterar";
             this.alterar.UseVisualStyleBackColor = true;
+            this.alterar.Click += new System.EventHandler(this.alterar_Click);
             // 
             // FormAlteracaoMovimentos
             // 

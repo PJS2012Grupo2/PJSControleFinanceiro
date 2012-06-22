@@ -32,5 +32,44 @@ namespace projetoFinalPJS
             tbValor.Text = itemAlt.SubItems[1].Text;
             dtpData.Text = DateTime.Parse(itemAlt.SubItems[2].Text).ToString().Substring(0, 7);
         }
+
+        private void alterar_Click(object sender, EventArgs e)
+        {
+            if (tbSaldo.Text.Trim() == "")
+            {
+                MessageBox.Show("Digite um valor de Saldo válido.");
+                tbSaldo.Focus();
+            }
+            else if (tbDescrição.Text.Trim() == "")
+            {
+                MessageBox.Show("Digite uma descrição.");
+                tbDescrição.Focus();
+            }
+            else if (tbValor.Text.Trim() == "")
+            {
+                MessageBox.Show("Digite um valor válido.");
+                tbValor.Focus();
+            }
+            else
+            {
+                DataSet dMovimento = new DataSet();
+                adaptadorMovimento.Fill(dMovimento, "MOVIMENTO");
+                DataRow novoMovimento = dMovimento.Tables["MOVIMENTO"].NewRow();
+                novoMovimento["Descricao"] = tbDescrição.Text;
+                novoMovimento["Valor"] = tbValor.Text.Replace("R$", "");
+                novoMovimento["Data_Cadastro"] = DateTime.UtcNow;
+                SqlCommand achaCategoria = formularioInicial.conexaoFinanceiro.CreateCommand();
+                achaCategoria.CommandText = "SELECT ID_CATEGORIA FROM CATEGORIA WHERE NOME = '" + cbCategoria.Text + "'";
+                int numeroCategoria = ((int)achaCategoria.ExecuteScalar());
+                novoMovimento["Id_Categoria"] = numeroCategoria;
+                dMovimento.Tables["MOVIMENTO"].Rows.Add(novoMovimento);
+                adaptadorMovimento.Update(dMovimento, "MOVIMENTO");
+                adaptadorMovimento.Fill(dMovimento, "MOVIMENTO");
+                Cs_Movimento movimento = new Cs_Movimento(tbDescrição.Text, float.Parse(tbValor.Text.Replace("R$", "")), DateTime.Parse(dtpData.Text), 0, 0, cbCategoria.Text);
+                formularioInicial.AlteraMovimento(movimento, itemAlt);
+
+                Close();
+            }
+        }
     }
 }
