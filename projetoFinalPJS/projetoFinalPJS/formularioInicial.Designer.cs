@@ -64,8 +64,6 @@
             this.columnCategoria = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnParcelas = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnTotal = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.cATEGORIABindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.csCategoriasBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
@@ -77,14 +75,16 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.cATEGORIABindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.csCategoriasBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.csCategoriasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cATEGORIABindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.csCategoriasBindingSource1)).BeginInit();
             this.panel2.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cATEGORIABindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.csCategoriasBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.csCategoriasBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -324,6 +324,7 @@
             this.listViewMovimentos.UseCompatibleStateImageBehavior = false;
             this.listViewMovimentos.View = System.Windows.Forms.View.Details;
             this.listViewMovimentos.SelectedIndexChanged += new System.EventHandler(this.listViewMovimentos_SelectedIndexChanged);
+            this.listViewMovimentos.DoubleClick += new System.EventHandler(this.listViewMovimentos_DoubleClick);
             // 
             // columnDescricao
             // 
@@ -354,10 +355,6 @@
             // 
             this.columnTotal.Text = "Valor Total";
             this.columnTotal.Width = 112;
-            // 
-            // cATEGORIABindingSource
-            // 
-            this.cATEGORIABindingSource.DataMember = "CATEGORIA";
             // 
             // panel2
             // 
@@ -470,6 +467,10 @@
             this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 20);
             this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
             // 
+            // cATEGORIABindingSource
+            // 
+            this.cATEGORIABindingSource.DataMember = "CATEGORIA";
+            // 
             // formularioInicial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -490,13 +491,13 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.cATEGORIABindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.csCategoriasBindingSource1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cATEGORIABindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.csCategoriasBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.csCategoriasBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

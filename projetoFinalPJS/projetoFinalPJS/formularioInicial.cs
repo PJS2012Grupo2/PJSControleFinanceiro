@@ -317,5 +317,11 @@ namespace projetoFinalPJS
         {
             verificaSelecaoMovimentos();
         }
+
+        private void listViewMovimentos_DoubleClick(object sender, EventArgs e)
+        {
+            FormAlteracaoMovimentos formAlt = new FormAlteracaoMovimentos(adaptadorMovimento, this, listViewMovimentos.SelectedItems[0]);
+            formAlt.ShowDialog();
+        }
     }
 }

@@ -81,6 +81,12 @@
     <Compile Include="Form3.Designer.cs">
       <DependentUpon>Form3.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormAlteracaoMovimentos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAlteracaoMovimentos.Designer.cs">
+      <DependentUpon>FormAlteracaoMovimentos.cs</DependentUpon>
+    </Compile>
     <Compile Include="formularioInicial.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,6 +100,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form3.resx">
       <DependentUpon>Form3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAlteracaoMovimentos.resx">
+      <DependentUpon>FormAlteracaoMovimentos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formularioInicial.resx">
       <DependentUpon>formularioInicial.cs</DependentUpon>

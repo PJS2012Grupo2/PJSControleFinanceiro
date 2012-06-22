@@ -154,6 +154,7 @@
             this.Controls.Add(this.label1);
             this.Name = "FormAlteracaoMovimentos";
             this.Text = "FormAlteracaoMovimentos";
+            this.Load += new System.EventHandler(this.FormAlteracaoMovimentos_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
