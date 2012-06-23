@@ -89,10 +89,10 @@ namespace projetoFinalPJS
         public void alterarCategoria(int id)
         {
              if (tbDescriçãoCtg.Text.Trim() == " ")
-            {
+             {
                 labelMensagem.Text = "Digite uma descrição válida";
                 tbDescriçãoCtg.Focus();
-            }
+             }
 
              else if ((tbOrçamentoCtg.Text.Trim()) == "" || (float.Parse(tbOrçamentoCtg.Text) <= 0))
              {

@@ -40,7 +40,7 @@
             // 
             this.tbDescriçãoCtg.Location = new System.Drawing.Point(12, 25);
             this.tbDescriçãoCtg.Name = "tbDescriçãoCtg";
-            this.tbDescriçãoCtg.Size = new System.Drawing.Size(192, 20);
+            this.tbDescriçãoCtg.Size = new System.Drawing.Size(255, 20);
             this.tbDescriçãoCtg.TabIndex = 1;
             // 
             // label2
@@ -65,12 +65,12 @@
             // 
             this.tbOrçamentoCtg.Location = new System.Drawing.Point(12, 64);
             this.tbOrçamentoCtg.Name = "tbOrçamentoCtg";
-            this.tbOrçamentoCtg.Size = new System.Drawing.Size(192, 20);
+            this.tbOrçamentoCtg.Size = new System.Drawing.Size(255, 20);
             this.tbOrçamentoCtg.TabIndex = 7;
             // 
             // salvarCtg
             // 
-            this.salvarCtg.Location = new System.Drawing.Point(129, 90);
+            this.salvarCtg.Location = new System.Drawing.Point(192, 90);
             this.salvarCtg.Name = "salvarCtg";
             this.salvarCtg.Size = new System.Drawing.Size(75, 23);
             this.salvarCtg.TabIndex = 8;
@@ -91,7 +91,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(216, 168);
+            this.ClientSize = new System.Drawing.Size(279, 186);
             this.Controls.Add(this.labelMensagem);
             this.Controls.Add(this.salvarCtg);
             this.Controls.Add(this.tbOrçamentoCtg);

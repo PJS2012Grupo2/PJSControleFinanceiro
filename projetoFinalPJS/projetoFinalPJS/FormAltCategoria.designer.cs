@@ -56,7 +56,7 @@
             // columnLimite
             // 
             this.columnLimite.Text = "Limite";
-            this.columnLimite.Width = 120;
+            this.columnLimite.Width = 127;
             // 
             // btAlterar
             // 
