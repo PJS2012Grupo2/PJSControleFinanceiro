@@ -67,6 +67,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuscaDatas.cs" />
+    <Compile Include="BuscaDatas.designer.cs">
+      <DependentUpon>BuscaDatas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BuscaMovimento.cs" />
+    <Compile Include="BuscaMovimento.designer.cs">
+      <DependentUpon>BuscaMovimento.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cs_Categorias.cs" />
     <Compile Include="Cs_Movimento.cs" />
     <Compile Include="Form2.cs">
@@ -101,6 +109,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="BuscaDatas.resx">
+      <DependentUpon>BuscaDatas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BuscaMovimento.resx">
+      <DependentUpon>BuscaMovimento.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form2.resx">
       <DependentUpon>Form2.cs</DependentUpon>
     </EmbeddedResource>
