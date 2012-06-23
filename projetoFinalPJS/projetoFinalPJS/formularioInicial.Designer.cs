@@ -494,7 +494,6 @@
             this.ClientSize = new System.Drawing.Size(773, 434);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -507,7 +506,6 @@
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             //((System.ComponentModel.ISupportInitialize)(this.csCategoriasBindingSource1)).EndInit();
-            this.panel2.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);

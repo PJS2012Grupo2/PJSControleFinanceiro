@@ -7,7 +7,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Data.SqlClient;
 
 namespace projetoFinalPJS
 {
@@ -36,7 +35,8 @@ namespace projetoFinalPJS
         {
             // Cria a conexão para a base de dados e seu adaptador
             SqlConnection conexaoFinanceiro = new SqlConnection();
-            conexaoFinanceiro.ConnectionString = "Data Source=PC18LA3\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
+            //conexaoFinanceiro.ConnectionString = "Data Source=PC18LA3\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
+            conexaoFinanceiro.ConnectionString = "Data Source=YURI-PC\\YURISQL;Initial Catalog=Financeiro;Integrated Security=SSPI";
 
             conexaoFinanceiro.Open();
             // Cria os adaptadores
@@ -193,13 +193,6 @@ namespace projetoFinalPJS
             comandoInicializar.ExecuteNonQuery();
 
             SqlDataReader leitor = comandoInicializar.ExecuteReader();
-
-            while (leitor.Read())
-            {
-                //string nome; float limite;
-                Cs_Categorias categoria = new Cs_Categorias((string)leitor["nome"],(float.Parse(leitor["limite"].ToString())));
-                VisualizarCategoria(categoria);
-            }
         }
 
 
@@ -235,14 +228,9 @@ namespace projetoFinalPJS
 
         private void categoriaToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //Form_Categoria Var_Form_Categoria = new Form_Categoria(this, adaptadorCategoria);
             Form_Categoria Var_Form_Categoria = new Form_Categoria(this, adaptadorCategoria);
-            //Form_Categoria Var_Form_Categoria = new Form_Categoria(this, SqlDataAdapter adaptador,DataSet dCategoria);
             Var_Form_Categoria.ShowDialog();
-        }
-
-        private void formularioInicial_Load(object sender, EventArgs e)
-        {
-            
         }
     }
 }
