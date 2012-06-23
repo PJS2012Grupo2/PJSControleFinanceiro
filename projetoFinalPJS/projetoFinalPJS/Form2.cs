@@ -12,8 +12,11 @@ namespace projetoFinalPJS
 {
     public partial class Form_Movimentação : Form
     {
+        string[] parcelar = { "Sim", "Não" };
         SqlDataAdapter adaptadorMovimento;
+       // SqlDataAdapter preencherCategoria;
         private formularioInicial formularioInicial;
+        SqlCommand comando = new SqlCommand();
 
         private void Form_Movimentação_Load(object sender, EventArgs e)
         {
@@ -24,7 +27,31 @@ namespace projetoFinalPJS
         {
             InitializeComponent();
             this.formularioInicial = formularioInicial;
-            this.adaptadorMovimento = adaptadorMovimento;
+            this.adaptadorMovimento = formularioInicial.adaptadorMovimento;
+
+            //trecho para popular combo box de categoria
+            comando.Connection = formularioInicial.conexaoFinanceiro;
+            comando.CommandText = "select count (NOME) from CATEGORIA";
+            Object retorno = comando.ExecuteScalar();
+            int qtd_categorias=Convert.ToInt32(retorno);
+            Object name = new Object();
+            string[] TiposCategorias = new string[qtd_categorias];
+            for (int cont = 1; cont <= qtd_categorias; cont++)
+            { 
+                comando.CommandText = "select NOME from CATEGORIA where ID_CATEGORIA = "+cont+"";
+                name=comando.ExecuteScalar();
+                TiposCategorias[cont-1] = name.ToString(); 
+            }
+            this.cbCategoria.DataSource = TiposCategorias;
+
+            //trecho para inicializar escolha de quantidade de parcelas com 1
+            numericUpDown1.Value = 1;
+
+            //trecho para popular campo saldo total com valor correto
+            tbSaldo.Enabled = false;
+            comando.CommandText = "select * from SALDO";
+            Object total_saldo = comando.ExecuteScalar();
+            tbSaldo.Text = total_saldo.ToString();
         }
 
         private void cadastrar_Click(object sender, EventArgs e)
@@ -63,5 +90,19 @@ namespace projetoFinalPJS
                 Close();
             }
         }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDown1.Enabled = false;
+            numericUpDown1.Value = 1;
+            label4.Enabled = false;
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDown1.Enabled = true;
+            label4.Enabled = true;
+        }     
+        
     }
 }

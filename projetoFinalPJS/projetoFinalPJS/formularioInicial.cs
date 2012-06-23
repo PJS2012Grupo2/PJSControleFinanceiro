@@ -7,13 +7,14 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace projetoFinalPJS
 {
     public partial class formularioInicial : Form
     {
         public SqlDataAdapter adaptadorMovimento;
-        public SqlDataAdapter adaptadorCategoria;
+        public SqlDataAdapter adaptadorCategoria = new SqlDataAdapter();
         public SqlDataAdapter adaptadorRecorrente;
         public SqlConnection conexaoFinanceiro;
         public DataSet dadosFinanceiro;
@@ -105,8 +106,14 @@ namespace projetoFinalPJS
             conexaoFinanceiro = new SqlConnection();
             conexaoFinanceiro.ConnectionString = "Data Source=YURI-PC\\YURISQL;Initial Catalog=Financeiro;Integrated Security=SSPI";
             //conexaoFinanceiro.ConnectionString = "Data Source=PC15LAB3\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
-            try   { conexaoFinanceiro.Open(); }
-            catch { MessageBox.Show("Não foi possível fazer a conexão com a base de dados."); }            
+            try
+            {
+                conexaoFinanceiro.Open();
+            }
+            catch
+            {
+                MessageBox.Show("Não foi possível fazer a conexão com a base de dados.");
+            }            
             // Adaptadores
             adaptadorMovimento  = new SqlDataAdapter();
             adaptadorCategoria  = new SqlDataAdapter();
@@ -265,6 +272,12 @@ namespace projetoFinalPJS
             comandoRemocaoRecorrente.Parameters.Add(prmIdRecorrente);
             adaptadorRecorrente.DeleteCommand = comandoRemocaoRecorrente;
 
+            SqlCommand comando = new SqlCommand();
+            comando.Connection = conexaoFinanceiro;
+            comando.CommandText = "select * from SALDO";
+            Object tt_saldo = comando.ExecuteScalar();
+            toolStripStatusLabel1.Text = tt_saldo.ToString();
+
             // Ação para esquema faltando
             adaptadorMovimento.MissingSchemaAction = MissingSchemaAction.AddWithKey;
             adaptadorCategoria.MissingSchemaAction = MissingSchemaAction.AddWithKey;
@@ -343,6 +356,17 @@ namespace projetoFinalPJS
             }
         }
 
+        // Método que visualiza todas as categorias inseridas
+        public void VisualizarCategoria(Cs_Categorias ctg)
+        {
+            ListViewItem itemDescricao = new ListViewItem(ctg.Nome_Categoria);
+            ListViewItem.ListViewSubItem itemLimite = new ListViewItem.ListViewSubItem(itemDescricao, "R$"+ctg.Orçamento_Categoria.ToString());
+
+            itemDescricao.SubItems.Add(itemLimite);
+
+            listViewCategorias.Items.Add(itemDescricao);
+        }
+
         private void entradaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Form_Movimentação Var_Form_Movimentação = new Form_Movimentação(this, adaptadorMovimento);
@@ -357,7 +381,7 @@ namespace projetoFinalPJS
 
         private void categoriaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form_Categoria Var_Form_Categoria = new Form_Categoria(this, adaptadorCategoria);
+            Form_Categoria Var_Form_Categoria = new Form_Categoria(this, adaptadorCategoria,true,0);
             Var_Form_Categoria.ShowDialog();
         }        
 
@@ -427,6 +451,43 @@ namespace projetoFinalPJS
             {
                 carregaMovimentos();
             }
+        }
+
+        private void toolStripButton7_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("calc");
+        }
+
+        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void categoriasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormAltCategoria Var_Alt_Categorias = new FormAltCategoria(this, adaptadorCategoria);
+            Var_Alt_Categorias.ShowDialog(this);
+        }
+
+        // Metodo para limpar os registros excluidos da tabela CATEGORIA
+        // dentro do listView do formularioInicial
+        public void limparListViewInicial(int id)
+        {
+            SqlCommand comandoLimpar = new SqlCommand();
+            comandoLimpar.Connection = conexaoFinanceiro;
+            comandoLimpar.CommandText = ("Select nome from Categoria where id_categoria = " + id);
+            comandoLimpar.ExecuteNonQuery();
+            ListViewItem categoriaExcluida = listViewCategorias.SelectedItems[0];
+            SqlDataReader leitor = comandoLimpar.ExecuteReader();
+
+            while (leitor.Read())
+            {
+                if (leitor["Nome"].ToString() == categoriaExcluida.Text)
+                {
+                    listViewCategorias.Items.Remove(categoriaExcluida);
+                }
+            }
+            leitor.Close();
         }
     }
 }

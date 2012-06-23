@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,9 +17,10 @@ namespace projetoFinalPJS
         public int parcela { get; set; }
         public float valorTotal { get; set; }
         public string categoria { get; set; }
-
+        
         public Cs_Movimento(string descricao, float valor, DateTime datacadastro, int parcelas, float valorTotal, string categoria)
         {
+            
             this.descricao = descricao;
             this.valor = valor;
             this.dataCadastro = dataCadastro;
