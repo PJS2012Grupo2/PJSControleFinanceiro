@@ -15,7 +15,6 @@ namespace projetoFinalPJS
         private formularioInicial formularioInicial;
         private SqlDataAdapter adaptadorCategoria;
         int id;
-        bool acao;
         public FormAltCategoria(formularioInicial formularioInicial, SqlDataAdapter adaptadorCategoria)
         {
             InitializeComponent();

@@ -16,18 +16,16 @@ namespace projetoFinalPJS
         SqlDataAdapter adaptadorMovimento;
        // SqlDataAdapter preencherCategoria;
         private formularioInicial formularioInicial;
-        SqlConnection conexao = new SqlConnection(@"Data Source=PC18LA3\SQLEXPRESS;Initial Catalog=FINANCEIRO;Integrated Security=SSPI");
         SqlCommand comando = new SqlCommand();
 
         public Form_Movimentação(formularioInicial formularioInicial, SqlDataAdapter adaptadorMovimento)
         {
             InitializeComponent();
             this.formularioInicial = formularioInicial;
-            this.adaptadorMovimento = adaptadorMovimento;
+            this.adaptadorMovimento = formularioInicial.adaptadorMovimento;
 
             //trecho para popular combo box de categoria
-            conexao.Open();
-            comando.Connection = conexao;
+            comando.Connection = formularioInicial.conexaoFinanceiro;
             comando.CommandText = "select count (NOME) from CATEGORIA";
             Object retorno = comando.ExecuteScalar();
             int qtd_categorias=Convert.ToInt32(retorno);

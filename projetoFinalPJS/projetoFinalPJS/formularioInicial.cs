@@ -19,20 +19,7 @@ namespace projetoFinalPJS
         public SqlDataAdapter adaptadorRecorrente;
         public SqlConnection conexaoFinanceiro;
         public DataSet dadosCategoria = new DataSet();
-        bool acao;
         
-        private void formularioInicial_Load(object sender, EventArgs e)
-        {
-            try
-            {
-                conexaoDados();
-            }
-            catch
-            {
-               MessageBox.Show("Não foi possível fazer a conexão com a base de dados.");
-            } 
-        }
-
         public void conexaoDados()
         {
             // Cria a conexão para a base de dados e seu adaptador
@@ -204,6 +191,17 @@ namespace projetoFinalPJS
           }
         }
 
+        private void formularioInicial_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                conexaoDados();
+            }
+            catch
+            {
+                MessageBox.Show("Não foi possível fazer a conexão com a base de dados.");
+            }
+        }
 
         public formularioInicial()
         {
@@ -227,23 +225,6 @@ namespace projetoFinalPJS
             itemDescricao.SubItems.Add(itemLimite);
 
             listViewCategorias.Items.Add(itemDescricao);
-        }
-
-        public void AdicionaMovimento(Cs_Movimento mvt)
-        {
-            //ListViewItem itemDescricao = new ListViewItem(mvt.descricao);
-            //ListViewItem.ListViewSubItem itemValor = new ListViewItem.ListViewSubItem(itemDescricao, "R$" + mvt.valor.ToString());
-            //ListViewItem.ListViewSubItem itemDataCadastro = new ListViewItem.ListViewSubItem(itemDescricao, mvt.dataCadastro.ToString());
-            //ListViewItem.ListViewSubItem itemCategoria = new ListViewItem.ListViewSubItem(itemDescricao, mvt.categoria);
-            //string parcela, valorTotal;
-            //if (mvt.parcela <= 0) { parcela = ""; valorTotal = ""; } else { parcela = mvt.parcela.ToString(); valorTotal = mvt.valorTotal.ToString(); }
-            //ListViewItem.ListViewSubItem itemParcela = new ListViewItem.ListViewSubItem(itemDescricao, parcela);
-            //itemDescricao.SubItems.Add(itemValor);
-            //itemDescricao.SubItems.Add(itemDataCadastro);
-            //itemDescricao.SubItems.Add(itemCategoria);
-            //itemDescricao.SubItems.Add(itemParcela);
-
-            //listViewMovimentos.Items.Add(itemDescricao);
         }
 
         private void entradaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -299,7 +280,6 @@ namespace projetoFinalPJS
                 }
             }
             leitor.Close();
-
         }
     }
 }

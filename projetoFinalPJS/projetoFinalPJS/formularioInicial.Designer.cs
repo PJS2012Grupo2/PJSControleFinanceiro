@@ -547,18 +547,11 @@
         private System.Windows.Forms.ToolStripButton toolStripButton6;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.BindingSource csCategoriasBindingSource1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nomeCategoriaDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn orçamentoCategoriaDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn orçamentoRestanteDataGridViewTextBoxColumn;
         private System.Windows.Forms.ListView listViewCategorias;
         private System.Windows.Forms.ColumnHeader columnNome;
         private System.Windows.Forms.ColumnHeader columnLimite;
         private System.Windows.Forms.BindingSource csCategoriasBindingSource;
         private System.Windows.Forms.BindingSource cATEGORIABindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn iDCATEGORIADataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nOMEDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn lIMITEDataGridViewTextBoxColumn;
-        private System.Windows.Forms.BindingSource cATEGORIABindingSource1;
         private System.Windows.Forms.ListView listViewMovimentos;
         private System.Windows.Forms.ColumnHeader columnDescricao;
         private System.Windows.Forms.ColumnHeader columnValor;
