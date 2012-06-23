@@ -67,17 +67,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuscaDatas.cs">
-      <SubType>Form</SubType>
+    <Compile Include="buscaCategoria.cs" />
+    <Compile Include="buscaCategoria.designer.cs">
+      <DependentUpon>buscaCategoria.cs</DependentUpon>
     </Compile>
-    <Compile Include="BuscaDatas.designer.cs">
-      <DependentUpon>BuscaDatas.cs</DependentUpon>
+    <Compile Include="buscaData.cs" />
+    <Compile Include="buscaData.designer.cs">
+      <DependentUpon>buscaData.cs</DependentUpon>
     </Compile>
-    <Compile Include="BuscaMovimento.cs">
-      <SubType>Form</SubType>
+    <Compile Include="buscaMovimento.cs" />
+    <Compile Include="buscaMovimento.designer.cs">
+      <DependentUpon>buscaMovimento.cs</DependentUpon>
     </Compile>
-    <Compile Include="BuscaMovimento.designer.cs">
-      <DependentUpon>BuscaMovimento.cs</DependentUpon>
+    <Compile Include="buscaRecorrente.cs" />
+    <Compile Include="buscaRecorrente.designer.cs">
+      <DependentUpon>buscaRecorrente.cs</DependentUpon>
     </Compile>
     <Compile Include="Cs_Categorias.cs" />
     <Compile Include="Cs_Movimento.cs" />
@@ -113,11 +117,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="BuscaDatas.resx">
-      <DependentUpon>BuscaDatas.cs</DependentUpon>
+    <Compile Include="Saldo.cs" />
+    <EmbeddedResource Include="buscaCategoria.resx">
+      <DependentUpon>buscaCategoria.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BuscaMovimento.resx">
-      <DependentUpon>BuscaMovimento.cs</DependentUpon>
+    <EmbeddedResource Include="buscaData.resx">
+      <DependentUpon>buscaData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="buscaMovimento.resx">
+      <DependentUpon>buscaMovimento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="buscaRecorrente.resx">
+      <DependentUpon>buscaRecorrente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form2.resx">
       <DependentUpon>Form2.cs</DependentUpon>
