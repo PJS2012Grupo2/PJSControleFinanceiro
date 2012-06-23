@@ -77,7 +77,7 @@ namespace projetoFinalPJS
                 }
                 adaptadorMovimento.Update(dMovimento, "MOVIMENTO");
                 Cs_Movimento movimento = new Cs_Movimento(tbDescrição.Text, float.Parse(tbValor.Text.Replace("R$", "")), DateTime.Parse(dtpData.Text), 0, 0, cbCategoria.Text);
-                formularioInicial.AlteraMovimento(movimento, int.Parse(itemAlt.Tag.ToString()));
+                formularioInicial.AlteraMovimento(movimento, int.Parse(itemAlt.Tag.ToString()), numeroCategoria);
                 Close();
             }
         }

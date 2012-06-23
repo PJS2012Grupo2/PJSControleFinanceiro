@@ -23,7 +23,7 @@ namespace projetoFinalPJS
             InitializeComponent();
         }
 
-        private void carregaMovimentos()
+        private void carregaMovimentos(int idCategoria=0)
         {
             SqlCommand comandoInicializarMovimentos = new SqlCommand();
             comandoInicializarMovimentos.Connection = conexaoFinanceiro;
@@ -31,6 +31,8 @@ namespace projetoFinalPJS
             SqlDataReader leitorMovimentos = comandoInicializarMovimentos.ExecuteReader();
             int prc;
             float total;
+
+            listViewMovimentos.Items.Clear();
             while (leitorMovimentos.Read())
             {
                 if (int.TryParse(leitorMovimentos["PARCELA"].ToString(), out prc))
@@ -49,7 +51,13 @@ namespace projetoFinalPJS
                     total, //(float)leitorMovimentos["VALOR_TOTAL"],
                     leitorMovimentos["ID_CATEGORIA"].ToString()
                 );
-                AdicionaMovimento(movimento, int.Parse(leitorMovimentos["ID_MOVIMENTO"].ToString()));
+                if (idCategoria > 0)
+                {
+                    if (idCategoria.ToString() == leitorMovimentos["ID_CATEGORIA"].ToString())
+                        AdicionaMovimento(movimento, int.Parse(leitorMovimentos["ID_MOVIMENTO"].ToString()), int.Parse(leitorMovimentos["ID_CATEGORIA"].ToString()));
+                }
+                else
+                    AdicionaMovimento(movimento, int.Parse(leitorMovimentos["ID_MOVIMENTO"].ToString()), int.Parse(leitorMovimentos["ID_CATEGORIA"].ToString()));
             }
             leitorMovimentos.Close();
             string nomeCategoria = "";
@@ -94,8 +102,8 @@ namespace projetoFinalPJS
         {
             // Cria a conexão para a base de dados e seu adaptador
             conexaoFinanceiro = new SqlConnection();
-            //conexaoFinanceiro.ConnectionString = "Data Source=YURI-PC\\YURISQL;Initial Catalog=Financeiro;Integrated Security=SSPI";
-            conexaoFinanceiro.ConnectionString = "Data Source=PC15LAB3\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
+            conexaoFinanceiro.ConnectionString = "Data Source=YURI-PC\\YURISQL;Initial Catalog=Financeiro;Integrated Security=SSPI";
+            //conexaoFinanceiro.ConnectionString = "Data Source=PC15LAB3\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
             try
             {
                 conexaoFinanceiro.Open();
@@ -272,7 +280,7 @@ namespace projetoFinalPJS
             verificaSelecaoMovimentos();
         }
 
-        private ListViewItem ConstroiItemMovimento(Cs_Movimento mvt, bool alt=false, int idMovimento=0)
+        private ListViewItem ConstroiItemMovimento(Cs_Movimento mvt, bool alt=false, int idMovimento=0, int idCategoria=0)
         {
             ListViewItem itemDescricao = new ListViewItem(mvt.descricao);
             ListViewItem.ListViewSubItem itemValor = new ListViewItem.ListViewSubItem(itemDescricao, "R$" + mvt.valor.ToString());
@@ -295,24 +303,25 @@ namespace projetoFinalPJS
             itemDescricao.SubItems.Add(itemCategoria);
             itemDescricao.SubItems.Add(itemParcela);
             if (!alt)
-                // Apenas atribui uma tag ao movimento (equivalente a seu ID no BD) se for uma inserção
+                // Apenas atribui uma tag ao movimento para id e categoria se for uma inserção
                 itemDescricao.Tag = idMovimento;
+            itemDescricao.SubItems[3].Tag = idCategoria;
 
             return itemDescricao;
         }
 
-        public void AdicionaMovimento(Cs_Movimento mvt, int idMovimento)
+        public void AdicionaMovimento(Cs_Movimento mvt, int idMovimento, int idCategoria)
         {
-            listViewMovimentos.Items.Add(ConstroiItemMovimento(mvt, false, idMovimento));
+            listViewMovimentos.Items.Add(ConstroiItemMovimento(mvt, false, idCategoria, idMovimento));
         }
 
-        public void AlteraMovimento(Cs_Movimento mvt, int tagItemAlterado)
+        public void AlteraMovimento(Cs_Movimento mvt, int tagItemAlterado, int idCategoria)
         {
             int i;
             for (i = 0; i < listViewMovimentos.Items.Count; i++)
                 if (int.Parse(listViewMovimentos.Items[i].Tag.ToString()) == tagItemAlterado)
                     break;
-            listViewMovimentos.Items[i] = ConstroiItemMovimento(mvt, true);
+            listViewMovimentos.Items[i] = ConstroiItemMovimento(mvt, true, idCategoria);
         }
         
         private void verificaSelecaoMovimentos()
@@ -385,13 +394,17 @@ namespace projetoFinalPJS
                 int idCat = int.Parse(listViewCategorias.SelectedItems[0].Tag.ToString());
 
                 listViewMovimentos.Items.Clear();
-                foreach (ListViewItem itemMovimento in listViewMovimentos.Items)
+                foreach (DataRow rowMovimento in dadosFinanceiro.Tables["Movimento"].Rows)
                 {
-                    if (int.Parse(itemMovimento.Tag.ToString()) == idCat)
+                    if (rowMovimento["ID_Categoria"].ToString() == idCat.ToString())
                     {
-                        listViewMovimentos.Items.Add(itemMovimento);
+                        carregaMovimentos(idCat);
                     }
                 }
+            }
+            else
+            {
+                carregaMovimentos();
             }
         }
     }
