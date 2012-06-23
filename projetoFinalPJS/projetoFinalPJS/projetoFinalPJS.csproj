@@ -67,19 +67,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="buscaCategoria.cs" />
+    <Compile Include="buscaCategoria.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="buscaCategoria.designer.cs">
       <DependentUpon>buscaCategoria.cs</DependentUpon>
     </Compile>
-    <Compile Include="buscaData.cs" />
+    <Compile Include="buscaData.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="buscaData.designer.cs">
       <DependentUpon>buscaData.cs</DependentUpon>
     </Compile>
-    <Compile Include="buscaMovimento.cs" />
+    <Compile Include="buscaMovimento.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="buscaMovimento.designer.cs">
       <DependentUpon>buscaMovimento.cs</DependentUpon>
     </Compile>
-    <Compile Include="buscaRecorrente.cs" />
+    <Compile Include="buscaRecorrente.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="buscaRecorrente.designer.cs">
       <DependentUpon>buscaRecorrente.cs</DependentUpon>
     </Compile>

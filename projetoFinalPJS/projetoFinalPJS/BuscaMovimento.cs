@@ -14,7 +14,6 @@ namespace projetoFinalPJS
     {
         formularioInicial formularioInicial;
         SqlDataAdapter adaptador;
-        ListView listViewMovimentos;
 
         public buscaMovimento(formularioInicial formularioInicial, SqlDataAdapter adaptador)
         {
