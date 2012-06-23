@@ -33,6 +33,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.tbOrçamentoCtg = new System.Windows.Forms.TextBox();
             this.salvarCtg = new System.Windows.Forms.Button();
+            this.labelMensagem = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // tbDescriçãoCtg
@@ -69,7 +70,7 @@
             // 
             // salvarCtg
             // 
-            this.salvarCtg.Location = new System.Drawing.Point(129, 114);
+            this.salvarCtg.Location = new System.Drawing.Point(129, 90);
             this.salvarCtg.Name = "salvarCtg";
             this.salvarCtg.Size = new System.Drawing.Size(75, 23);
             this.salvarCtg.TabIndex = 8;
@@ -77,11 +78,21 @@
             this.salvarCtg.UseVisualStyleBackColor = true;
             this.salvarCtg.Click += new System.EventHandler(this.salvarCtg_Click);
             // 
+            // labelMensagem
+            // 
+            this.labelMensagem.AutoSize = true;
+            this.labelMensagem.ForeColor = System.Drawing.Color.Red;
+            this.labelMensagem.Location = new System.Drawing.Point(12, 126);
+            this.labelMensagem.Name = "labelMensagem";
+            this.labelMensagem.Size = new System.Drawing.Size(0, 13);
+            this.labelMensagem.TabIndex = 9;
+            // 
             // Form_Categoria
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(216, 149);
+            this.ClientSize = new System.Drawing.Size(216, 168);
+            this.Controls.Add(this.labelMensagem);
             this.Controls.Add(this.salvarCtg);
             this.Controls.Add(this.tbOrçamentoCtg);
             this.Controls.Add(this.label4);
@@ -102,5 +113,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox tbOrçamentoCtg;
         private System.Windows.Forms.Button salvarCtg;
+        private System.Windows.Forms.Label labelMensagem;
     }
 }

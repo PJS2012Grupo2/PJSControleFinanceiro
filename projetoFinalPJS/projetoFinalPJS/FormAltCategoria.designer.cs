@@ -51,7 +51,7 @@
             // columnNome
             // 
             this.columnNome.Text = "Nome";
-            this.columnNome.Width = 246;
+            this.columnNome.Width = 241;
             // 
             // columnLimite
             // 

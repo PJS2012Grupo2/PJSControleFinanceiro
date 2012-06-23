@@ -54,33 +54,64 @@ namespace projetoFinalPJS
 
         public void salvarCategoria()
         {
-            DataSet dCategoria = new DataSet();
-            adaptadorCategoria.Fill(dCategoria, "CATEGORIA");
-            DataRow novaCategoria = dCategoria.Tables["CATEGORIA"].NewRow();
-            novaCategoria["Nome"] = tbDescriçãoCtg.Text;
-            novaCategoria["Limite"] = tbOrçamentoCtg.Text;
-            dCategoria.Tables["CATEGORIA"].Rows.Add(novaCategoria);
-            adaptadorCategoria.Update(dCategoria, "CATEGORIA");
-            adaptadorCategoria.Fill(dCategoria, "CATEGORIA");
+            if (tbDescriçãoCtg.Text.Trim() == " ")
+            {
+                labelMensagem.Text = "Digite uma descrição válida";
+                tbDescriçãoCtg.Focus();
+            }
 
-            Cs_Categorias categoria = new Cs_Categorias(tbDescriçãoCtg.Text, float.Parse(tbOrçamentoCtg.Text));
-            formInicial.VisualizarCategoria(categoria);
+            else if ((tbOrçamentoCtg.Text.Trim()) == "" || (float.Parse(tbOrçamentoCtg.Text) <= 0))
+            {
+                labelMensagem.Text = "Digite o valor de limite válido";
+                tbOrçamentoCtg.Focus();
+            }
 
-            Close();
+            else
+            {
+                labelMensagem.Text = " ";
+                DataSet dCategoria = new DataSet();
+                adaptadorCategoria.Fill(dCategoria, "CATEGORIA");
+                DataRow novaCategoria = dCategoria.Tables["CATEGORIA"].NewRow();
+
+                novaCategoria["Nome"] = tbDescriçãoCtg.Text;
+                novaCategoria["Limite"] = tbOrçamentoCtg.Text;
+                dCategoria.Tables["CATEGORIA"].Rows.Add(novaCategoria);
+                adaptadorCategoria.Update(dCategoria, "CATEGORIA");
+                adaptadorCategoria.Fill(dCategoria, "CATEGORIA");
+
+                Cs_Categorias categoria = new Cs_Categorias(tbDescriçãoCtg.Text, float.Parse(tbOrçamentoCtg.Text));
+                formInicial.VisualizarCategoria(categoria);
+
+                Close();
+            }
         }
 
         public void alterarCategoria(int id)
         {
-            DataSet dCategoria = new DataSet();
-            adaptadorCategoria.Fill(dCategoria, "CATEGORIA");
-            DataRow alterarCategoria = dCategoria.Tables["CATEGORIA"].Rows.Find(id);
-            alterarCategoria["Nome"] = tbDescriçãoCtg.Text;
-            alterarCategoria["Limite"] = tbOrçamentoCtg.Text;
-           // adaptadorCategoria.Update(dCategoria, "CATEGORIA");
-            adaptadorCategoria.Fill(dCategoria, "CATEGORIA");
+             if (tbDescriçãoCtg.Text.Trim() == " ")
+            {
+                labelMensagem.Text = "Digite uma descrição válida";
+                tbDescriçãoCtg.Focus();
+            }
 
-            Close();
+             else if ((tbOrçamentoCtg.Text.Trim()) == "" || (float.Parse(tbOrçamentoCtg.Text) <= 0))
+             {
+                 labelMensagem.Text = "Digite o valor de limite válido";
+                 tbOrçamentoCtg.Focus();
+             }
+
+             else
+             {
+                 //DataSet dataAlterarCategoria = new DataSet();
+                 //adaptadorCategoria.Fill(dataAlterarCategoria, "CATEGORIA");
+                 //DataRow alterarCategoria = dataAlterarCategoria.Tables["CATEGORIA"].Rows.Find(id);
+                 //alterarCategoria["Nome"] = tbDescriçãoCtg.Text;
+                 //alterarCategoria["Limite"] = tbOrçamentoCtg.Text;
+                 //adaptadorCategoria.Update(dataAlterarCategoria, "CATEGORIA");
+                 //adaptadorCategoria.Fill(dCategoria, "CATEGORIA");
+
+                 //Close();
+             }
         }
-
     }
 }
