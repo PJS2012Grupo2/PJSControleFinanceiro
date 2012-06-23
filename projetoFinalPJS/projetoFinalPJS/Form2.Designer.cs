@@ -156,6 +156,7 @@
             this.Name = "Form_Movimentação";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Entrada e Saída";
+            this.Load += new System.EventHandler(this.Form_Movimentação_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -15,6 +15,11 @@ namespace projetoFinalPJS
         SqlDataAdapter adaptadorMovimento;
         private formularioInicial formularioInicial;
 
+        private void Form_Movimentação_Load(object sender, EventArgs e)
+        {
+            cbCategoria.SelectedIndex = 0;
+        }
+
         public Form_Movimentação(formularioInicial formularioInicial, SqlDataAdapter adaptadorMovimento)
         {
             InitializeComponent();
@@ -41,9 +46,8 @@ namespace projetoFinalPJS
             }
             else
             {
-                DataSet dMovimento = new DataSet();
-                adaptadorMovimento.Fill(dMovimento, "MOVIMENTO");
-                DataRow novoMovimento = dMovimento.Tables["MOVIMENTO"].NewRow();
+                adaptadorMovimento.Fill(formularioInicial.dadosFinanceiro, "MOVIMENTO");
+                DataRow novoMovimento = formularioInicial.dadosFinanceiro.Tables["MOVIMENTO"].NewRow();
                 novoMovimento["Descricao"] = tbDescrição.Text;
                 novoMovimento["Valor"] = tbValor.Text;
                 novoMovimento["Data_Cadastro"] = DateTime.UtcNow;
@@ -51,11 +55,10 @@ namespace projetoFinalPJS
                 achaCategoria.CommandText = "SELECT ID_CATEGORIA FROM CATEGORIA WHERE NOME = '" + cbCategoria.Text + "'";
                 int numeroCategoria = ((int)achaCategoria.ExecuteScalar());
                 novoMovimento["Id_Categoria"] = numeroCategoria;
-                dMovimento.Tables["MOVIMENTO"].Rows.Add(novoMovimento);
-                adaptadorMovimento.Update(dMovimento, "MOVIMENTO");
-                adaptadorMovimento.Fill(dMovimento, "MOVIMENTO");
+                formularioInicial.dadosFinanceiro.Tables["MOVIMENTO"].Rows.Add(novoMovimento);
+                adaptadorMovimento.Update(formularioInicial.dadosFinanceiro, "MOVIMENTO");
                 Cs_Movimento movimento = new Cs_Movimento(tbDescrição.Text, float.Parse(tbValor.Text), DateTime.Parse(dtpData.Text), 0, 0, cbCategoria.Text);
-                formularioInicial.AdicionaMovimento(movimento, int.Parse(novoMovimento["ID_MOVIMENTO"].ToString()), numeroCategoria);
+                formularioInicial.AdicionaMovimento(movimento, novoMovimento["ID_MOVIMENTO"].ToString(), numeroCategoria);
 
                 Close();
             }

@@ -23,12 +23,13 @@ namespace projetoFinalPJS
             InitializeComponent();
         }
 
-        private void carregaMovimentos(int idCategoria=0)
+        public void carregaMovimentos(int idCategoria=0)
         {
             SqlCommand comandoInicializarMovimentos = new SqlCommand();
             comandoInicializarMovimentos.Connection = conexaoFinanceiro;
             comandoInicializarMovimentos.CommandText = "Select ID_MOVIMENTO, DESCRICAO, VALOR, DATA_CADASTRO, PARCELA, VALOR_TOTAL, ID_CATEGORIA FROM MOVIMENTO";
             SqlDataReader leitorMovimentos = comandoInicializarMovimentos.ExecuteReader();
+            
             int prc;
             float total;
 
@@ -37,8 +38,8 @@ namespace projetoFinalPJS
             {
                 if (int.TryParse(leitorMovimentos["PARCELA"].ToString(), out prc))
                 {
-                    prc = int.Parse(leitorMovimentos["PARCELA"].ToString());
-                    total = float.Parse(leitorMovimentos["VALOR_TOTAL"].ToString());
+                    prc     = int.Parse(leitorMovimentos["PARCELA"].ToString());
+                    total   = float.Parse(leitorMovimentos["VALOR_TOTAL"].ToString());
                 }
                 else
                     prc = 0; total = 0;
@@ -54,10 +55,10 @@ namespace projetoFinalPJS
                 if (idCategoria > 0)
                 {
                     if (idCategoria.ToString() == leitorMovimentos["ID_CATEGORIA"].ToString())
-                        AdicionaMovimento(movimento, int.Parse(leitorMovimentos["ID_MOVIMENTO"].ToString()), int.Parse(leitorMovimentos["ID_CATEGORIA"].ToString()));
+                        AdicionaMovimento(movimento, leitorMovimentos["ID_MOVIMENTO"].ToString(), int.Parse(leitorMovimentos["ID_CATEGORIA"].ToString()));
                 }
                 else
-                    AdicionaMovimento(movimento, int.Parse(leitorMovimentos["ID_MOVIMENTO"].ToString()), int.Parse(leitorMovimentos["ID_CATEGORIA"].ToString()));
+                    AdicionaMovimento(movimento, leitorMovimentos["ID_MOVIMENTO"].ToString(), int.Parse(leitorMovimentos["ID_CATEGORIA"].ToString()));
             }
             leitorMovimentos.Close();
             string nomeCategoria = "";
@@ -269,18 +270,17 @@ namespace projetoFinalPJS
             adaptadorMovimento.Fill(dadosFinanceiro, "Movimento");
             adaptadorCategoria.Fill(dadosFinanceiro, "Categoria");
             adaptadorRecorrente.Fill(dadosFinanceiro, "Movimento_Recorrente");
-
-            carregaCategorias();
-            carregaMovimentos();
         }
 
         private void formularioInicial_Load(object sender, EventArgs e)
         {
             conexaoDados();
+            carregaCategorias();
+            carregaMovimentos();
             verificaSelecaoMovimentos();
         }
 
-        private ListViewItem ConstroiItemMovimento(Cs_Movimento mvt, bool alt=false, int idMovimento=0, int idCategoria=0)
+        private ListViewItem ConstroiItemMovimento(Cs_Movimento mvt, bool alt=false, int idCategoria=0, string idMovimento="")
         {
             ListViewItem itemDescricao = new ListViewItem(mvt.descricao);
             ListViewItem.ListViewSubItem itemValor = new ListViewItem.ListViewSubItem(itemDescricao, "R$" + mvt.valor.ToString());
@@ -310,7 +310,7 @@ namespace projetoFinalPJS
             return itemDescricao;
         }
 
-        public void AdicionaMovimento(Cs_Movimento mvt, int idMovimento, int idCategoria)
+        public void AdicionaMovimento(Cs_Movimento mvt, string idMovimento, int idCategoria)
         {
             listViewMovimentos.Items.Add(ConstroiItemMovimento(mvt, false, idCategoria, idMovimento));
         }
@@ -375,16 +375,33 @@ namespace projetoFinalPJS
 
         public void removeMovimento(DataRow movDel)
         {
-            movDel.Delete();
-            adaptadorMovimento.Update(dadosFinanceiro, "Movimento");
-            listViewMovimentos.SelectedItems[0].Remove();
+            const string mensagem =
+            "Tem certeza de que deseja excluir a movimentação?";
+            const string titulo = "Aviso";
+            var result = MessageBox.Show(mensagem, titulo,
+                                         MessageBoxButtons.YesNo,
+                                         MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                movDel.Delete();
+                adaptadorMovimento.Update(dadosFinanceiro, "Movimento");
+                carregaMovimentos();
+            }
         }
 
         private void listViewMovimentos_KeyDown(object sender, KeyEventArgs e)
         {
-            // Remoção de um registro com a tecla Delete
             if (e.KeyCode == Keys.Delete && listViewMovimentos.SelectedItems.Count > 0)
-                removeMovimento(dadosFinanceiro.Tables["Movimento"].Rows.Find(listViewMovimentos.SelectedItems[0].Tag));
+            {
+                foreach (DataRow movDel in dadosFinanceiro.Tables["Movimento"].Rows)
+                {
+                    if (movDel["ID_Movimento"].ToString() == listViewMovimentos.SelectedItems[0].Tag.ToString())
+                    {
+                        removeMovimento(movDel);
+                        break;
+                    }
+                }
+            }
         }
 
         private void listViewCategorias_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
