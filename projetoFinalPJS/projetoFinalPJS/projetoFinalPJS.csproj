@@ -53,18 +53,6 @@
     <Compile Include="BuscaDatas.Designer.cs">
       <DependentUpon>BuscaDatas.cs</DependentUpon>
     </Compile>
-    <Compile Include="Movimentação.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Movimentação.Designer.cs">
-      <DependentUpon>Movimentação.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Categorias.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Categorias.Designer.cs">
-      <DependentUpon>Categorias.cs</DependentUpon>
-    </Compile>
     <Compile Include="BuscaMovimento.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,12 +69,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="BuscaDatas.resx">
       <DependentUpon>BuscaDatas.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Movimentação.resx">
-      <DependentUpon>Movimentação.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Categorias.resx">
-      <DependentUpon>Categorias.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BuscaMovimento.resx">
       <DependentUpon>BuscaMovimento.cs</DependentUpon>

@@ -135,7 +135,6 @@
             this.Form_Entrada_De_ValoresToolStripMenuItem1.Name = "Form_Entrada_De_ValoresToolStripMenuItem1";
             this.Form_Entrada_De_ValoresToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.Form_Entrada_De_ValoresToolStripMenuItem1.Text = "Entrada de Valores";
-            this.Form_Entrada_De_ValoresToolStripMenuItem1.Click += new System.EventHandler(this.entradaDeValoresToolStripMenuItem1_Click);
             // 
             // saídaDeValoresToolStripMenuItem1
             // 
@@ -148,7 +147,6 @@
             this.categoriaToolStripMenuItem.Name = "categoriaToolStripMenuItem";
             this.categoriaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.categoriaToolStripMenuItem.Text = "Categoria";
-            this.categoriaToolStripMenuItem.Click += new System.EventHandler(this.categoriaToolStripMenuItem_Click);
             // 
             // categoriasEspeciaisToolStripMenuItem
             // 

@@ -213,24 +213,5 @@ namespace projetoFinalPJS
 
             listViewCategorias.Items.Add(itemDescricao);
         }
-
-        private void entradaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            Form_Movimentação Var_Form_Movimentação = new Form_Movimentação();
-            Var_Form_Movimentação.ShowDialog();
-        }
-
-        private void saidaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            Form_Movimentação Var_Form_Movimentação_2 = new Form_Movimentação();
-            Var_Form_Movimentação_2.ShowDialog();
-        }
-
-        private void categoriaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //Form_Categoria Var_Form_Categoria = new Form_Categoria(this, adaptadorCategoria);
-            Form_Categoria Var_Form_Categoria = new Form_Categoria(this, adaptadorCategoria);
-            Var_Form_Categoria.ShowDialog();
-        }
     }
 }
