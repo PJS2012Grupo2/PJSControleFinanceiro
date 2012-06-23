@@ -194,6 +194,7 @@ namespace projetoFinalPJS
             prmIdMovimento.SourceColumn             = "ID_Movimento";
             prmIdMovimento.SourceVersion            = DataRowVersion.Original;
             comandoAtualizacaoMovimento.Parameters.Add(prmIdMovimento);
+           
             
             prmDescricaoMovimento = new SqlParameter("@Descricao", SqlDbType.VarChar, 50);
             prmDescricaoMovimento.SourceColumn  = "Descricao";
@@ -220,6 +221,7 @@ namespace projetoFinalPJS
             prmCategoriaMovimento.SourceVersion = DataRowVersion.Current;
             comandoAtualizacaoMovimento.Parameters.Add(prmCategoriaMovimento);
             adaptadorMovimento.UpdateCommand = comandoAtualizacaoMovimento;
+            adaptadorMovimento.UpdateCommand.UpdatedRowSource = UpdateRowSource.FirstReturnedRecord;
 
             SqlCommand comandoAtualizacaoCategoria = new SqlCommand("Update CATEGORIA set NOME = @Nome, LIMITE = @Limite where ID_CATEGORIA = @IdCategoria", conexaoFinanceiro);
             prmNomeCategoria = new SqlParameter("@Nome", SqlDbType.VarChar, 50);
