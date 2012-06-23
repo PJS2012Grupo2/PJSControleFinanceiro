@@ -7,21 +7,15 @@ GO
 --CRIANDO TABELAS
 
 CREATE TABLE CATEGORIA (
-   ID_CATEGORIA INT PRIMARY KEY IDENTITY,
+   ID_CATEGORIA INT PRIMARY KEY NOT NULL IDENTITY,
    NOME VARCHAR(50) NOT NULL,
    LIMITE MONEY NOT NULL
 );
 GO
 
-INSERT INTO CATEGORIA VALUES ('Sem Categoria', 0);
-
---Inserindo alguns registros para teste
-INSERT into CATEGORIA values ('Casa', 200.00);
-insert into CATEGORIA VALUES ('Carro', 230.00);
-INSERT INTO CATEGORIA VALUES ('Limpeza', 100.00);
-insert into CATEGORIA VAlUES ('Cachorros',50.00);
-insert into CATEGORIA values ('Agua', 60.00);
+SELECT * FROM categoria
 GO
+
 
 CREATE TABLE MOVIMENTO (
   ID_MOVIMENTO INT PRIMARY KEY NOT NULL IDENTITY,
@@ -34,12 +28,7 @@ CREATE TABLE MOVIMENTO (
   );
 GO
 
---Inserindo alguns registros para teste
-INSERT INTO MOVIMENTO (DESCRICAO, VALOR, DATA_CADASTRO, ID_CATEGORIA) VALUES
-('Cera ',10.00,'2012-02-10', 1),
-('Racao',49.99, '2011-10-12', 3),
-('Coca Cola', 3.00, '2011-12-02', 2),
-('Detergente', 2.00,'2011-11-10', 1);
+select * from movimento
 
 CREATE TABLE MOVIMENTO_RECORRENTE(
   ID_RECORRENTE INT PRIMARY KEY NOT NULL identity,
@@ -50,7 +39,36 @@ CREATE TABLE MOVIMENTO_RECORRENTE(
 );
 GO
 
+CREATE TABLE SALDO (
+TOTAL MONEY NULL,
+)
+GO
+
+INSERT INTO SALDO VALUES(  
+0.0);
+GO
+
+UPDATE SALDO SET TOTAL=TOTAL-4
+GO
+
+SELECT * FROM SALDO
+GO
+
 /*
+--Inserindo alguns registros para teste
+INSERT into CATEGORIA values ('Casa', 200.00);
+insert into CATEGORIA VALUES ('Carro', 230.00);
+INSERT INTO CATEGORIA VALUES ('Limpeza', 100.00);
+insert into CATEGORIA VAlUES ('Cachorros',50.00);
+insert into CATEGORIA values ('Agua', 60.00);
+GO
+
+--Inserindo alguns registros para teste
+INSERT INTO MOVIMENTO VALUES ('Cera ',10.00,'2012-02-10', 1,2);
+insert into MOVIMENTO VAlUES ('Racao',49.99, '2011-10-12', 3,4);
+INSERT INTO MOVIMENTO VALUES ('Coca Cola', 3.00, '2011-12-02',3,3);
+insert into MOVIMENTO values ('Detergente', 2.00,'2011-11-10', 1, 2);
+
 INSERT INTO MOVIMENTO_RECORRENTE VALUES ('Fatura', -80.00, 'Mensal', 1);
 INSERT INTO MOVIMENTO_RECORRENTE VALUES ('Compras', -90.00, 'Semanal',1);
 INSERT INTO MOVIMENTO_RECORRENTE VALUES ('Conta de agua', -50.00, 'Mensal', 4); 
@@ -121,5 +139,9 @@ select CATEGORIA.NOME,
 GO
 
 */
-select * from MOVIMENTO
 
+select * from CATEGORIA;
+go
+
+INSERT INTO CATEGORIA VALUES 
+('Sem Categoria', 0);
