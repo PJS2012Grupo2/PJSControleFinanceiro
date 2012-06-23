@@ -26,22 +26,19 @@ namespace projetoFinalPJS
             this.adaptadorMovimento = adaptadorMovimento;
 
             //trecho para popular combo box de categoria
-            comando.Connection = conexao;
             conexao.Open();
+            comando.Connection = conexao;
             comando.CommandText = "select count (NOME) from CATEGORIA";
             Object retorno = comando.ExecuteScalar();
             int qtd_categorias=Convert.ToInt32(retorno);
-            conexao.Close();
             Object name = new Object();
             string[] TiposCategorias = new string[qtd_categorias];
-            conexao.Open();
             for (int cont = 1; cont <= qtd_categorias; cont++)
             { 
                 comando.CommandText = "select NOME from CATEGORIA where ID_CATEGORIA = "+cont+"";
                 name=comando.ExecuteScalar();
                 TiposCategorias[cont-1] = name.ToString(); 
             }
-            conexao.Close();
             this.cbCategoria.DataSource = TiposCategorias;
 
             //trecho para inicializar escolha de quantidade de parcelas com 1
@@ -49,12 +46,9 @@ namespace projetoFinalPJS
 
             //trecho para popular campo saldo total com valor correto
             tbSaldo.Enabled = false;
-            conexao.Open();
             comando.CommandText = "select * from SALDO";
             Object total_saldo = comando.ExecuteScalar();
             tbSaldo.Text = total_saldo.ToString();
-            conexao.Close();
-
         }
 
         private void cadastrar_Click(object sender, EventArgs e)

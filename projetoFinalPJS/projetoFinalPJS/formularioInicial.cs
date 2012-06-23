@@ -36,13 +36,14 @@ namespace projetoFinalPJS
         public void conexaoDados()
         {
             // Cria a conexão para a base de dados e seu adaptador
-          conexaoFinanceiro = new SqlConnection();
-            conexaoFinanceiro.ConnectionString = @"Data Source=PC09LAB3\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
+            conexaoFinanceiro = new SqlConnection();
+            conexaoFinanceiro.ConnectionString = @"Data Source=YURI-PC\YURISQL;Initial Catalog=Financeiro;Integrated Security=SSPI";
+            //conexaoFinanceiro.ConnectionString = @"Data Source=PC09LAB3\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
 
-         conexaoFinanceiro.Open();
+            conexaoFinanceiro.Open();
             // Cria os adaptadores
             adaptadorMovimento = new SqlDataAdapter();
-          //  adaptadorCategoria = new SqlDataAdapter();
+            //  adaptadorCategoria = new SqlDataAdapter();
             adaptadorRecorrente = new SqlDataAdapter();
 
             // Cria o comando de seleção do adaptador
@@ -208,23 +209,19 @@ namespace projetoFinalPJS
         {
               InitializeComponent(); 
           
-                SqlConnection conn = new SqlConnection(@"Data Source=PC09LAB3\SQLEXPRESS;Initial Catalog=FINANCEIRO;Integrated Security=SSPI");
-                SqlCommand comando = new SqlCommand();
-                comando.Connection = conn;
-                conn.Open();
-                comando.CommandText = "select * from SALDO";
-                Object tt_saldo = comando.ExecuteScalar();
-                toolStripStatusLabel1.Text = tt_saldo.ToString();
-                conn.Close();
-            
-            //dataGridView1.DataSource = listaCategorias;
+              SqlConnection conn = new SqlConnection(@"Data Source=YURI-PC\YURISQL;Initial Catalog=FINANCEIRO;Integrated Security=SSPI");
+              SqlCommand comando = new SqlCommand();
+              comando.Connection = conn;
+              conn.Open();
+              comando.CommandText = "select * from SALDO";
+              Object tt_saldo = comando.ExecuteScalar();
+              toolStripStatusLabel1.Text = tt_saldo.ToString();
         }
 
         // Método que visualiza todas as categorias inseridas
         public void VisualizarCategoria(Cs_Categorias ctg)
         {
             ListViewItem itemDescricao = new ListViewItem(ctg.Nome_Categoria);
-
             ListViewItem.ListViewSubItem itemLimite = new ListViewItem.ListViewSubItem(itemDescricao, "R$"+ctg.Orçamento_Categoria.ToString());
 
             itemDescricao.SubItems.Add(itemLimite);
