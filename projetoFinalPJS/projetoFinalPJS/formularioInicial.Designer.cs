@@ -100,7 +100,7 @@
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.menuStrip1.ShowItemToolTips = true;
-            this.menuStrip1.Size = new System.Drawing.Size(769, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(886, 30);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -247,7 +247,7 @@
             this.panel1.Controls.Add(this.listViewCategorias);
             this.panel1.Location = new System.Drawing.Point(0, 52);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(969, 261);
+            this.panel1.Size = new System.Drawing.Size(408, 357);
             this.panel1.TabIndex = 1;
             // 
             // listViewCategorias
@@ -268,7 +268,7 @@
             listViewItem1});
             this.listViewCategorias.Location = new System.Drawing.Point(-2, -2);
             this.listViewCategorias.Name = "listViewCategorias";
-            this.listViewCategorias.Size = new System.Drawing.Size(769, 157);
+            this.listViewCategorias.Size = new System.Drawing.Size(406, 357);
             this.listViewCategorias.TabIndex = 0;
             this.listViewCategorias.UseCompatibleStateImageBehavior = false;
             this.listViewCategorias.View = System.Windows.Forms.View.Tile;
@@ -304,9 +304,9 @@
             this.columnParcelas,
             this.columnTotal});
             this.listViewMovimentos.FullRowSelect = true;
-            this.listViewMovimentos.Location = new System.Drawing.Point(-2, -2);
+            this.listViewMovimentos.Location = new System.Drawing.Point(-1, -2);
             this.listViewMovimentos.Name = "listViewMovimentos";
-            this.listViewMovimentos.Size = new System.Drawing.Size(769, 206);
+            this.listViewMovimentos.Size = new System.Drawing.Size(717, 362);
             this.listViewMovimentos.TabIndex = 0;
             this.listViewMovimentos.UseCompatibleStateImageBehavior = false;
             this.listViewMovimentos.View = System.Windows.Forms.View.Details;
@@ -317,7 +317,7 @@
             // columnDescricao
             // 
             this.columnDescricao.Text = "Descrição";
-            this.columnDescricao.Width = 216;
+            this.columnDescricao.Width = 189;
             // 
             // columnValor
             // 
@@ -332,7 +332,7 @@
             // columnCategoria
             // 
             this.columnCategoria.Text = "Categoria";
-            this.columnCategoria.Width = 157;
+            this.columnCategoria.Width = 144;
             // 
             // columnParcelas
             // 
@@ -342,7 +342,7 @@
             // columnTotal
             // 
             this.columnTotal.Text = "Valor Total";
-            this.columnTotal.Width = 112;
+            this.columnTotal.Width = 98;
             // 
             // cATEGORIABindingSource
             // 
@@ -357,9 +357,9 @@
             this.panel2.BackColor = System.Drawing.SystemColors.HighlightText;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel2.Controls.Add(this.listViewMovimentos);
-            this.panel2.Location = new System.Drawing.Point(0, 208);
+            this.panel2.Location = new System.Drawing.Point(168, 52);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(969, 211);
+            this.panel2.Size = new System.Drawing.Size(718, 367);
             this.panel2.TabIndex = 2;
             // 
             // toolStrip1
@@ -374,7 +374,7 @@
             this.toolStripButton7});
             this.toolStrip1.Location = new System.Drawing.Point(0, 30);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(769, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(886, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -459,7 +459,7 @@
             this.toolStripStatusLabel2});
             this.statusStrip1.Location = new System.Drawing.Point(0, 412);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(769, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(886, 22);
             this.statusStrip1.TabIndex = 3;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -480,7 +480,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Info;
-            this.ClientSize = new System.Drawing.Size(769, 434);
+            this.ClientSize = new System.Drawing.Size(886, 434);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.panel2);
