@@ -12,89 +12,88 @@ namespace projetoFinalPJS
 {
     public partial class Form_Categoria : Form
     {
-        formularioInicial formInicial;
         SqlDataAdapter adaptadorCategoria;
+        formularioInicial formularioInicial;
+        FormAltCategoria formEdit;
         SqlCommand comando = new SqlCommand();
-        bool acao;
         ListViewItem itemAlt;
 
-        public Form_Categoria(formularioInicial form, SqlDataAdapter dCategoria, bool alterar, ListViewItem itemAlt=null)
+        private void Form_Categoria_Load(object sender, EventArgs e)
+        {
+            if (itemAlt != null)
+            {
+                tbDescriçãoCtg.Text = itemAlt.SubItems[0].Text;
+                tbOrçamentoCtg.Text = itemAlt.SubItems[1].Text;
+            }
+        }
+        
+        public Form_Categoria(
+            formularioInicial formularioInicial,
+            SqlDataAdapter adaptadorCategoria,
+            ListViewItem itemSelecionado = null,
+            FormAltCategoria formEdit=null)
         {
             InitializeComponent();
-            formInicial = form;
-            adaptadorCategoria = dCategoria;
-            acao = alterar;
-            this.itemAlt = itemAlt;
-        }
-
-        public void preencherCategoria(int id)
-        {
-            tbDescriçãoCtg.Text = itemAlt.SubItems[0].Text;
-            tbOrçamentoCtg.Text = itemAlt.SubItems[1].Text;
-            /*
-            SqlCommand comandoSelectCat = new SqlCommand();
-            comandoSelectCat.Connection = formInicial.conexaoFinanceiro;
-            comandoSelectCat.CommandText = "Select nome, limite from CATEGORIA where id_categoria = " + id;
-            comandoSelectCat.ExecuteNonQuery();
-            SqlDataReader leitor = comandoSelectCat.ExecuteReader();
-
-            while (leitor.Read())
-            {
-                tbDescriçãoCtg.Text = leitor["Nome"].ToString();
-                tbOrçamentoCtg.Text = leitor["Limite"].ToString();
-            }
-
-            leitor.Close();
-            */
+            this.formularioInicial = formularioInicial;
+            this.formEdit = formEdit;
+            this.adaptadorCategoria = adaptadorCategoria;
+            this.itemAlt = itemSelecionado;
         }
 
         private void salvarCtg_Click(object sender, EventArgs e)
         {
-            if (acao)
-                salvarCategoria();
-            else
-                alterarCategoria();
-        }
-
-        public void salvarCategoria()
-        {
-            comando.CommandText = "select NOME from CATEGORIA where NOME = '"+tbDescriçãoCtg.Text.ToUpper()+"'";
-            comando.Connection = formInicial.conexaoFinanceiro;
-            Object nome_Categoria = comando.ExecuteScalar();
-
-            if (nome_Categoria != null)
+            float valorParse;
+            if (tbDescriçãoCtg.Text.Trim() == "")
             {
-                MessageBox.Show("Esta categoria já existe", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                MessageBox.Show("Digite uma descrição.");
+                tbDescriçãoCtg.Focus();
+            }
+            else if (!float.TryParse(tbOrçamentoCtg.Text, out valorParse))
+            {
+                MessageBox.Show("Digite um valor válido.");
+                tbOrçamentoCtg.Focus();
             }
             else
             {
-                adaptadorCategoria.Fill(formInicial.dadosFinanceiro, "CATEGORIA");
-                DataRow novaCategoria = formInicial.dadosFinanceiro.Tables["CATEGORIA"].NewRow();
-                novaCategoria["Nome"] = tbDescriçãoCtg.Text;
-                novaCategoria["Limite"] = tbOrçamentoCtg.Text;
-                formInicial.dadosFinanceiro.Tables["CATEGORIA"].Rows.Add(novaCategoria);
-                Cs_Categorias categoria = new Cs_Categorias(tbDescriçãoCtg.Text, float.Parse(tbOrçamentoCtg.Text));
-                formInicial.VisualizarCategoria(categoria, int.Parse(novaCategoria["ID_Categoria"].ToString()));
-            }
-            adaptadorCategoria.Update(formInicial.dadosFinanceiro, "CATEGORIA");
-            Close();
-        }
+                comando.CommandText = "select NOME from CATEGORIA where NOME = '"+tbDescriçãoCtg.Text.ToUpper()+"'";
+                comando.Connection = formularioInicial.conexaoFinanceiro;
+                Object nome_Categoria = comando.ExecuteScalar();
 
-        public void alterarCategoria()
-        {
-            int idCategoria = int.Parse(itemAlt.Tag.ToString());
-            foreach (DataRow registro in formInicial.dadosFinanceiro.Tables["CATEGORIA"].Rows)
-            {
-                if (int.Parse(registro["ID_CATEGORIA"].ToString()) == idCategoria)
+                if (nome_Categoria != null)
                 {
-                    DataRow altReg = formInicial.dadosFinanceiro.Tables["CATEGORIA"].Rows.Find(idCategoria);
-                    altReg["Nome"] = tbDescriçãoCtg.Text;
-                    altReg["Limite"] = float.Parse(tbOrçamentoCtg.Text);
-                    break;
+                    MessageBox.Show("Esta categoria já existe", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                    tbDescriçãoCtg.Focus();
+                }
+                else
+                {
+                    string valorLimite = tbOrçamentoCtg.Text.Replace("R$", "");
+                    DataRow novaCategoria = formularioInicial.dadosFinanceiro.Tables["CATEGORIA"].NewRow();
+                    novaCategoria["NOME"] = tbDescriçãoCtg.Text;
+                    novaCategoria["LIMITE"] = tbOrçamentoCtg.Text.Replace("R$", "");
+                    Cs_Categorias categoria = new Cs_Categorias(tbDescriçãoCtg.Text, float.Parse(valorLimite));
+
+                    if (itemAlt != null)
+                    {
+                        foreach (DataRow registro in formularioInicial.dadosFinanceiro.Tables["CATEGORIA"].Rows)
+                        {
+                            if (int.Parse(registro["ID_CATEGORIA"].ToString()) == int.Parse(itemAlt.Tag.ToString()))
+                            {
+                                registro["NOME"] = tbDescriçãoCtg.Text;
+                                registro["LIMITE"] = valorLimite;
+                                break;
+                            }
+                        }
+                    }
+                    else
+                        formularioInicial.dadosFinanceiro.Tables["CATEGORIA"].Rows.Add(novaCategoria);
+                    adaptadorCategoria.Update(formularioInicial.dadosFinanceiro, "CATEGORIA");
+                    formularioInicial.carregaCategorias();
+
+                    if (formEdit != null)
+                        formEdit.PreencherCategoria();
+                    Close();
                 }
             }
-            adaptadorCategoria.Update(formInicial.dadosFinanceiro, "CATEGORIA");
-            Close();
         }
     }
 }

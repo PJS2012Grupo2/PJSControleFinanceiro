@@ -87,8 +87,15 @@ namespace projetoFinalPJS
             listViewCategorias.Items.Add(itemDescricao);
         }
 
-        private void carregaCategorias()
+        public void carregaCategorias()
         {
+            foreach (ListViewItem itemCat in listViewCategorias.Items)
+            {
+                if (itemCat.Tag.ToString() != "todas")
+                {
+                    itemCat.Remove();
+                }
+            }
             SqlCommand comandoInicializarCategorias = new SqlCommand();
             comandoInicializarCategorias.Connection = conexaoFinanceiro;
             comandoInicializarCategorias.CommandText = "Select id_categoria, nome, limite from CATEGORIA";
@@ -233,13 +240,18 @@ namespace projetoFinalPJS
             SqlParameter prmIdCategoria = new SqlParameter("@IdCategoria", SqlDbType.Int);
             prmIdCategoria.SourceColumn = "ID_Categoria";
             prmIdCategoria.SourceVersion = DataRowVersion.Original;
-            comandoAtualizacaoMovimento.Parameters.Add(prmIdCategoria);
+            comandoAtualizacaoCategoria.Parameters.Add(prmIdCategoria);
 
             prmNomeCategoria = new SqlParameter("@Nome", SqlDbType.VarChar, 50);
+            prmNomeCategoria.SourceVersion = DataRowVersion.Current;
+            prmNomeCategoria.SourceColumn = "Nome";
             comandoAtualizacaoCategoria.Parameters.Add(prmNomeCategoria);
 
             prmLimiteCategoria = new SqlParameter("@Limite", SqlDbType.Money);
+            prmLimiteCategoria.SourceVersion = DataRowVersion.Current;
+            prmLimiteCategoria.SourceColumn = "Limite";
             comandoAtualizacaoCategoria.Parameters.Add(prmLimiteCategoria);
+
             adaptadorCategoria.UpdateCommand = comandoAtualizacaoCategoria;
             adaptadorCategoria.UpdateCommand.UpdatedRowSource = UpdateRowSource.FirstReturnedRecord;
 
@@ -486,7 +498,7 @@ namespace projetoFinalPJS
 
         private void categoriaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form_Categoria Var_Form_Categoria = new Form_Categoria(this, adaptadorCategoria, true);
+            Form_Categoria Var_Form_Categoria = new Form_Categoria(this, adaptadorCategoria);
             Var_Form_Categoria.ShowDialog();
         }        
 
@@ -495,7 +507,6 @@ namespace projetoFinalPJS
             if (listViewMovimentos.SelectedItems.Count > 0)
             {
                 Form_Movimentação formAlt = new Form_Movimentação(this, adaptadorMovimento, listViewMovimentos.SelectedItems[0]);
-                //FormAlteracaoMovimentos formAlt = new FormAlteracaoMovimentos(adaptadorMovimento, this, listViewMovimentos.SelectedItems[0]);
                 formAlt.ShowDialog();
             }
         }

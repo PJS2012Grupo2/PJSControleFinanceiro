@@ -93,6 +93,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Categoria";
+            this.Load += new System.EventHandler(this.Form_Categoria_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

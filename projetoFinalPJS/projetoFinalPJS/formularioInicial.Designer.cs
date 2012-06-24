@@ -258,6 +258,7 @@
             this.listViewCategorias.GridLines = true;
             listViewItem1.Checked = true;
             listViewItem1.StateImageIndex = 1;
+            listViewItem1.Tag = "todas";
             this.listViewCategorias.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1});
             this.listViewCategorias.Location = new System.Drawing.Point(-2, 3);
@@ -535,12 +536,10 @@
         private System.Windows.Forms.ToolStripButton toolStripButton6;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.BindingSource csCategoriasBindingSource1;
-        private System.Windows.Forms.ListView listViewCategorias;
         private System.Windows.Forms.ColumnHeader columnNome;
         private System.Windows.Forms.ColumnHeader columnLimite;
         private System.Windows.Forms.BindingSource csCategoriasBindingSource;
         private System.Windows.Forms.BindingSource cATEGORIABindingSource;
-        private System.Windows.Forms.ListView listViewMovimentos;
         private System.Windows.Forms.ColumnHeader columnDescricao;
         private System.Windows.Forms.ColumnHeader columnRestante;
         private System.Windows.Forms.ColumnHeader columnDataCadastro;
@@ -551,5 +550,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         public System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         public System.Windows.Forms.ColumnHeader columnValor;
+        public System.Windows.Forms.ListView listViewMovimentos;
+        public System.Windows.Forms.ListView listViewCategorias;
     }
 }

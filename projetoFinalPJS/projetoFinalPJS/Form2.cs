@@ -14,7 +14,7 @@ namespace projetoFinalPJS
     {
         string[] parcelar = { "Sim", "Não" };
         SqlDataAdapter adaptadorMovimento;
-        private formularioInicial formularioInicial;
+        formularioInicial formularioInicial;
         SqlCommand comando = new SqlCommand();
         ListViewItem itemAlt;
         

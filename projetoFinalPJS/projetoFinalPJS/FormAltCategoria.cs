@@ -13,22 +13,23 @@ namespace projetoFinalPJS
     public partial class FormAltCategoria : Form
     {
         private formularioInicial formularioInicial;
-        private SqlDataAdapter adaptadorCategoria;
+        //private SqlDataAdapter adaptadorCategoria;
         int id;
         public FormAltCategoria(formularioInicial formularioInicial, SqlDataAdapter adaptadorCategoria)
         {
             InitializeComponent();
             this.formularioInicial = formularioInicial;
-            this.adaptadorCategoria = adaptadorCategoria;
+            //this.adaptadorCategoria = adaptadorCategoria;
         }
 
         public void PreencherCategoria()
         {
-            SqlCommand comandoSelectCat = new SqlCommand();
-            comandoSelectCat.Connection = formularioInicial.conexaoFinanceiro;
-            comandoSelectCat.CommandText = "Select ID_categoria,nome, limite from CATEGORIA";
-            comandoSelectCat.ExecuteNonQuery();
-
+            foreach (ListViewItem itemPrincipal in formularioInicial.listViewCategorias.Items)
+            {
+                //TESTE
+                if (itemPrincipal.Tag.ToString() != "todas")
+                    listaCategoria.Items.Add(itemPrincipal);
+            }/*
             SqlDataReader leitor = comandoSelectCat.ExecuteReader();
 
             while (leitor.Read())
@@ -43,7 +44,7 @@ namespace projetoFinalPJS
                 listaCategoria.Items.Add(itemDescricao);
             }
 
-            leitor.Close();
+            leitor.Close();*/
         }
 
         private void FormCategoria_Load(object sender, EventArgs e)
@@ -55,8 +56,8 @@ namespace projetoFinalPJS
         {
             if (listaCategoria.SelectedItems.Count > 0)
             {
-                Form_Categoria formAlt = new Form_Categoria(this.formularioInicial, formularioInicial.adaptadorCategoria, false, listaCategoria.SelectedItems[0]);
-                formAlt.preencherCategoria(id);
+                Form_Categoria formAlt = new Form_Categoria(formularioInicial, formularioInicial.adaptadorCategoria, listaCategoria.SelectedItems[0], this);
+                //formAlt.preencherCategoria(id); TESTE
                 formAlt.ShowDialog();
             }
         }
@@ -83,13 +84,12 @@ namespace projetoFinalPJS
       
         private void btExcluir_Click(object sender, EventArgs e)
         {
-            DataSet DeleteCategoria = new DataSet();
-            adaptadorCategoria.Fill(DeleteCategoria,"CATEGORIA");
+            formularioInicial.adaptadorCategoria.Fill(formularioInicial.dadosFinanceiro,"CATEGORIA");
             DialogResult resposta;
             resposta = MessageBox.Show("Deseja excluir esse item?", "Aviso", MessageBoxButtons.YesNo);
             if (resposta == DialogResult.Yes)
             {
-                DataRow registro = DeleteCategoria.Tables["CATEGORIA"].Rows.Find(id);
+                DataRow registro = formularioInicial.dadosFinanceiro.Tables["CATEGORIA"].Rows.Find(id);
                 SqlCommand comandoUpdate = new SqlCommand();
                 comandoUpdate.Connection = formularioInicial.conexaoFinanceiro;
                 comandoUpdate.CommandText = ("Update Movimento set id_categoria = 1 where id_categoria = " + id);
@@ -99,7 +99,9 @@ namespace projetoFinalPJS
                 registro.Delete();
                 limparListView(id);
                 formularioInicial.limparListViewInicial(id);
-                adaptadorCategoria.Update(DeleteCategoria, "CATEGORIA");
+                formularioInicial.adaptadorCategoria.Update(formularioInicial.dadosFinanceiro, "CATEGORIA");
+                formularioInicial.carregaMovimentos();
+                formularioInicial.carregaCategorias();
             }
             else
                 Close();      

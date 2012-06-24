@@ -99,10 +99,10 @@
 
         #endregion
 
-        private System.Windows.Forms.ListView listaCategoria;
         private System.Windows.Forms.ColumnHeader columnNome;
         private System.Windows.Forms.ColumnHeader columnLimite;
         private System.Windows.Forms.Button btAlterar;
         private System.Windows.Forms.Button btExcluir;
+        public System.Windows.Forms.ListView listaCategoria;
     }
 }
