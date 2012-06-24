@@ -67,29 +67,21 @@ namespace projetoFinalPJS
             comando.CommandText = "select COUNT (ID_CATEGORIA) from CATEGORIA";
             Object total_categoria = comando.ExecuteScalar();
             int total_categ=Convert.ToInt32(total_categoria);
-            comando.CommandText = "select NOME from CATEGORIA where NOME LIKE '%"+tbDescriçãoCtg.Text.ToUpper()+"%'";
+            comando.CommandText = "select NOME from CATEGORIA where NOME = '"+tbDescriçãoCtg.Text.ToUpper()+"'";
             Object nome_Categoria = comando.ExecuteScalar();
 
             if (nome_Categoria != null)
             {
-                if (tbDescriçãoCtg.Text.ToUpper().Equals(nome_Categoria.ToString().ToUpper()))
+                if (tbDescriçãoCtg.Text.ToUpper() == nome_Categoria.ToString().ToUpper())
                 {
                     MessageBox.Show("Esta categoria já existe", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Hand);
-                     
                 }
             }
-                    
-            if (nome_Categoria==null)
+            else
             {
-                comando.CommandText = "insert into CATEGORIA (NOME,LIMITE) values('"+tbDescriçãoCtg.Text.ToUpper()+"','"+Convert.ToDecimal(tbOrçamentoCtg.Text)+"')";
-                comando.ExecuteScalar();
-                      
+                    comando.CommandText = "insert into CATEGORIA (NOME,LIMITE) values('" + tbDescriçãoCtg.Text.ToUpper() + "','" + Convert.ToDecimal(tbOrçamentoCtg.Text) + "')";
+                    comando.ExecuteScalar();
             }
-            //novaCategoria["Nome"] = tbDescriçãoCtg.Text;
-            //novaCategoria["Limite"] = tbOrçamentoCtg.Text;
-            //dCategoria.Tables["CATEGORIA"].Rows.Add(novaCategoria);
-            //adaptadorCategoria.Update(dCategoria, "CATEGORIA");
-            //adaptadorCategoria.Fill(dCategoria, "CATEGORIA");
             Cs_Categorias categoria = new Cs_Categorias(tbDescriçãoCtg.Text, float.Parse(tbOrçamentoCtg.Text));
             formInicial.VisualizarCategoria(categoria, int.Parse(novaCategoria["ID_Categoria"].ToString()));
 

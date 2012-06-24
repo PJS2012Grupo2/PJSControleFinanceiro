@@ -360,18 +360,16 @@ namespace projetoFinalPJS
             }
         }
 
-        private void verificaSelecaoMovimentos()
+        private void verificaSelecaoMovimentos(object sender, EventArgs e)
         {
             // Desabilita ou habilita o botão de edição de movimento no menu
             if (listViewMovimentos.SelectedItems.Count != 0)
             {
-                entradaDeValoresToolStripMenuItem.Enabled = true;
-                saídaDeValoresToolStripMenuItem.Enabled = true;
+                movimentacaoToolStripMenuItem.Enabled = true;
             }
             else
             {
-                entradaDeValoresToolStripMenuItem.Enabled = false;
-                saídaDeValoresToolStripMenuItem.Enabled = false;
+                movimentacaoToolStripMenuItem.Enabled = false;
             }
         }
 
@@ -486,16 +484,14 @@ namespace projetoFinalPJS
             Var_Form_Categoria.ShowDialog();
         }        
 
-        private void listViewMovimentos_SelectedIndexChanged(object sender, EventArgs e)
+        private void abreAlteracaoMovimento(object sender, EventArgs e)
         {
-            verificaSelecaoMovimentos();
-        }
-
-        private void listViewMovimentos_DoubleClick(object sender, EventArgs e)
-        {
-            Form_Movimentação formAlt = new Form_Movimentação(this, adaptadorMovimento, listViewMovimentos.SelectedItems[0]);
-            //FormAlteracaoMovimentos formAlt = new FormAlteracaoMovimentos(adaptadorMovimento, this, listViewMovimentos.SelectedItems[0]);
-            formAlt.ShowDialog();
+            if (listViewMovimentos.SelectedItems.Count > 0)
+            {
+                Form_Movimentação formAlt = new Form_Movimentação(this, adaptadorMovimento, listViewMovimentos.SelectedItems[0]);
+                //FormAlteracaoMovimentos formAlt = new FormAlteracaoMovimentos(adaptadorMovimento, this, listViewMovimentos.SelectedItems[0]);
+                formAlt.ShowDialog();
+            }
         }
 
         private void listViewMovimentos_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
@@ -614,6 +610,16 @@ namespace projetoFinalPJS
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
             categoriaToolStripMenuItem_Click(sender, e);
+        }
+
+        private void abreAlteracaoMovimento()
+        {
+
+        }
+
+        private void verificaSelecaoMovimentos()
+        {
+
         }
     }
 }

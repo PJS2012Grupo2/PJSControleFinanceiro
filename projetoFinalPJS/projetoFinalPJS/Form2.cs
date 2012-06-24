@@ -42,7 +42,7 @@ namespace projetoFinalPJS
                 checkBox1.Enabled = false;
             }
             else
-                tbValor.Text = "R$+";
+                tbValor.Text = "R$";
             verificaValor();
         }
 
@@ -68,14 +68,9 @@ namespace projetoFinalPJS
             int qtd_categorias=Convert.ToInt32(retorno);
             Object name = new Object();
             string[] TiposCategorias = new string[qtd_categorias];
-            for (int cont = 1; cont <= qtd_categorias; cont++)
-            { 
-                comando.CommandText = "select NOME from CATEGORIA where ID_CATEGORIA = "+cont+"";
-                name=comando.ExecuteScalar();
-                TiposCategorias[cont-1] = name.ToString(); 
-            }
-            this.cbCategoria.DataSource = TiposCategorias;
-            //trecho para popular campo saldo total com valor correto
+            cbCategoria.DataSource = formularioInicial.dadosFinanceiro.Tables["Categoria"].DefaultView;
+            cbCategoria.DisplayMember = "Nome";
+            cbCategoria.BindingContext = this.BindingContext;
             tbSaldo.Enabled = false;
             comando.CommandText = "select * from SALDO";
             Object total_saldo = comando.ExecuteScalar();
