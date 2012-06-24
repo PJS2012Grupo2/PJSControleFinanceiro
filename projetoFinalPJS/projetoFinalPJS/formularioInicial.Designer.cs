@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Todas as Categorias");
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Todas as Categorias");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formularioInicial));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.arquivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -247,28 +247,31 @@
             this.panel1.Controls.Add(this.listViewCategorias);
             this.panel1.Location = new System.Drawing.Point(0, 52);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(408, 357);
+            this.panel1.Size = new System.Drawing.Size(181, 367);
             this.panel1.TabIndex = 1;
             // 
             // listViewCategorias
             // 
-            this.listViewCategorias.Alignment = System.Windows.Forms.ListViewAlignment.SnapToGrid;
+            this.listViewCategorias.Alignment = System.Windows.Forms.ListViewAlignment.Left;
             this.listViewCategorias.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.listViewCategorias.BackColor = System.Drawing.SystemColors.Window;
+            this.listViewCategorias.BackColor = System.Drawing.Color.AliceBlue;
+            this.listViewCategorias.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listViewCategorias.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnNome,
             this.columnLimite,
             this.columnRestante});
             this.listViewCategorias.FullRowSelect = true;
-            listViewItem1.Checked = true;
-            listViewItem1.StateImageIndex = 1;
+            this.listViewCategorias.GridLines = true;
+            listViewItem3.Checked = true;
+            listViewItem3.StateImageIndex = 1;
             this.listViewCategorias.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
+            listViewItem3});
             this.listViewCategorias.Location = new System.Drawing.Point(-2, -2);
             this.listViewCategorias.Name = "listViewCategorias";
-            this.listViewCategorias.Size = new System.Drawing.Size(406, 357);
+            this.listViewCategorias.Scrollable = false;
+            this.listViewCategorias.Size = new System.Drawing.Size(181, 357);
             this.listViewCategorias.TabIndex = 0;
             this.listViewCategorias.UseCompatibleStateImageBehavior = false;
             this.listViewCategorias.View = System.Windows.Forms.View.Tile;
@@ -296,6 +299,7 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewMovimentos.BackColor = System.Drawing.SystemColors.Window;
+            this.listViewMovimentos.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listViewMovimentos.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnDescricao,
             this.columnValor,
@@ -304,9 +308,11 @@
             this.columnParcelas,
             this.columnTotal});
             this.listViewMovimentos.FullRowSelect = true;
-            this.listViewMovimentos.Location = new System.Drawing.Point(-1, -2);
+            this.listViewMovimentos.GridLines = true;
+            this.listViewMovimentos.Location = new System.Drawing.Point(0, 0);
             this.listViewMovimentos.Name = "listViewMovimentos";
-            this.listViewMovimentos.Size = new System.Drawing.Size(717, 362);
+            this.listViewMovimentos.Scrollable = false;
+            this.listViewMovimentos.Size = new System.Drawing.Size(706, 357);
             this.listViewMovimentos.TabIndex = 0;
             this.listViewMovimentos.UseCompatibleStateImageBehavior = false;
             this.listViewMovimentos.View = System.Windows.Forms.View.Details;
@@ -317,7 +323,7 @@
             // columnDescricao
             // 
             this.columnDescricao.Text = "Descrição";
-            this.columnDescricao.Width = 189;
+            this.columnDescricao.Width = 168;
             // 
             // columnValor
             // 
@@ -337,7 +343,7 @@
             // columnParcelas
             // 
             this.columnParcelas.Text = "Parcelas";
-            this.columnParcelas.Width = 87;
+            this.columnParcelas.Width = 79;
             // 
             // columnTotal
             // 
@@ -355,11 +361,10 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.AutoSize = true;
             this.panel2.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel2.Controls.Add(this.listViewMovimentos);
-            this.panel2.Location = new System.Drawing.Point(168, 52);
+            this.panel2.Location = new System.Drawing.Point(180, 52);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(718, 367);
+            this.panel2.Size = new System.Drawing.Size(746, 367);
             this.panel2.TabIndex = 2;
             // 
             // toolStrip1
@@ -479,7 +484,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Info;
+            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(886, 434);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
