@@ -550,21 +550,24 @@ namespace projetoFinalPJS
         // dentro do listView do formularioInicial
         public void limparListViewInicial(int id)
         {
-            SqlCommand comandoLimpar = new SqlCommand();
-            comandoLimpar.Connection = conexaoFinanceiro;
-            comandoLimpar.CommandText = ("Select nome from Categoria where id_categoria = " + id);
-            comandoLimpar.ExecuteNonQuery();
-            ListViewItem categoriaExcluida = listViewCategorias.SelectedItems[0];
-            SqlDataReader leitor = comandoLimpar.ExecuteReader();
-
-            while (leitor.Read())
+            if (listViewCategorias.SelectedItems.Count > 0)
             {
-                if (leitor["Nome"].ToString() == categoriaExcluida.Text)
+                SqlCommand comandoLimpar = new SqlCommand();
+                comandoLimpar.Connection = conexaoFinanceiro;
+                comandoLimpar.CommandText = ("Select nome from Categoria where id_categoria = " + id);
+                comandoLimpar.ExecuteNonQuery();
+            
+                ListViewItem categoriaExcluida = listViewCategorias.SelectedItems[0];
+                SqlDataReader leitor = comandoLimpar.ExecuteReader();
+                while (leitor.Read())
                 {
-                    listViewCategorias.Items.Remove(categoriaExcluida);
+                    if (leitor["Nome"].ToString() == categoriaExcluida.Text)
+                    {
+                        listViewCategorias.Items.Remove(categoriaExcluida);
+                    }
                 }
+                leitor.Close();
             }
-            leitor.Close();
         }
     }
 }
