@@ -14,15 +14,15 @@ namespace projetoFinalPJS
     {
         string[] parcelar = { "Sim", "Não" };
         SqlDataAdapter adaptadorMovimento;
+        private formularioInicial formularioInicial;
+        SqlCommand comando = new SqlCommand();
         
         private void Form_Movimentação_Load(object sender, EventArgs e)
         {
             cbCategoria.SelectedIndex = 0;
+            //trecho para inicializar escolha de quantidade de parcelas com 1
+            numericUpDown1.Value = 1;
         }
-
-        SqlDataAdapter preencherCategoria;
-        private formularioInicial formularioInicial;
-        SqlCommand comando = new SqlCommand();
 
         public Form_Movimentação(formularioInicial formularioInicial, SqlDataAdapter adaptadorMovimento)
         {
@@ -44,10 +44,6 @@ namespace projetoFinalPJS
                 TiposCategorias[cont-1] = name.ToString(); 
             }
             this.cbCategoria.DataSource = TiposCategorias;
-
-            //trecho para inicializar escolha de quantidade de parcelas com 1
-            numericUpDown1.Value = 1;
-
             //trecho para popular campo saldo total com valor correto
             tbSaldo.Enabled = false;
             comando.CommandText = "select * from SALDO";
@@ -133,22 +129,17 @@ namespace projetoFinalPJS
 
         private void Form_Movimentação_FormClosing(object sender, FormClosingEventArgs e)
         {
-            formularioInicial.var_Saida = false;
-            InitializeComponent();
             try
             {
-                SqlConnection conn = new SqlConnection(@"Data Source=ROPAS-PC\SQLEXPRESS;Initial Catalog=FINANCEIRO;Integrated Security=SSPI");
-                conn.Open();
                 SqlCommand comando = new SqlCommand();
-                comando.Connection = conn;
-                comando.CommandText = "select * from SALDO";
+                comando.Connection = formularioInicial.conexaoFinanceiro;
+                comando.CommandText = "SELECT * FROM Saldo";
                 Object total_saldo = comando.ExecuteScalar();
                 formularioInicial.toolStripStatusLabel1.Text = "Lembretes: Saldo=" + total_saldo.ToString() + "";
-                conn.Close();
             }
-            catch (Exception c)
+            catch
             {
-                MessageBox.Show("erro", "erro", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Erro", "Erro de conexão com a base de dados", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
     }
