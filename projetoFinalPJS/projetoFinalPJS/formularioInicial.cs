@@ -230,11 +230,18 @@ namespace projetoFinalPJS
 
             SqlCommand comandoAtualizacaoCategoria =
                 new SqlCommand("Update CATEGORIA set NOME = @Nome, LIMITE = @Limite where ID_CATEGORIA = @IdCategoria", conexaoFinanceiro);
+            SqlParameter prmIdCategoria = new SqlParameter("@IdCategoria", SqlDbType.Int);
+            prmIdCategoria.SourceColumn = "ID_Categoria";
+            prmIdCategoria.SourceVersion = DataRowVersion.Original;
+            comandoAtualizacaoMovimento.Parameters.Add(prmIdCategoria);
+
             prmNomeCategoria = new SqlParameter("@Nome", SqlDbType.VarChar, 50);
             comandoAtualizacaoCategoria.Parameters.Add(prmNomeCategoria);
+
             prmLimiteCategoria = new SqlParameter("@Limite", SqlDbType.Money);
             comandoAtualizacaoCategoria.Parameters.Add(prmLimiteCategoria);
             adaptadorCategoria.UpdateCommand = comandoAtualizacaoCategoria;
+            adaptadorCategoria.UpdateCommand.UpdatedRowSource = UpdateRowSource.FirstReturnedRecord;
 
             SqlCommand comandoAtualizaoRecorrente =
                 new SqlCommand("Update MOVIMENTO_RECORRENTE set NOME = @Nome, VALOR = @Valor, RECORRENCIA = @Recorrencia, ID_CATEGORIA = @IdCategoria", conexaoFinanceiro);
@@ -259,7 +266,7 @@ namespace projetoFinalPJS
 
             SqlCommand comandoRemocaoCategoria =
                 new SqlCommand("Delete from CATEGORIA where ID_CATEGORIA = @IdCategoria", conexaoFinanceiro);
-            SqlParameter prmIdCategoria     = new SqlParameter("@IdCategoria", SqlDbType.Int);
+            prmIdCategoria     = new SqlParameter("@IdCategoria", SqlDbType.Int);
             prmIdCategoria.SourceColumn     = "ID_CATEGORIA";
             prmIdCategoria.SourceVersion    = DataRowVersion.Original;
             comandoRemocaoCategoria.Parameters.Add(prmIdCategoria);
@@ -282,7 +289,6 @@ namespace projetoFinalPJS
             // Ação para esquema faltando
             adaptadorMovimento.MissingSchemaAction = MissingSchemaAction.AddWithKey;
             adaptadorCategoria.MissingSchemaAction = MissingSchemaAction.AddWithKey;
-
             adaptadorRecorrente.MissingSchemaAction = MissingSchemaAction.AddWithKey;
 
             dadosFinanceiro = new DataSet();
@@ -480,7 +486,7 @@ namespace projetoFinalPJS
 
         private void categoriaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form_Categoria Var_Form_Categoria = new Form_Categoria(this, adaptadorCategoria, true, 0);
+            Form_Categoria Var_Form_Categoria = new Form_Categoria(this, adaptadorCategoria, true);
             Var_Form_Categoria.ShowDialog();
         }        
 

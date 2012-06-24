@@ -13,27 +13,29 @@ namespace projetoFinalPJS
     public partial class Form_Categoria : Form
     {
         formularioInicial formInicial;
-        public SqlDataAdapter adaptadorCategoria;
+        SqlDataAdapter adaptadorCategoria;
         SqlCommand comando = new SqlCommand();
         bool acao;
-        int id;
+        ListViewItem itemAlt;
 
-        public Form_Categoria(formularioInicial form, SqlDataAdapter dCategoria, bool alterar, int id)
+        public Form_Categoria(formularioInicial form, SqlDataAdapter dCategoria, bool alterar, ListViewItem itemAlt=null)
         {
             InitializeComponent();
             formInicial = form;
             adaptadorCategoria = dCategoria;
             acao = alterar;
-            this.id = id;
+            this.itemAlt = itemAlt;
         }
 
         public void preencherCategoria(int id)
         {
+            tbDescriçãoCtg.Text = itemAlt.SubItems[0].Text;
+            tbOrçamentoCtg.Text = itemAlt.SubItems[1].Text;
+            /*
             SqlCommand comandoSelectCat = new SqlCommand();
             comandoSelectCat.Connection = formInicial.conexaoFinanceiro;
             comandoSelectCat.CommandText = "Select nome, limite from CATEGORIA where id_categoria = " + id;
             comandoSelectCat.ExecuteNonQuery();
-
             SqlDataReader leitor = comandoSelectCat.ExecuteReader();
 
             while (leitor.Read())
@@ -43,6 +45,7 @@ namespace projetoFinalPJS
             }
 
             leitor.Close();
+            */
         }
 
         private void salvarCtg_Click(object sender, EventArgs e)
@@ -50,53 +53,47 @@ namespace projetoFinalPJS
             if (acao)
                 salvarCategoria();
             else
-                alterarCategoria(id);
+                alterarCategoria();
         }
 
         public void salvarCategoria()
         {
-            DataSet dCategoria = new DataSet();
-            adaptadorCategoria.Fill(dCategoria, "CATEGORIA");
-            DataRow novaCategoria = dCategoria.Tables["CATEGORIA"].NewRow();
-            novaCategoria["Nome"] = tbDescriçãoCtg.Text;
-            novaCategoria["Limite"] = tbOrçamentoCtg.Text;
-            dCategoria.Tables["CATEGORIA"].Rows.Add(novaCategoria);
-            adaptadorCategoria.Update(dCategoria, "CATEGORIA");
-            adaptadorCategoria.Fill(dCategoria, "CATEGORIA");
-            comando.Connection = formInicial.conexaoFinanceiro;
-            comando.CommandText = "select COUNT (ID_CATEGORIA) from CATEGORIA";
-            Object total_categoria = comando.ExecuteScalar();
-            int total_categ=Convert.ToInt32(total_categoria);
             comando.CommandText = "select NOME from CATEGORIA where NOME = '"+tbDescriçãoCtg.Text.ToUpper()+"'";
+            comando.Connection = formInicial.conexaoFinanceiro;
             Object nome_Categoria = comando.ExecuteScalar();
 
             if (nome_Categoria != null)
             {
-                if (tbDescriçãoCtg.Text.ToUpper() == nome_Categoria.ToString().ToUpper())
-                {
-                    MessageBox.Show("Esta categoria já existe", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Hand);
-                }
+                MessageBox.Show("Esta categoria já existe", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Hand);
             }
             else
             {
-                    comando.CommandText = "insert into CATEGORIA (NOME,LIMITE) values('" + tbDescriçãoCtg.Text.ToUpper() + "','" + Convert.ToDecimal(tbOrçamentoCtg.Text) + "')";
-                    comando.ExecuteScalar();
+                adaptadorCategoria.Fill(formInicial.dadosFinanceiro, "CATEGORIA");
+                DataRow novaCategoria = formInicial.dadosFinanceiro.Tables["CATEGORIA"].NewRow();
+                novaCategoria["Nome"] = tbDescriçãoCtg.Text;
+                novaCategoria["Limite"] = tbOrçamentoCtg.Text;
+                formInicial.dadosFinanceiro.Tables["CATEGORIA"].Rows.Add(novaCategoria);
+                Cs_Categorias categoria = new Cs_Categorias(tbDescriçãoCtg.Text, float.Parse(tbOrçamentoCtg.Text));
+                formInicial.VisualizarCategoria(categoria, int.Parse(novaCategoria["ID_Categoria"].ToString()));
             }
-            Cs_Categorias categoria = new Cs_Categorias(tbDescriçãoCtg.Text, float.Parse(tbOrçamentoCtg.Text));
-            formInicial.VisualizarCategoria(categoria, int.Parse(novaCategoria["ID_Categoria"].ToString()));
-
+            adaptadorCategoria.Update(formInicial.dadosFinanceiro, "CATEGORIA");
             Close();
         }
 
-        public void alterarCategoria(int id)
+        public void alterarCategoria()
         {
-            DataSet dCategoria = new DataSet();
-            adaptadorCategoria.Fill(dCategoria, "CATEGORIA");
-            DataRow alterarCategoria = dCategoria.Tables["CATEGORIA"].Rows.Find(id);
-            alterarCategoria["Nome"] = tbDescriçãoCtg.Text;
-            alterarCategoria["Limite"] = tbOrçamentoCtg.Text;
-            adaptadorCategoria.Update(dCategoria, "CATEGORIA");
-            adaptadorCategoria.Fill(dCategoria, "CATEGORIA");
+            int idCategoria = int.Parse(itemAlt.Tag.ToString());
+            foreach (DataRow registro in formInicial.dadosFinanceiro.Tables["CATEGORIA"].Rows)
+            {
+                if (int.Parse(registro["ID_CATEGORIA"].ToString()) == idCategoria)
+                {
+                    DataRow altReg = formInicial.dadosFinanceiro.Tables["CATEGORIA"].Rows.Find(idCategoria);
+                    altReg["Nome"] = tbDescriçãoCtg.Text;
+                    altReg["Limite"] = float.Parse(tbOrçamentoCtg.Text);
+                    break;
+                }
+            }
+            adaptadorCategoria.Update(formInicial.dadosFinanceiro, "CATEGORIA");
             Close();
         }
     }

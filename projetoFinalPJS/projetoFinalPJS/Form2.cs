@@ -62,16 +62,12 @@ namespace projetoFinalPJS
             this.itemAlt = itemSelecionado;
 
             //trecho para popular combo box de categoria
-            comando.Connection = formularioInicial.conexaoFinanceiro;
-            comando.CommandText = "select count (NOME) from CATEGORIA";
-            Object retorno = comando.ExecuteScalar();
-            int qtd_categorias=Convert.ToInt32(retorno);
-            Object name = new Object();
-            string[] TiposCategorias = new string[qtd_categorias];
             cbCategoria.DataSource = formularioInicial.dadosFinanceiro.Tables["Categoria"].DefaultView;
             cbCategoria.DisplayMember = "Nome";
             cbCategoria.BindingContext = this.BindingContext;
+
             tbSaldo.Enabled = false;
+            comando.Connection = formularioInicial.conexaoFinanceiro;
             comando.CommandText = "select * from SALDO";
             Object total_saldo = comando.ExecuteScalar();
             tbSaldo.Text = total_saldo.ToString();

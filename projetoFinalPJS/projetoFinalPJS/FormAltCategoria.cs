@@ -53,9 +53,12 @@ namespace projetoFinalPJS
 
         private void btAlterar_Click(object sender, EventArgs e)
         {
-            Form_Categoria Var_Form_Categoria = new Form_Categoria(this.formularioInicial, adaptadorCategoria,false,id);
-            Var_Form_Categoria.preencherCategoria(id);
-            Var_Form_Categoria.ShowDialog();
+            if (listaCategoria.SelectedItems.Count > 0)
+            {
+                Form_Categoria formAlt = new Form_Categoria(this.formularioInicial, formularioInicial.adaptadorCategoria, false, listaCategoria.SelectedItems[0]);
+                formAlt.preencherCategoria(id);
+                formAlt.ShowDialog();
+            }
         }
 
         public void limparListView(int id)
