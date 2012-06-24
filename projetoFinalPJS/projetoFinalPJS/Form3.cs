@@ -48,7 +48,7 @@ namespace projetoFinalPJS
                 MessageBox.Show("Digite uma descrição.");
                 tbDescriçãoCtg.Focus();
             }
-            else if (!float.TryParse(tbOrçamentoCtg.Text, out valorParse))
+            else if (!float.TryParse(tbOrçamentoCtg.Text.Replace("R$", ""), out valorParse))
             {
                 MessageBox.Show("Digite um valor válido.");
                 tbOrçamentoCtg.Focus();

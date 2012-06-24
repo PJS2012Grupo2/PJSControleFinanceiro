@@ -92,7 +92,7 @@ namespace projetoFinalPJS
             ListView.ListViewItemCollection valores = lista.Items;
             foreach (ListViewItem itemCat in lista.Items)
             {
-                if (itemCat.Tag.ToString() != "todas")
+                if (itemCat.Tag.ToString() != "todas" && itemCat.SubItems[0].ToString() != "Sem Categoria")
                 {
                     itemCat.Remove();
                 }
@@ -384,7 +384,7 @@ namespace projetoFinalPJS
             }
         }
 
-        private void verificaSelecaoMovimentos(object sender, EventArgs e)
+        private void verificaSelecaoMovimentos(object sender=null, EventArgs e=null)
         {
             // Desabilita ou habilita o botão de edição de movimento no menu
             if (listViewMovimentos.SelectedItems.Count != 0)
@@ -522,6 +522,35 @@ namespace projetoFinalPJS
             verificaSelecaoMovimentos();
         }
 
+        public void removeCategoria(DataRow catDel)
+        {
+            const string mensagem =
+            "Tem certeza de que deseja excluir esta categoria?";
+            const string titulo = "Aviso";
+            var result = MessageBox.Show(mensagem, titulo,
+                                         MessageBoxButtons.YesNo,
+                                         MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                int id = int.Parse(listViewCategorias.SelectedItems[0].Tag.ToString());
+                SqlCommand comandoUpdate = new SqlCommand();
+                SqlCommand comandoAchaSemCategoria = new SqlCommand();
+                comandoUpdate.Connection = conexaoFinanceiro;
+                comandoAchaSemCategoria.Connection = conexaoFinanceiro;
+                comandoAchaSemCategoria.CommandText = ("Select ID_CATEGORIA From CATEGORIA where NOME = 'Sem Categoria'");
+                int idSemCategoria = (int)comandoAchaSemCategoria.ExecuteScalar();
+                comandoUpdate.CommandText = ("Update Movimento set id_categoria = " + idSemCategoria + " where id_categoria = " + id);
+                comandoUpdate.ExecuteNonQuery();
+                SqlDataReader leitor = comandoUpdate.ExecuteReader();
+                leitor.Close();
+                catDel.Delete();
+                adaptadorCategoria.Update(dadosFinanceiro, "Categoria");
+                adaptadorMovimento.Update(dadosFinanceiro, "Movimento");
+                carregaCategorias(listViewCategorias);
+                carregaMovimentos();
+            }
+        }
+
         public void removeMovimento(DataRow movDel)
         {
             const string mensagem =
@@ -567,8 +596,8 @@ namespace projetoFinalPJS
                         carregaMovimentos(idCat);
                     }
                 }
-            }
-            else
+            } 
+            else if (listViewCategorias.SelectedItems[0].Tag.ToString() == "todas") 
             {
                 carregaMovimentos();
             }
@@ -577,11 +606,6 @@ namespace projetoFinalPJS
         private void toolStripButton7_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("calc");
-        }
-
-        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void categoriasToolStripMenuItem_Click(object sender, EventArgs e)
@@ -635,14 +659,28 @@ namespace projetoFinalPJS
             categoriaToolStripMenuItem_Click(sender, e);
         }
 
-        private void abreAlteracaoMovimento()
+        private void listViewCategorias_DoubleClick(object sender, EventArgs e)
         {
-
+            if (listViewCategorias.SelectedItems.Count > 0 && listViewCategorias.SelectedItems[0].Tag.ToString() != "todas")
+            {
+                Form_Categoria formAlt = new Form_Categoria(this, adaptadorCategoria, listViewCategorias.SelectedItems[0]);
+                formAlt.ShowDialog();
+            }
         }
 
-        private void verificaSelecaoMovimentos()
+        private void listViewCategorias_KeyDown(object sender, KeyEventArgs e)
         {
-
+            if (e.KeyCode == Keys.Delete && listViewCategorias.SelectedItems.Count > 0)
+            {
+                foreach (DataRow movDel in dadosFinanceiro.Tables["CATEGORIA"].Rows)
+                {
+                    if (movDel["ID_CATEGORIA"].ToString() == listViewCategorias.SelectedItems[0].Tag.ToString())
+                    {
+                        removeCategoria(movDel);
+                        break;
+                    }
+                }
+            }
         }
     }
 }

@@ -7,19 +7,14 @@ GO
 --CRIANDO TABELAS
 
 CREATE TABLE CATEGORIA (
-   ID_CATEGORIA INT PRIMARY KEY NOT NULL IDENTITY,
+   ID_CATEGORIA INT PRIMARY KEY IDENTITY,
    NOME VARCHAR(50) NOT NULL,
    LIMITE MONEY NOT NULL
 );
 GO
- select * from categoria;
-go
-
-delete from categoria where nome in ('ração')
-go
 
 CREATE TABLE MOVIMENTO (
-  ID_MOVIMENTO INT PRIMARY KEY NOT NULL IDENTITY,
+  ID_MOVIMENTO INT PRIMARY KEY IDENTITY,
   DESCRICAO VARCHAR(50) NOT NULL,
   VALOR MONEY NOT NULL,
   DATA_CADASTRO DATE NOT NULL,
@@ -28,11 +23,6 @@ CREATE TABLE MOVIMENTO (
   ID_CATEGORIA INT FOREIGN KEY REFERENCES CATEGORIA(ID_CATEGORIA)
   );
 GO
-
-select * from MOVIMENTO_RECORRENTE
-
-delete from MOVIMENTO_RECORRENTE where id_categoria in (4)
-go
 
 CREATE TABLE MOVIMENTO_RECORRENTE(
   ID_RECORRENTE INT PRIMARY KEY NOT NULL identity,
@@ -144,19 +134,15 @@ select CATEGORIA.NOME,
  group by CATEGORIA.nome;
 GO
 
-<<<<<<< .merge_file_a04244
 select * from CATEGORIA;
 go
 
-=======
 */
+Select ID_CATEGORIA From CATEGORIA where NOME = 'Sem Categoria'
 
-select * from CATEGORIA;
-go
-<<<<<<< HEAD
->>>>>>> .merge_file_a05052
-=======
+Update Movimento set id_categoria = 14 where id_categoria = 1;
+delete from categoria;
+
 
 INSERT INTO CATEGORIA VALUES 
 ('Sem Categoria', 0);
->>>>>>> PDS

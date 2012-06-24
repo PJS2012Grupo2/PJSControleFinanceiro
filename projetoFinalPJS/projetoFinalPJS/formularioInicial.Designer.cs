@@ -268,6 +268,8 @@
             this.listViewCategorias.UseCompatibleStateImageBehavior = false;
             this.listViewCategorias.View = System.Windows.Forms.View.Tile;
             this.listViewCategorias.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.listViewCategorias_ItemSelectionChanged);
+            this.listViewCategorias.DoubleClick += new System.EventHandler(this.listViewCategorias_DoubleClick);
+            this.listViewCategorias.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listViewCategorias_KeyDown);
             // 
             // columnNome
             // 
@@ -309,7 +311,7 @@
             this.listViewMovimentos.View = System.Windows.Forms.View.Details;
             this.listViewMovimentos.SelectedIndexChanged += new System.EventHandler(this.verificaSelecaoMovimentos);
             this.listViewMovimentos.DoubleClick += new System.EventHandler(this.abreAlteracaoMovimento);
-            this.listViewMovimentos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listViewMovimentos_KeyDown);
+            this.listViewMovimentos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.verificaSelecaoMovimentos);
             // 
             // columnDescricao
             // 
@@ -465,7 +467,6 @@
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(146, 17);
             this.toolStripStatusLabel1.Text = "Lembretes:                           ";
-            this.toolStripStatusLabel1.Click += new System.EventHandler(this.toolStripStatusLabel1_Click);
             // 
             // toolStripStatusLabel2
             // 
