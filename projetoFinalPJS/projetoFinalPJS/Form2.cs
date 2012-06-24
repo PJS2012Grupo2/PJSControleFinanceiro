@@ -31,6 +31,14 @@ namespace projetoFinalPJS
                 cbCategoria.SelectedText = itemAlt.SubItems[3].Text;
                 tbValor.Text = itemAlt.SubItems[1].Text;
                 dtpData.Text = DateTime.Parse(itemAlt.SubItems[2].Text).ToString().Substring(0, 7);
+                groupBox1.Enabled = false;
+                if (int.Parse(itemAlt.SubItems[4].Text) > 0)
+                    radioButton2.Checked = true;
+                else
+                    radioButton1.Checked = true;
+                numericUpDown1.Value = int.Parse(itemAlt.SubItems[4].Text);
+                numericUpDown1.Enabled = false;
+                checkBox1.Enabled = false;
             }
         }
 
