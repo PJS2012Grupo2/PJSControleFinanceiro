@@ -87,7 +87,7 @@ namespace projetoFinalPJS
                     else
                         formularioInicial.dadosFinanceiro.Tables["CATEGORIA"].Rows.Add(novaCategoria);
                     adaptadorCategoria.Update(formularioInicial.dadosFinanceiro, "CATEGORIA");
-                    formularioInicial.carregaCategorias();
+                    formularioInicial.carregaCategorias(formularioInicial.listViewCategorias);
 
                     if (formEdit != null)
                         formEdit.PreencherCategoria();

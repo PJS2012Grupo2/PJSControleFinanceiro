@@ -87,9 +87,10 @@ namespace projetoFinalPJS
             listViewCategorias.Items.Add(itemDescricao);
         }
 
-        public void carregaCategorias()
+        public ListView.ListViewItemCollection carregaCategorias(ListView lista)
         {
-            foreach (ListViewItem itemCat in listViewCategorias.Items)
+            ListView.ListViewItemCollection valores = lista.Items;
+            foreach (ListViewItem itemCat in lista.Items)
             {
                 if (itemCat.Tag.ToString() != "todas")
                 {
@@ -104,9 +105,14 @@ namespace projetoFinalPJS
             while (leitorCategorias.Read())
             {
                 Cs_Categorias categoria = new Cs_Categorias((string)leitorCategorias["nome"], (float.Parse(leitorCategorias["limite"].ToString())));
-                VisualizarCategoria(categoria, int.Parse(leitorCategorias["ID_Categoria"].ToString()));
+                ListViewItem itemDescricao = new ListViewItem(categoria.Nome_Categoria);
+                ListViewItem.ListViewSubItem itemLimite = new ListViewItem.ListViewSubItem(itemDescricao, "R$" + categoria.Orçamento_Categoria.ToString());
+                itemDescricao.SubItems.Add(itemLimite);
+                itemDescricao.Tag = int.Parse(leitorCategorias["ID_Categoria"].ToString());
+                valores.Add(itemDescricao);
             }
             leitorCategorias.Close();
+            return valores;
         }        
         
         public void conexaoDados()
@@ -312,7 +318,7 @@ namespace projetoFinalPJS
         private void formularioInicial_Load(object sender, EventArgs e)
         {
             conexaoDados();
-            carregaCategorias();
+            carregaCategorias(listViewCategorias);
             carregaMovimentos();
             
             verificaSelecaoMovimentos();

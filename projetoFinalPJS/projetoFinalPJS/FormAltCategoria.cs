@@ -24,12 +24,8 @@ namespace projetoFinalPJS
 
         public void PreencherCategoria()
         {
-            foreach (ListViewItem itemPrincipal in formularioInicial.listViewCategorias.Items)
-            {
-                //TESTE
-                if (itemPrincipal.Tag.ToString() != "todas")
-                    listaCategoria.Items.Add(itemPrincipal);
-            }/*
+            formularioInicial.carregaCategorias(listaCategoria);
+            /*
             SqlDataReader leitor = comandoSelectCat.ExecuteReader();
 
             while (leitor.Read())
@@ -101,7 +97,7 @@ namespace projetoFinalPJS
                 formularioInicial.limparListViewInicial(id);
                 formularioInicial.adaptadorCategoria.Update(formularioInicial.dadosFinanceiro, "CATEGORIA");
                 formularioInicial.carregaMovimentos();
-                formularioInicial.carregaCategorias();
+                formularioInicial.carregaCategorias(formularioInicial.listViewCategorias);
             }
             else
                 Close();      
