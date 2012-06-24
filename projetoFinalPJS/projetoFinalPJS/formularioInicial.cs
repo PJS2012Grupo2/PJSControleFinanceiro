@@ -312,8 +312,8 @@ namespace projetoFinalPJS
             string parcela, valorTotal;
             if (mvt.parcela <= 0)
             {
-                parcela = "";
-                valorTotal = "";
+                parcela = "0";
+                valorTotal = itemValor.Text;
             }
             else
             {

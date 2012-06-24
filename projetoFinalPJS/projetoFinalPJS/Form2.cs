@@ -30,7 +30,8 @@ namespace projetoFinalPJS
                 cbCategoria.Text = itemAlt.SubItems[3].Text;
                 cbCategoria.SelectedText = itemAlt.SubItems[3].Text;
                 tbValor.Text = itemAlt.SubItems[1].Text;
-                dtpData.Text = DateTime.Parse(itemAlt.SubItems[2].Text).ToString().Substring(0, 7);
+                dtpData.Value = DateTime.UtcNow; // TESTE
+                //dtpData.Text = DateTime.Parse(itemAlt.SubItems[2].Text).ToString().Substring(0, 7);
                 groupBox1.Enabled = false;
                 if (int.Parse(itemAlt.SubItems[4].Text) > 0)
                     radioButton2.Checked = true;
@@ -88,25 +89,25 @@ namespace projetoFinalPJS
                 adaptadorMovimento.Fill(formularioInicial.dadosFinanceiro, "MOVIMENTO");
                 DataRow novoMovimento = formularioInicial.dadosFinanceiro.Tables["MOVIMENTO"].NewRow();
                 novoMovimento["Descricao"] = tbDescrição.Text;
-                novoMovimento["Valor"] = tbValor.Text;
+                novoMovimento["Valor"] = tbValor.Text.Replace("R$", "");
                 novoMovimento["Data_Cadastro"] = DateTime.UtcNow;
                 SqlCommand achaCategoria = formularioInicial.conexaoFinanceiro.CreateCommand();
                 achaCategoria.CommandText = "SELECT ID_CATEGORIA FROM CATEGORIA WHERE NOME = '" + cbCategoria.Text + "'";
                 int numeroCategoria = ((int)achaCategoria.ExecuteScalar());
                 novoMovimento["Id_Categoria"] = numeroCategoria;
+                Cs_Movimento movimento = new Cs_Movimento(tbDescrição.Text, float.Parse(tbValor.Text.Replace("R$", "")), DateTime.UtcNow, 0, 0, cbCategoria.Text);
+                    
                 if (itemAlt != null)
                 {
-                    SqlCommand achaMovimento = formularioInicial.conexaoFinanceiro.CreateCommand();
-                    achaMovimento.CommandText = "SELECT ID_CATEGORIA FROM CATEGORIA WHERE NOME = '" + cbCategoria.Text + "'";
                     foreach (DataRow registro in formularioInicial.dadosFinanceiro.Tables["MOVIMENTO"].Rows)
                     {
                         if (int.Parse(registro["ID_MOVIMENTO"].ToString()) == int.Parse(itemAlt.Tag.ToString()))
                         {
-                            DataRow altRegistro =
-                                formularioInicial.dadosFinanceiro.Tables["MOVIMENTO"].Rows.Find(int.Parse(itemAlt.Tag.ToString()));
-                            altRegistro["Descricao"] = tbDescrição.Text;
-                            altRegistro["Valor"] = float.Parse(tbValor.Text.Replace("R$", ""));
-                            altRegistro["DATA_CADASTRO"] = DateTime.Parse(dtpData.Text);
+                            registro["Descricao"] = tbDescrição.Text;
+                            registro["Valor"] = float.Parse(tbValor.Text.Replace("R$", ""));
+                            registro["DATA_CADASTRO"] = DateTime.Parse(dtpData.Text);
+                            registro["ID_CATEGORIA"] = numeroCategoria;
+                            adaptadorMovimento.Update(formularioInicial.dadosFinanceiro, "MOVIMENTO");
                             break;
                         }
                     }
@@ -114,13 +115,12 @@ namespace projetoFinalPJS
                 else
                 {
                     formularioInicial.dadosFinanceiro.Tables["MOVIMENTO"].Rows.Add(novoMovimento);
-                    Cs_Movimento movimento = new Cs_Movimento(tbDescrição.Text, float.Parse(tbValor.Text), DateTime.Parse(dtpData.Text), 0, 0, cbCategoria.Text);
-                    formularioInicial.AdicionaMovimento(movimento, novoMovimento["ID_MOVIMENTO"].ToString(), numeroCategoria);
                 }
                 adaptadorMovimento.Update(formularioInicial.dadosFinanceiro, "MOVIMENTO");
+                formularioInicial.carregaMovimentos(); //TESTE
 
-                Saldo total_saldo= new Saldo(float.Parse(tbValor.Text));
-                float total = float.Parse(tbValor.Text);
+                Saldo total_saldo= new Saldo(float.Parse(tbValor.Text.Replace("R$", "")));
+                float total = float.Parse(tbValor.Text.Replace("R$", ""));
                 bool negativar=formularioInicial.valor_Negativo();
                 if (negativar == false)
                 {
