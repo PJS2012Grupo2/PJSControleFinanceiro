@@ -50,14 +50,14 @@
             this.cbCategoria.Location = new System.Drawing.Point(15, 103);
             this.cbCategoria.Name = "cbCategoria";
             this.cbCategoria.Size = new System.Drawing.Size(158, 21);
-            this.cbCategoria.TabIndex = 37;
+            this.cbCategoria.TabIndex = 5;
             // 
             // tbSaldo
             // 
             this.tbSaldo.Location = new System.Drawing.Point(15, 25);
             this.tbSaldo.Name = "tbSaldo";
             this.tbSaldo.Size = new System.Drawing.Size(158, 20);
-            this.tbSaldo.TabIndex = 36;
+            this.tbSaldo.TabIndex = 1;
             // 
             // dtpData
             // 
@@ -66,7 +66,7 @@
             this.dtpData.Location = new System.Drawing.Point(179, 143);
             this.dtpData.Name = "dtpData";
             this.dtpData.Size = new System.Drawing.Size(104, 20);
-            this.dtpData.TabIndex = 35;
+            this.dtpData.TabIndex = 9;
             // 
             // label2
             // 
@@ -74,7 +74,7 @@
             this.label2.Location = new System.Drawing.Point(176, 127);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(30, 13);
-            this.label2.TabIndex = 34;
+            this.label2.TabIndex = 8;
             this.label2.Text = "Data";
             // 
             // tbValor
@@ -82,7 +82,7 @@
             this.tbValor.Location = new System.Drawing.Point(15, 143);
             this.tbValor.Name = "tbValor";
             this.tbValor.Size = new System.Drawing.Size(158, 20);
-            this.tbValor.TabIndex = 33;
+            this.tbValor.TabIndex = 7;
             // 
             // label6
             // 
@@ -90,7 +90,7 @@
             this.label6.Location = new System.Drawing.Point(12, 48);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(55, 13);
-            this.label6.TabIndex = 32;
+            this.label6.TabIndex = 2;
             this.label6.Text = "Descrição";
             // 
             // label5
@@ -99,7 +99,7 @@
             this.label5.Location = new System.Drawing.Point(15, 87);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(52, 13);
-            this.label5.TabIndex = 31;
+            this.label5.TabIndex = 4;
             this.label5.Text = "Categoria";
             // 
             // tbDescrição
@@ -107,7 +107,7 @@
             this.tbDescrição.Location = new System.Drawing.Point(15, 64);
             this.tbDescrição.Name = "tbDescrição";
             this.tbDescrição.Size = new System.Drawing.Size(268, 20);
-            this.tbDescrição.TabIndex = 30;
+            this.tbDescrição.TabIndex = 3;
             // 
             // label3
             // 
@@ -115,7 +115,7 @@
             this.label3.Location = new System.Drawing.Point(15, 127);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(31, 13);
-            this.label3.TabIndex = 29;
+            this.label3.TabIndex = 6;
             this.label3.Text = "Valor";
             // 
             // label1
@@ -124,7 +124,7 @@
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(61, 13);
-            this.label1.TabIndex = 28;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Saldo Atual";
             // 
             // alterar
@@ -132,7 +132,7 @@
             this.alterar.Location = new System.Drawing.Point(208, 201);
             this.alterar.Name = "alterar";
             this.alterar.Size = new System.Drawing.Size(75, 23);
-            this.alterar.TabIndex = 38;
+            this.alterar.TabIndex = 10;
             this.alterar.Text = "Alterar";
             this.alterar.UseVisualStyleBackColor = true;
             this.alterar.Click += new System.EventHandler(this.alterar_Click);
@@ -153,7 +153,10 @@
             this.Controls.Add(this.tbDescrição);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FormAlteracaoMovimentos";
+            this.ShowIcon = false;
             this.Text = "FormAlteracaoMovimentos";
             this.Load += new System.EventHandler(this.FormAlteracaoMovimentos_Load);
             this.ResumeLayout(false);

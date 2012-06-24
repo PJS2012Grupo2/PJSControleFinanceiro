@@ -48,7 +48,7 @@
             this.label2.Location = new System.Drawing.Point(12, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 13);
-            this.label2.TabIndex = 2;
+            this.label2.TabIndex = 0;
             this.label2.Text = "Descrição";
             // 
             // label4
@@ -57,7 +57,7 @@
             this.label4.Location = new System.Drawing.Point(12, 48);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(34, 13);
-            this.label4.TabIndex = 6;
+            this.label4.TabIndex = 2;
             this.label4.Text = "Limite";
             // 
             // tbOrçamentoCtg
@@ -65,14 +65,14 @@
             this.tbOrçamentoCtg.Location = new System.Drawing.Point(12, 64);
             this.tbOrçamentoCtg.Name = "tbOrçamentoCtg";
             this.tbOrçamentoCtg.Size = new System.Drawing.Size(192, 20);
-            this.tbOrçamentoCtg.TabIndex = 7;
+            this.tbOrçamentoCtg.TabIndex = 3;
             // 
             // salvarCtg
             // 
             this.salvarCtg.Location = new System.Drawing.Point(129, 114);
             this.salvarCtg.Name = "salvarCtg";
             this.salvarCtg.Size = new System.Drawing.Size(75, 23);
-            this.salvarCtg.TabIndex = 8;
+            this.salvarCtg.TabIndex = 4;
             this.salvarCtg.Text = "Salvar";
             this.salvarCtg.UseVisualStyleBackColor = true;
             this.salvarCtg.Click += new System.EventHandler(this.salvarCtg_Click);
@@ -87,7 +87,10 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tbDescriçãoCtg);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form_Categoria";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Categoria";
             this.ResumeLayout(false);

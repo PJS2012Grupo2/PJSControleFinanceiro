@@ -13,7 +13,6 @@ namespace projetoFinalPJS
 {
     public partial class formularioInicial : Form
     {
-        private List<Cs_Categorias> listaCategorias;
         public SqlDataAdapter adaptadorMovimento;
         public SqlDataAdapter adaptadorCategoria = new SqlDataAdapter();
         public SqlDataAdapter adaptadorRecorrente;

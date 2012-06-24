@@ -43,7 +43,7 @@
             this.listaCategoria.FullRowSelect = true;
             this.listaCategoria.Location = new System.Drawing.Point(12, 12);
             this.listaCategoria.Name = "listaCategoria";
-            this.listaCategoria.Size = new System.Drawing.Size(370, 224);
+            this.listaCategoria.Size = new System.Drawing.Size(446, 191);
             this.listaCategoria.TabIndex = 0;
             this.listaCategoria.UseCompatibleStateImageBehavior = false;
             this.listaCategoria.View = System.Windows.Forms.View.Details;
@@ -60,7 +60,7 @@
             // 
             // btAlterar
             // 
-            this.btAlterar.Location = new System.Drawing.Point(388, 12);
+            this.btAlterar.Location = new System.Drawing.Point(302, 209);
             this.btAlterar.Name = "btAlterar";
             this.btAlterar.Size = new System.Drawing.Size(75, 23);
             this.btAlterar.TabIndex = 1;
@@ -70,7 +70,7 @@
             // 
             // btExcluir
             // 
-            this.btExcluir.Location = new System.Drawing.Point(388, 41);
+            this.btExcluir.Location = new System.Drawing.Point(383, 209);
             this.btExcluir.Name = "btExcluir";
             this.btExcluir.Size = new System.Drawing.Size(75, 23);
             this.btExcluir.TabIndex = 2;
@@ -89,6 +89,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormAltCategoria";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Lista de Categorias";
             this.Load += new System.EventHandler(this.FormCategoria_Load);
