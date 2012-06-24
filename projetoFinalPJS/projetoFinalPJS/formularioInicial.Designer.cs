@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Todas as Categorias");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formularioInicial));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.arquivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,6 +75,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.csCategoriasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -262,16 +262,14 @@
             this.columnLimite,
             this.columnRestante});
             this.listViewCategorias.FullRowSelect = true;
-            listViewItem2.Checked = true;
-            listViewItem2.StateImageIndex = 1;
-            this.listViewCategorias.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem2});
+            this.listViewCategorias.GridLines = true;
             this.listViewCategorias.Location = new System.Drawing.Point(-2, -1);
             this.listViewCategorias.Name = "listViewCategorias";
             this.listViewCategorias.Size = new System.Drawing.Size(773, 157);
             this.listViewCategorias.TabIndex = 0;
             this.listViewCategorias.UseCompatibleStateImageBehavior = false;
             this.listViewCategorias.View = System.Windows.Forms.View.Tile;
+            this.listViewCategorias.SelectedIndexChanged += new System.EventHandler(this.listViewCategorias_SelectedIndexChanged);
             // 
             // columnNome
             // 
@@ -280,12 +278,12 @@
             // 
             // columnLimite
             // 
-            this.columnLimite.Text = "Orçamento";
+            this.columnLimite.Text = "Orçamento Atual";
             this.columnLimite.Width = 98;
             // 
             // columnRestante
             // 
-            this.columnRestante.Text = "Orçamento Restante";
+            this.columnRestante.Text = "Orçamento Máximo";
             this.columnRestante.Width = 117;
             // 
             // listViewMovimentos
@@ -452,7 +450,8 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
-            this.toolStripStatusLabel2});
+            this.toolStripStatusLabel2,
+            this.toolStripStatusLabel3});
             this.statusStrip1.Location = new System.Drawing.Point(0, 412);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(773, 22);
@@ -470,6 +469,12 @@
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
             this.toolStripStatusLabel2.Size = new System.Drawing.Size(0, 17);
+            // 
+            // toolStripStatusLabel3
+            // 
+            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(47, 17);
+            this.toolStripStatusLabel3.Text = "Avisos: ";
             // 
             // formularioInicial
             // 
@@ -539,7 +544,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nomeCategoriaDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn orçamentoCategoriaDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn orçamentoRestanteDataGridViewTextBoxColumn;
-        private System.Windows.Forms.ListView listViewCategorias;
         private System.Windows.Forms.ColumnHeader columnNome;
         private System.Windows.Forms.ColumnHeader columnLimite;
         private System.Windows.Forms.BindingSource csCategoriasBindingSource;
@@ -559,5 +563,7 @@
         private System.Windows.Forms.ToolStripButton toolStripButton7;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         public System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        public System.Windows.Forms.ListView listViewCategorias;
+        public System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
     }
 }

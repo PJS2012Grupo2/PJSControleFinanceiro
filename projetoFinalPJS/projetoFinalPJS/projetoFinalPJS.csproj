@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class_Movimento.cs" />
     <Compile Include="Cs_Categorias.cs" />
     <Compile Include="Cs_Movimento.cs">
       <SubType>Form</SubType>

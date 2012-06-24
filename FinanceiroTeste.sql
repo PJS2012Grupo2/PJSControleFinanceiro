@@ -6,16 +6,27 @@ GO
 
 --CRIANDO TABELAS
 
+
+
 CREATE TABLE CATEGORIA (
    ID_CATEGORIA INT PRIMARY KEY NOT NULL IDENTITY,
    NOME VARCHAR(50) NOT NULL,
-   LIMITE MONEY NOT NULL
+   LIMITE MONEY NOT NULL,
+   
 );
 GO
+
+ALTER TABLE CATEGORIA ADD VALOR_ATUAL MONEY NULL;
+GO
+
+ select * from movimento;
+go
+
+
  select * from categoria;
 go
 
-delete from categoria where nome in ('ração')
+delete from categoria where id_categoria in (40)
 go
 
 CREATE TABLE MOVIMENTO (
@@ -29,9 +40,9 @@ CREATE TABLE MOVIMENTO (
   );
 GO
 
-select * from MOVIMENTO_RECORRENTE
+select * from MOVIMENTO
 
-delete from MOVIMENTO_RECORRENTE where id_categoria in (4)
+delete from MOVIMENTO where id_categoria in (38)
 go
 
 CREATE TABLE MOVIMENTO_RECORRENTE(

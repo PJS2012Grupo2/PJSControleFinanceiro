@@ -24,24 +24,54 @@ namespace projetoFinalPJS
             InitializeComponent();
             this.formularioInicial = formularioInicial;
             this.adaptadorMovimento = adaptadorMovimento;
-
+            
             //trecho para popular combo box de categoria
             comando.Connection = conexao;
             conexao.Open();
-            comando.CommandText = "select count (NOME) from CATEGORIA";
+            comando.CommandText = "select MAX (ID_CATEGORIA) from CATEGORIA";
             Object retorno = comando.ExecuteScalar();
             int qtd_categorias=Convert.ToInt32(retorno);
+
+            comando.CommandText = "select COUNT (ID_CATEGORIA) from CATEGORIA";
+            Object total_Categ = comando.ExecuteScalar();
+            int total_Categoria=Convert.ToInt32(total_Categ);
             conexao.Close();
+
             string[] TiposCategorias = new string[qtd_categorias];
             conexao.Open();
+
+
             for (int cont = 1; cont <= qtd_categorias; cont++)
             { 
             comando.CommandText = "select NOME from CATEGORIA where ID_CATEGORIA="+cont+"";
             Object name=comando.ExecuteScalar();
-            TiposCategorias[cont-1] = name.ToString(); 
+            if (name != null)
+            {
+                TiposCategorias[cont - 1] = name.ToString();
             }
+
+            else 
+            {
+                TiposCategorias[cont - 1] = "null";
+            }
+            }
+
+            string[] C = new string[total_Categoria];
+            int j=0;
+            for (int i = 0; i < qtd_categorias; i++)
+            {
+          
+               
+                    if (TiposCategorias[i] != "null")
+                    {
+                        C[j] = TiposCategorias[i];
+                        j++;
+                    }
+                
+            }
+
             conexao.Close();
-            this.cbCategoria.DataSource = TiposCategorias;
+            this.cbCategoria.DataSource = C;
 
             //trecho para inicializar escolha de quantidade de parcelas com 1
             numericUpDown1.Value = 1;
@@ -89,6 +119,7 @@ namespace projetoFinalPJS
 
                  Saldo total_saldo= new Saldo(float.Parse(tbValor.Text));
                  float total = float.Parse(tbValor.Text);
+                 string categoria = cbCategoria.SelectedItem.ToString().ToUpper();
                  bool negativar=formularioInicial.valor_Negativo();
                  if (negativar == false)
                  {
@@ -99,16 +130,31 @@ namespace projetoFinalPJS
                      //executa a inserção dos dados no sql 
                      comando.ExecuteNonQuery();
                      conexao.Close();
-                 }
-                 else
-                 { 
-                 
-                   // comando da inserção 
-                     comando.CommandText = "UPDATE SALDO SET TOTAL = TOTAL- (" + total + ")";
+
+                     // comando da inserção 
+                     comando.CommandText = "UPDATE CATEGORIA SET VALOR_ATUAL = VALOR_ATUAL+ (" + total + ") WHERE nome='"+categoria.ToUpper()+"'";
                      // abre a conexão
                      conexao.Open();
                      //executa a inserção dos dados no sql 
                      comando.ExecuteNonQuery();
+                     formularioInicial.listViewCategorias.Items.Clear();
+                     formularioInicial.conexaoDados();
+                     conexao.Close();
+
+                 }
+                 else
+                 { 
+                   // abre a conexão
+                     conexao.Open();
+                   // comando da inserção 
+                     comando.CommandText = "UPDATE SALDO SET TOTAL = TOTAL- (" + total + ")";
+                     comando.ExecuteNonQuery();
+
+                     comando.CommandText = "UPDATE CATEGORIA SET VALOR_ATUAL = VALOR_ATUAL - (" + float.Parse(tbValor.Text) + ") WHERE NOME IN ('" + cbCategoria.SelectedValue.ToString().ToUpper() + "')";
+                     comando.ExecuteNonQuery();
+
+                     formularioInicial.listViewCategorias.Items.Clear();
+                     formularioInicial.conexaoDados();
                      conexao.Close();
                      
                  }
@@ -116,7 +162,7 @@ namespace projetoFinalPJS
 
                 Close();
             }
-        }
+         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
@@ -145,23 +191,108 @@ namespace projetoFinalPJS
 
         private void Form_Movimentação_FormClosing(object sender, FormClosingEventArgs e)
         {
+
+
             formularioInicial.var_Saida = false;
             InitializeComponent();
             try
             {
+                //MOSTRA SALDO TOTAL NO RODAPÉ
                 SqlConnection conn = new SqlConnection(@"Data Source=ROPAS-PC\SQLEXPRESS;Initial Catalog=FINANCEIRO;Integrated Security=SSPI");
                 conn.Open();
                 SqlCommand comando = new SqlCommand();
                 comando.Connection = conn;
+
                 comando.CommandText = "select * from SALDO";
                 Object total_saldo = comando.ExecuteScalar();
                 formularioInicial.toolStripStatusLabel1.Text = "Lembretes: Saldo=" + total_saldo.ToString() + "";
-                conn.Close();
+              
+                //invocaR AVISO DE ESTOURO DE SALDO CATEGORIA
+                popular_rodapé();
             }
             catch (Exception c)
             {
                 MessageBox.Show("erro", "erro", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+        }
+
+
+
+        public void popular_rodapé()
+        {
+        //AVISO DE ESTOURO DE SALDO CATEGORIA
+                comando.Connection = conexao;
+                conexao.Open();
+                comando.CommandText = "select MAX (ID_CATEGORIA) from CATEGORIA";
+                Object retorno = comando.ExecuteScalar();
+                int qtd_categorias = Convert.ToInt32(retorno);
+                conexao.Close();
+
+                conexao.Open();
+                comando.CommandText = "select COUNT (ID_CATEGORIA) from CATEGORIA";
+                Object total_Categ = comando.ExecuteScalar();
+                int total_Categoria = Convert.ToInt32(total_Categ);
+                conexao.Close();
+
+                string[] TiposCategorias = new string[qtd_categorias];
+                conexao.Open();
+
+
+                for (int cont = 1; cont <= qtd_categorias; cont++)
+                {
+                    comando.CommandText = "select NOME from CATEGORIA where ID_CATEGORIA=" + cont + "";
+                    Object name = comando.ExecuteScalar();
+                    if (name != null)
+                    {
+                        TiposCategorias[cont - 1] = name.ToString();
+                    }
+
+                    else
+                    {
+                        TiposCategorias[cont - 1] = "null";
+                    }
+                }
+
+                string[] C = new string[total_Categoria];
+                int j = 0;
+                for (int i = 0; i < qtd_categorias; i++)
+                {
+
+
+                    if (TiposCategorias[i] != "null")
+                    {
+                        C[j] = TiposCategorias[i];
+                        j++;
+                    }
+
+                }
+                conexao.Close();
+
+                for (int cont = 0; cont < total_Categoria; cont++)
+                {
+                    conexao.Open();
+                    comando.CommandText = "select VALOR_ATUAL from CATEGORIA where nome='" + C[cont] + "'";
+                    Object valor = comando.ExecuteScalar();
+                    float vAtual = float.Parse(valor.ToString());
+                    conexao.Close();
+                    conexao.Open();
+                    comando.CommandText = "select NOME from CATEGORIA where nome='" + C[cont] + "'";
+                    Object nomeCategoria = comando.ExecuteScalar();
+                    String n = nomeCategoria.ToString();
+                    conexao.Close();
+                    if (vAtual < 0)
+                    {
+                        formularioInicial.toolStripStatusLabel3.Text = "Avisos: Categoria " + n + ", ultrapassou limite, valor atual: " + vAtual + "";
+
+                    }
+                    else 
+                    {
+                        formularioInicial.toolStripStatusLabel3.Text = "Avisos: "; 
+                    }
+
+                }
+
+        
         }
 
         

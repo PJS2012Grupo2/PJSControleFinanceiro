@@ -53,16 +53,13 @@ namespace projetoFinalPJS
                     
                     if (nome_Categoria==null)
                     {
-                       comando.CommandText = "insert into CATEGORIA (NOME,LIMITE) values('"+tbDescriçãoCtg.Text.ToUpper()+"','"+Convert.ToDecimal(tbOrçamentoCtg.Text)+"')";
+                        comando.CommandText = "insert into CATEGORIA (NOME,VALOR_ATUAL,LIMITE) values('" + tbDescriçãoCtg.Text.ToUpper() + "','" + Convert.ToDecimal(tbOrçamentoCtg.Text) + "','" + Convert.ToDecimal(tbOrçamentoCtg.Text) + "')";
                        comando.ExecuteScalar();
-                      
+                       Cs_Categorias categoria = new Cs_Categorias(tbDescriçãoCtg.Text, float.Parse(tbOrçamentoCtg.Text), float.Parse(tbOrçamentoCtg.Text));
+                        formInicial.VisualizarCategoria(categoria);
+                        //Form_Movimentação.cbCategoria;
                     }
 
-
-
-                
-
-             
                     conn.Close();
              
 
@@ -76,8 +73,8 @@ namespace projetoFinalPJS
             //adaptadorCategoria.Update(dCategoria, "CATEGORIA");
             //adaptadorCategoria.Fill(dCategoria, "CATEGORIA");
 
-            Cs_Categorias categoria = new Cs_Categorias(tbDescriçãoCtg.Text, float.Parse(tbOrçamentoCtg.Text));
-            formInicial.VisualizarCategoria(categoria);
+            
+
 
             Close();
         }

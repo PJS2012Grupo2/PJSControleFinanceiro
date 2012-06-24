@@ -30,10 +30,12 @@ namespace projetoFinalPJS
             {
                 conexaoDados();
             }
-            catch
+            catch(Exception um)
             {
                 MessageBox.Show("Não foi possível fazer a conexão com a base de dados.");
-            } 
+            }
+
+            
         }
 
         public void conexaoDados()
@@ -74,7 +76,7 @@ namespace projetoFinalPJS
             prmValorMovimento.SourceColumn = "VALOR";
             prmValorMovimento.SourceVersion = DataRowVersion.Current;
             comandoInsercaoMovimento.Parameters.Add(prmValorMovimento);
-            // Data de cadastro
+            // Data de v cadastro
             SqlParameter prmDataCadastroMovimento = new SqlParameter("@DataCadastro", SqlDbType.Date);
             prmDataCadastroMovimento.SourceColumn = "DATA_CADASTRO";
             prmDataCadastroMovimento.SourceVersion = DataRowVersion.Current;
@@ -91,7 +93,7 @@ namespace projetoFinalPJS
             comandoInsercaoMovimento.Parameters.Add(prmCategoriaMovimento);
             adaptadorMovimento.InsertCommand = comandoInsercaoMovimento;
 
-            SqlCommand comandoInsercaoCategoria = new SqlCommand("Insert into CATEGORIA (NOME, LIMITE) values (@Nome, @Limite)", conexaoFinanceiro);
+            SqlCommand comandoInsercaoCategoria = new SqlCommand("Insert into CATEGORIA (NOME, LIMITE, VALOR_ATUAL) values (@Nome, @Limite, @Atual)", conexaoFinanceiro);
             // Nome
             SqlParameter prmNomeCategoria = new SqlParameter("@Nome", SqlDbType.VarChar, 50);
             prmNomeCategoria.SourceColumn = "NOME";
@@ -102,6 +104,12 @@ namespace projetoFinalPJS
             prmLimiteCategoria.SourceColumn = "LIMITE";
             prmLimiteCategoria.SourceVersion = DataRowVersion.Current;
             comandoInsercaoCategoria.Parameters.Add(prmLimiteCategoria);
+            adaptadorCategoria.InsertCommand = comandoInsercaoCategoria;
+            // Atual
+            SqlParameter prmAtual = new SqlParameter("@Atual", SqlDbType.Money);
+            prmAtual.SourceColumn = "VALOR_ATUAL";
+            prmAtual.SourceVersion = DataRowVersion.Current;
+            comandoInsercaoCategoria.Parameters.Add(prmAtual);
             adaptadorCategoria.InsertCommand = comandoInsercaoCategoria;
 
             SqlCommand comandoInsercaoRecorrente = new SqlCommand("Insert into MOVIMENTO_RECORRENTE (NOME, VALOR, RECORRENCIA, ID_CATEGORIA) values (@Nome, @Valor, @Recorrencia, @IdCategoria)", conexaoFinanceiro);
@@ -144,11 +152,13 @@ namespace projetoFinalPJS
             comandoAtualizacaoMovimento.Parameters.Add(prmCategoriaMovimento);
             adaptadorMovimento.UpdateCommand = comandoAtualizacaoMovimento;
 
-            SqlCommand comandoAtualizacaoCategoria = new SqlCommand("Update CATEGORIA set NOME = @Nome, LIMITE = @Limite where ID_CATEGORIA = @IdCategoria", conexaoFinanceiro);
+            SqlCommand comandoAtualizacaoCategoria = new SqlCommand("Update CATEGORIA set NOME = @Nome, LIMITE = @Limite where ID_CATEGORIA = @IdCategoria, VALOR_ATUAL = @Atual where ID_CATEGORIA = @IdCategoria", conexaoFinanceiro);
             prmNomeCategoria = new SqlParameter("@Nome", SqlDbType.VarChar, 50);
             comandoAtualizacaoCategoria.Parameters.Add(prmNomeCategoria);
             prmLimiteCategoria = new SqlParameter("@Limite", SqlDbType.Money);
             comandoAtualizacaoCategoria.Parameters.Add(prmLimiteCategoria);
+            prmAtual = new SqlParameter("@Atual", SqlDbType.Money);
+            comandoAtualizacaoCategoria.Parameters.Add(prmAtual);
             adaptadorCategoria.UpdateCommand = comandoAtualizacaoCategoria;
 
             SqlCommand comandoAtualizaoRecorrente = new SqlCommand("Update MOVIMENTO_RECORRENTE set NOME = @Nome, VALOR = @Valor, RECORRENCIA = @Recorrencia, ID_CATEGORIA = @IdCategoria", conexaoFinanceiro);
@@ -205,67 +215,126 @@ namespace projetoFinalPJS
             SqlCommand comandoInicializar = new SqlCommand();
             comandoInicializar.Connection = conexaoFinanceiro;
            
-            comandoInicializar.CommandText = "Select nome, limite from CATEGORIA";
+            comandoInicializar.CommandText = "Select nome, limite, valor_atual from CATEGORIA";
             comandoInicializar.ExecuteNonQuery();
 
-            SqlDataReader leitor = comandoInicializar.ExecuteReader();
 
-            while (leitor.Read())
+            try
             {
-                //string nome; float limite;
-                Cs_Categorias categoria = new Cs_Categorias((string)leitor["nome"],(float.Parse(leitor["limite"].ToString())));
-                VisualizarCategoria(categoria);
+                SqlDataReader leitor = comandoInicializar.ExecuteReader();
+
+                string nome = " "; float limite = 0.0F; float valor_atual = 0.0F;
+                Cs_Categorias categoria;
+
+                while (leitor.Read())
+                {
+                    categoria = new Cs_Categorias((string)leitor["nome"], (float.Parse(leitor["limite"].ToString())), (float.Parse(leitor["valor_atual"].ToString())));
+                    VisualizarCategoria(categoria);
+                }
+               leitor.Close();
+                //popular listview de baixo
+                SqlCommand comandoInicial = new SqlCommand();
+                comandoInicial.Connection = conexaoFinanceiro;
+
+                comandoInicial.CommandText = "Select DESCRICAO, VALOR, DATA_CADASTRO, ID_CATEGORIA, PARCELA, VALOR_TOTAL from MOVIMENTO";
+                comandoInicial.ExecuteNonQuery();
+
+                SqlDataReader reader = comandoInicial.ExecuteReader();
+                
+                //string nome = " "; float limite = 0.0F; float valor_atual = 0.0F;
+                //Cs_Categorias categoria;
+
+                while (reader.Read())
+                {
+                    Class_Movimento movimento = new Class_Movimento(((string)reader["DESCRICAO"]), ((float.Parse(reader["VALOR"].ToString()))), ((DateTime)(reader["DATA_CADASTRO"])), (int.Parse(reader["ID_CATEGORIA"].ToString())), (int.Parse(reader["PARCELA"].ToString())), (float.Parse(reader["VALOR_TOTAL"].ToString())));
+                    AdicionaMovimento(movimento);
+                }
+
+                reader.Close();
+
             }
-        }
+            catch (Exception x)
+            {
+
+                MessageBox.Show("erro ao popular list view","atenção",MessageBoxButtons.OK, MessageBoxIcon.Hand);
+            }
+
+           
+        }   
 
 
         public formularioInicial()
         {
+              
               InitializeComponent();
+              //dataGridView1.DataSource = listaC ategorias;
+              //AVISO DE ESTOURO DE SALDO CATEGORIA
+              Form_Movimentação f = new Form_Movimentação(this,adaptadorCategoria );
+              f.popular_rodapé();
+              listViewCategorias.View = View.Details;
+              listViewCategorias.GridLines = true;
+              listViewCategorias.LabelEdit = true;
               try
               {
                   SqlConnection conn = new SqlConnection(@"Data Source=ROPAS-PC\SQLEXPRESS;Initial Catalog=FINANCEIRO;Integrated Security=SSPI");
                   conn.Open();
                   SqlCommand comando = new SqlCommand();
                   comando.Connection = conn;
+
                   comando.CommandText = "select * from SALDO";
                   Object total_saldo = comando.ExecuteScalar();
                   toolStripStatusLabel1.Text ="Lembretes: Saldo="+ total_saldo.ToString()+ "";
-                  conn.Close();
+                 
+
+
+                 conn.Close();
               }
               catch (Exception c)
               {
                   MessageBox.Show("erro", "erro", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
               }
-            //dataGridView1.DataSource = listaC ategorias;
+          
+
+
         }
 
         public void VisualizarCategoria(Cs_Categorias ctg)
         {
             ListViewItem itemDescricao = new ListViewItem(ctg.Nome_Categoria);
-
-            ListViewItem.ListViewSubItem itemLimite = new ListViewItem.ListViewSubItem(itemDescricao, "R$"+ctg.Orçamento_Categoria.ToString());
-
+            ListViewItem.ListViewSubItem itemAtual = new ListViewItem.ListViewSubItem(itemDescricao, "R$"+ctg.Orçamento_Categoria.ToString());
+            ListViewItem.ListViewSubItem itemLimite = new ListViewItem.ListViewSubItem(itemDescricao, "R$" + ctg.Orçamento_Restante.ToString());
+            itemDescricao.SubItems.Add(itemAtual);
             itemDescricao.SubItems.Add(itemLimite);
-
             listViewCategorias.Items.Add(itemDescricao);
         }
 
-        public void AdicionaMovimento(Cs_Movimento mvt)
+        public void AdicionaMovimento(Class_Movimento mvt)
         {
-            //ListViewItem itemDescricao = new ListViewItem(mvt.descricao);
-            //ListViewItem.ListViewSubItem itemValor = new ListViewItem.ListViewSubItem(itemDescricao, "R$" + mvt.valor.ToString());
-            //ListViewItem.ListViewSubItem itemDataCadastro = new ListViewItem.ListViewSubItem(itemDescricao, mvt.dataCadastro.ToString());
-            //ListViewItem.ListViewSubItem itemCategoria = new ListViewItem.ListViewSubItem(itemDescricao, mvt.categoria);
-            //string parcela, valorTotal;
-            //if (mvt.parcela <= 0) { parcela = ""; valorTotal = ""; } else { parcela = mvt.parcela.ToString(); valorTotal = mvt.valorTotal.ToString(); }
-            //ListViewItem.ListViewSubItem itemParcela = new ListViewItem.ListViewSubItem(itemDescricao, parcela);
-            //itemDescricao.SubItems.Add(itemValor);
-            //itemDescricao.SubItems.Add(itemDataCadastro);
-            //itemDescricao.SubItems.Add(itemCategoria);
-            //itemDescricao.SubItems.Add(itemParcela);
+            ListViewItem itemDescricao = new ListViewItem(mvt.decricao);
+            ListViewItem.ListViewSubItem itemValor = new ListViewItem.ListViewSubItem(itemDescricao, "R$" + mvt.valor.ToString());
+            ListViewItem.ListViewSubItem itemDataCadastro = new ListViewItem.ListViewSubItem(itemDescricao, mvt.data_cadastro.ToString());
+            ListViewItem.ListViewSubItem itemCategoria = new ListViewItem.ListViewSubItem(itemDescricao, mvt.id_categoria.ToString());
+            string parcela, valorTotal;
 
-            //listViewMovimentos.Items.Add(itemDescricao);
+            if (mvt.parcela <= 0)
+            { 
+                parcela = "null"; valorTotal = "null";
+            }
+            else
+            { 
+                parcela = mvt.parcela.ToString();
+                valorTotal = mvt.valor_total.ToString(); 
+            
+            }
+            ListViewItem.ListViewSubItem itemParcela = new ListViewItem.ListViewSubItem(itemDescricao, parcela);
+            ListViewItem.ListViewSubItem itemVTotal = new ListViewItem.ListViewSubItem(itemDescricao,valorTotal);
+            itemDescricao.SubItems.Add(itemValor);
+            itemDescricao.SubItems.Add(itemDataCadastro);
+            itemDescricao.SubItems.Add(itemCategoria);
+            itemDescricao.SubItems.Add(itemParcela);
+            itemDescricao.SubItems.Add(itemVTotal);
+
+            listViewMovimentos.Items.Add(itemDescricao);
         }
 
         private void entradaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -335,6 +404,11 @@ namespace projetoFinalPJS
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
             categoriaToolStripMenuItem_Click(sender, e);
+        }
+
+        private void listViewCategorias_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
 

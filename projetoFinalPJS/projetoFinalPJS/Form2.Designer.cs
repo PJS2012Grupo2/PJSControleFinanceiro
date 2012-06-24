@@ -253,13 +253,13 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbSaldo;
-        private System.Windows.Forms.ComboBox cbCategoria;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label4;
         public System.Windows.Forms.CheckBox checkBox1;
         public System.Windows.Forms.GroupBox groupBox1;
+        public System.Windows.Forms.ComboBox cbCategoria;
 
     }
 }
