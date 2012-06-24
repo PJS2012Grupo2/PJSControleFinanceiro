@@ -13,11 +13,13 @@ namespace projetoFinalPJS
 {
     public partial class formularioInicial : Form
     {
+        private List<Cs_Categorias> listaCategorias;
         public SqlDataAdapter adaptadorMovimento;
         public SqlDataAdapter adaptadorCategoria = new SqlDataAdapter();
         public SqlDataAdapter adaptadorRecorrente;
         public SqlConnection conexaoFinanceiro;
         public DataSet dadosFinanceiro;
+        public bool var_Saida = false;
 
         public formularioInicial()
         {
@@ -198,8 +200,7 @@ namespace projetoFinalPJS
             prmIdMovimento.SourceColumn             = "ID_Movimento";
             prmIdMovimento.SourceVersion            = DataRowVersion.Original;
             comandoAtualizacaoMovimento.Parameters.Add(prmIdMovimento);
-           
-            
+
             prmDescricaoMovimento = new SqlParameter("@Descricao", SqlDbType.VarChar, 50);
             prmDescricaoMovimento.SourceColumn  = "Descricao";
             prmDescricaoMovimento.SourceVersion = DataRowVersion.Current;
@@ -281,6 +282,7 @@ namespace projetoFinalPJS
             // Ação para esquema faltando
             adaptadorMovimento.MissingSchemaAction = MissingSchemaAction.AddWithKey;
             adaptadorCategoria.MissingSchemaAction = MissingSchemaAction.AddWithKey;
+
             adaptadorRecorrente.MissingSchemaAction = MissingSchemaAction.AddWithKey;
 
             dadosFinanceiro = new DataSet();
@@ -288,13 +290,18 @@ namespace projetoFinalPJS
             adaptadorCategoria.Fill(dadosFinanceiro, "Categoria");
             adaptadorRecorrente.Fill(dadosFinanceiro, "Movimento_Recorrente");
         }
-
+        
         private void formularioInicial_Load(object sender, EventArgs e)
         {
             conexaoDados();
             carregaCategorias();
             carregaMovimentos();
             verificaSelecaoMovimentos();
+            SqlCommand comando = new SqlCommand();
+            comando.Connection = conexaoFinanceiro;
+            comando.CommandText = "select * from SALDO";
+            Object total_saldo = comando.ExecuteScalar();
+            toolStripStatusLabel1.Text ="Lembretes: Saldo="+ total_saldo.ToString()+ "";
         }
 
         private ListViewItem ConstroiItemMovimento(Cs_Movimento mvt, bool alt=false, int idCategoria=0, string idMovimento="")
@@ -447,6 +454,8 @@ namespace projetoFinalPJS
         private void entradaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Form_Movimentação Var_Form_Movimentação = new Form_Movimentação(this, adaptadorMovimento);
+            Var_Form_Movimentação.checkBox1.Enabled = false;
+            Var_Form_Movimentação.groupBox1.Enabled = false;
             Var_Form_Movimentação.ShowDialog();
         }
 
@@ -458,7 +467,7 @@ namespace projetoFinalPJS
 
         private void categoriaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form_Categoria Var_Form_Categoria = new Form_Categoria(this, adaptadorCategoria,true,0);
+            Form_Categoria Var_Form_Categoria = new Form_Categoria(this, adaptadorCategoria, true, 0);
             Var_Form_Categoria.ShowDialog();
         }        
 
@@ -568,6 +577,34 @@ namespace projetoFinalPJS
                 }
                 leitor.Close();
             }
+        }
+
+        private void saídaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)
+        {  
+            var_Saida = true; 
+            Form_Movimentação Var_Form_Movimentação = new Form_Movimentação(this, adaptadorMovimento);
+            Var_Form_Movimentação.ShowDialog();
+        }
+
+        public bool valor_Negativo()
+        {
+            bool negativo = var_Saida;
+            return negativo;
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            entradaDeValoresToolStripMenuItem1_Click(sender, e);
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            saídaDeValoresToolStripMenuItem1_Click(sender, e);
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            categoriaToolStripMenuItem_Click(sender, e);
         }
     }
 }

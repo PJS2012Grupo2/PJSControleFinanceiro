@@ -14,14 +14,15 @@ namespace projetoFinalPJS
     {
         string[] parcelar = { "Sim", "Não" };
         SqlDataAdapter adaptadorMovimento;
-       // SqlDataAdapter preencherCategoria;
-        private formularioInicial formularioInicial;
-        SqlCommand comando = new SqlCommand();
-
+        
         private void Form_Movimentação_Load(object sender, EventArgs e)
         {
             cbCategoria.SelectedIndex = 0;
         }
+
+        SqlDataAdapter preencherCategoria;
+        private formularioInicial formularioInicial;
+        SqlCommand comando = new SqlCommand();
 
         public Form_Movimentação(formularioInicial formularioInicial, SqlDataAdapter adaptadorMovimento)
         {
@@ -52,16 +53,12 @@ namespace projetoFinalPJS
             comando.CommandText = "select * from SALDO";
             Object total_saldo = comando.ExecuteScalar();
             tbSaldo.Text = total_saldo.ToString();
+            groupBox1.Enabled = true;
         }
 
         private void cadastrar_Click(object sender, EventArgs e)
         {
-            if (tbSaldo.Text.Trim() == "")
-            {
-                MessageBox.Show("Digite um valor de Saldo válido.");
-                tbSaldo.Focus();
-            }
-            else if (tbDescrição.Text.Trim() == "")
+            if (tbDescrição.Text.Trim() == "")
             {
                 MessageBox.Show("Digite uma descrição.");
                 tbDescrição.Focus();
@@ -87,6 +84,24 @@ namespace projetoFinalPJS
                 Cs_Movimento movimento = new Cs_Movimento(tbDescrição.Text, float.Parse(tbValor.Text), DateTime.Parse(dtpData.Text), 0, 0, cbCategoria.Text);
                 formularioInicial.AdicionaMovimento(movimento, novoMovimento["ID_MOVIMENTO"].ToString(), numeroCategoria);
 
+                Saldo total_saldo= new Saldo(float.Parse(tbValor.Text));
+                float total = float.Parse(tbValor.Text);
+                bool negativar=formularioInicial.valor_Negativo();
+                if (negativar == false)
+                {
+                    // comando da inserção 
+                    comando.CommandText = "UPDATE SALDO SET TOTAL = TOTAL+ (" + total + ")";
+                    //executa a inserção dos dados no sql 
+                    comando.ExecuteNonQuery();
+                }
+                else
+                {
+ 
+                    // comando da inserção 
+                    comando.CommandText = "UPDATE SALDO SET TOTAL = TOTAL- (" + total + ")";
+                    //executa a inserção dos dados no sql 
+                    comando.ExecuteNonQuery();
+                 }
                 Close();
             }
         }
@@ -102,7 +117,39 @@ namespace projetoFinalPJS
         {
             numericUpDown1.Enabled = true;
             label4.Enabled = true;
-        }     
-        
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (groupBox1.Enabled == true)
+            {
+                groupBox1.Enabled = false;
+            }
+            else
+            {
+                groupBox1.Enabled = true;
+            }
+        }
+
+        private void Form_Movimentação_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            formularioInicial.var_Saida = false;
+            InitializeComponent();
+            try
+            {
+                SqlConnection conn = new SqlConnection(@"Data Source=ROPAS-PC\SQLEXPRESS;Initial Catalog=FINANCEIRO;Integrated Security=SSPI");
+                conn.Open();
+                SqlCommand comando = new SqlCommand();
+                comando.Connection = conn;
+                comando.CommandText = "select * from SALDO";
+                Object total_saldo = comando.ExecuteScalar();
+                formularioInicial.toolStripStatusLabel1.Text = "Lembretes: Saldo=" + total_saldo.ToString() + "";
+                conn.Close();
+            }
+            catch (Exception c)
+            {
+                MessageBox.Show("erro", "erro", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
     }
 }

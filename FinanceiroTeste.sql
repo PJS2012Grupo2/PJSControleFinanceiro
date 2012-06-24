@@ -12,6 +12,11 @@ CREATE TABLE CATEGORIA (
    LIMITE MONEY NOT NULL
 );
 GO
+ select * from categoria;
+go
+
+delete from categoria where nome in ('ração')
+go
 
 CREATE TABLE MOVIMENTO (
   ID_MOVIMENTO INT PRIMARY KEY NOT NULL IDENTITY,
@@ -24,6 +29,11 @@ CREATE TABLE MOVIMENTO (
   );
 GO
 
+select * from MOVIMENTO_RECORRENTE
+
+delete from MOVIMENTO_RECORRENTE where id_categoria in (4)
+go
+
 CREATE TABLE MOVIMENTO_RECORRENTE(
   ID_RECORRENTE INT PRIMARY KEY NOT NULL identity,
   NOME VARCHAR(30),
@@ -32,6 +42,23 @@ CREATE TABLE MOVIMENTO_RECORRENTE(
   ID_CATEGORIA INT FOREIGN KEY REFERENCES CATEGORIA(ID_CATEGORIA)
 );
 GO
+
+CREATE TABLE SALDO (
+TOTAL MONEY NULL,
+)
+GO
+
+INSERT INTO SALDO VALUES(  
+0.0);
+GO
+
+UPDATE SALDO SET TOTAL=TOTAL+0.0
+GO
+
+SELECT * FROM SALDO
+GO
+
+delete from saldo where total = 1200.00
 
 /*
 --Inserindo alguns registros para teste
@@ -126,4 +153,10 @@ go
 
 select * from CATEGORIA;
 go
+<<<<<<< HEAD
 >>>>>>> .merge_file_a05052
+=======
+
+INSERT INTO CATEGORIA VALUES 
+('Sem Categoria', 0);
+>>>>>>> PDS

@@ -98,7 +98,6 @@ namespace projetoFinalPJS
                 formularioInicial.limparListViewInicial(id);
                 adaptadorCategoria.Update(DeleteCategoria, "CATEGORIA");
             }
-
             else
                 Close();      
         }

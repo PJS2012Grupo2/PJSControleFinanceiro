@@ -8,15 +8,9 @@ namespace projetoFinalPJS
     public class Saldo
     {
         public float Total {get; set;}
-
-         public Saldo(float total)
+        public Saldo(float total)
         {
             Total = total;
-     
         }
-
-
     }
-
-     
 }

@@ -37,8 +37,6 @@
             this.Form_Entrada_De_ValoresToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.saídaDeValoresToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.categoriaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.categoriasEspeciaisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gastosParceladosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.abrirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.categoriasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,7 +86,7 @@
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cATEGORIABindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.csCategoriasBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.csCategoriasBindingSource)).BeginInit();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -122,8 +120,7 @@
             this.novoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Form_Entrada_De_ValoresToolStripMenuItem1,
             this.saídaDeValoresToolStripMenuItem1,
-            this.categoriaToolStripMenuItem,
-            this.categoriasEspeciaisToolStripMenuItem});
+            this.categoriaToolStripMenuItem});
             this.novoToolStripMenuItem.Name = "novoToolStripMenuItem";
             this.novoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.novoToolStripMenuItem.Text = "Novo";
@@ -131,36 +128,23 @@
             // Form_Entrada_De_ValoresToolStripMenuItem1
             // 
             this.Form_Entrada_De_ValoresToolStripMenuItem1.Name = "Form_Entrada_De_ValoresToolStripMenuItem1";
-            this.Form_Entrada_De_ValoresToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.Form_Entrada_De_ValoresToolStripMenuItem1.Size = new System.Drawing.Size(171, 22);
             this.Form_Entrada_De_ValoresToolStripMenuItem1.Text = "Entrada de Valores";
             this.Form_Entrada_De_ValoresToolStripMenuItem1.Click += new System.EventHandler(this.entradaDeValoresToolStripMenuItem1_Click);
             // 
             // saídaDeValoresToolStripMenuItem1
             // 
             this.saídaDeValoresToolStripMenuItem1.Name = "saídaDeValoresToolStripMenuItem1";
-            this.saídaDeValoresToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.saídaDeValoresToolStripMenuItem1.Size = new System.Drawing.Size(171, 22);
             this.saídaDeValoresToolStripMenuItem1.Text = "Saída de Valores";
+            this.saídaDeValoresToolStripMenuItem1.Click += new System.EventHandler(this.saídaDeValoresToolStripMenuItem1_Click);
             // 
             // categoriaToolStripMenuItem
             // 
             this.categoriaToolStripMenuItem.Name = "categoriaToolStripMenuItem";
-            this.categoriaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.categoriaToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.categoriaToolStripMenuItem.Text = "Categoria";
             this.categoriaToolStripMenuItem.Click += new System.EventHandler(this.categoriaToolStripMenuItem_Click);
-            // 
-            // categoriasEspeciaisToolStripMenuItem
-            // 
-            this.categoriasEspeciaisToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.gastosParceladosToolStripMenuItem});
-            this.categoriasEspeciaisToolStripMenuItem.Name = "categoriasEspeciaisToolStripMenuItem";
-            this.categoriasEspeciaisToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.categoriasEspeciaisToolStripMenuItem.Text = "Categorias Especiais";
-            // 
-            // gastosParceladosToolStripMenuItem
-            // 
-            this.gastosParceladosToolStripMenuItem.Name = "gastosParceladosToolStripMenuItem";
-            this.gastosParceladosToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.gastosParceladosToolStripMenuItem.Text = "Gastos Parcelados";
             // 
             // abrirToolStripMenuItem
             // 
@@ -366,6 +350,7 @@
             // 
             this.columnDataCadastro.Text = "Data do Cadastro";
             this.columnDataCadastro.Width = 106;
+            this.cATEGORIABindingSource.DataMember = "CATEGORIA";
             // 
             // columnCategoria
             // 
@@ -420,6 +405,8 @@
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.ToolTipText = "Entrada de Valores";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // toolStripButton2
             // 
@@ -429,6 +416,8 @@
             this.toolStripButton2.Name = "toolStripButton2";
             this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton2.Text = "toolStripButton2";
+            this.toolStripButton2.ToolTipText = "Saída de Valores";
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
             // toolStripButton3
             // 
@@ -438,7 +427,8 @@
             this.toolStripButton3.Name = "toolStripButton3";
             this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton3.Text = "toolStripButton3";
-            this.toolStripButton3.ToolTipText = "Relatórios\r\n";
+            this.toolStripButton3.ToolTipText = "Cadastrar Categorias";
+            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
             // toolStripButton4
             // 
@@ -448,7 +438,7 @@
             this.toolStripButton4.Name = "toolStripButton4";
             this.toolStripButton4.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton4.Text = "toolStripButton4";
-            this.toolStripButton4.ToolTipText = "Relarório";
+            this.toolStripButton4.ToolTipText = "Relatório";
             // 
             // toolStripButton5
             // 
@@ -458,6 +448,7 @@
             this.toolStripButton5.Name = "toolStripButton5";
             this.toolStripButton5.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton5.Text = "toolStripButton5";
+            this.toolStripButton5.ToolTipText = "Filtros";
             // 
             // toolStripButton6
             // 
@@ -467,6 +458,18 @@
             this.toolStripButton6.Name = "toolStripButton6";
             this.toolStripButton6.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton6.Text = "toolStripButton6";
+            this.toolStripButton6.ToolTipText = "Salvar";
+            // 
+            // toolStripButton7
+            // 
+            this.toolStripButton7.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton7.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton7.Image")));
+            this.toolStripButton7.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton7.Name = "toolStripButton7";
+            this.toolStripButton7.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton7.Text = "toolStripButton7";
+            this.toolStripButton7.ToolTipText = "Calculadora";
+            this.toolStripButton7.Click += new System.EventHandler(this.toolStripButton7_Click);
             // 
             // toolStripButton7
             // 
@@ -532,10 +535,8 @@
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cATEGORIABindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.csCategoriasBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.csCategoriasBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
@@ -562,8 +563,6 @@
         private System.Windows.Forms.ToolStripMenuItem Form_Entrada_De_ValoresToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem saídaDeValoresToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem categoriaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem categoriasEspeciaisToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem gastosParceladosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem categoriaToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem mêsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mêsToolStripMenuItem1;
@@ -577,6 +576,10 @@
         private System.Windows.Forms.ColumnHeader columnLimite;
         private System.Windows.Forms.BindingSource csCategoriasBindingSource;
         private System.Windows.Forms.BindingSource cATEGORIABindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn iDCATEGORIADataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nOMEDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn lIMITEDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource cATEGORIABindingSource1;
         private System.Windows.Forms.ListView listViewMovimentos;
         private System.Windows.Forms.ColumnHeader columnDescricao;
         private System.Windows.Forms.ColumnHeader columnValor;

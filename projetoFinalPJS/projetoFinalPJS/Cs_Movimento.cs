@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace projetoFinalPJS
 {
-    public class Cs_Movimento
+    public partial class Cs_Movimento : Form
     {
         public string descricao { get; set; }
         public float valor { get; set; }
