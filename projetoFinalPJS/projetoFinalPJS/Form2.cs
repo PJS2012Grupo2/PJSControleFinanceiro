@@ -41,6 +41,17 @@ namespace projetoFinalPJS
                 numericUpDown1.Enabled = false;
                 checkBox1.Enabled = false;
             }
+            else
+                tbValor.Text = "R$+";
+            verificaValor();
+        }
+
+        public void verificaValor()
+        {
+            if (float.Parse(tbValor.Text.Replace("R$", "")) >= 0)
+                tbValor.ForeColor = Color.Green;
+            else
+                tbValor.ForeColor = Color.Red;
         }
 
         public Form_Movimentação(formularioInicial formularioInicial, SqlDataAdapter adaptadorMovimento, ListViewItem itemSelecionado=null)
@@ -113,9 +124,7 @@ namespace projetoFinalPJS
                     }
                 }
                 else
-                {
                     formularioInicial.dadosFinanceiro.Tables["MOVIMENTO"].Rows.Add(novoMovimento);
-                }
                 adaptadorMovimento.Update(formularioInicial.dadosFinanceiro, "MOVIMENTO");
                 formularioInicial.carregaMovimentos(); //TESTE
 
@@ -179,6 +188,11 @@ namespace projetoFinalPJS
             {
                 MessageBox.Show("Erro", "Erro de conexão com a base de dados", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+        }
+
+        private void tbValor_TextChanged(object sender, EventArgs e)
+        {
+            verificaValor();
         }
     }
 }

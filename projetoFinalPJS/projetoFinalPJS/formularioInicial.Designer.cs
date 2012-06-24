@@ -120,7 +120,7 @@
             this.saídaDeValoresToolStripMenuItem1,
             this.categoriaToolStripMenuItem});
             this.novoToolStripMenuItem.Name = "novoToolStripMenuItem";
-            this.novoToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.novoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.novoToolStripMenuItem.Text = "Novo";
             // 
             // Form_Entrada_De_ValoresToolStripMenuItem1
@@ -147,7 +147,7 @@
             // abrirToolStripMenuItem
             // 
             this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
-            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.abrirToolStripMenuItem.Text = "Abrir";
             // 
             // editarToolStripMenuItem
@@ -547,7 +547,6 @@
         private System.Windows.Forms.BindingSource cATEGORIABindingSource;
         private System.Windows.Forms.ListView listViewMovimentos;
         private System.Windows.Forms.ColumnHeader columnDescricao;
-        private System.Windows.Forms.ColumnHeader columnValor;
         private System.Windows.Forms.ColumnHeader columnRestante;
         private System.Windows.Forms.ColumnHeader columnDataCadastro;
         private System.Windows.Forms.ColumnHeader columnCategoria;
@@ -556,5 +555,6 @@
         private System.Windows.Forms.ToolStripButton toolStripButton7;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         public System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        public System.Windows.Forms.ColumnHeader columnValor;
     }
 }

@@ -51,7 +51,7 @@ namespace projetoFinalPJS
                     float.Parse(leitorMovimentos["VALOR"].ToString()),
                     (DateTime)leitorMovimentos["DATA_CADASTRO"],
                     prc,
-                    total, //(float)leitorMovimentos["VALOR_TOTAL"],
+                    total,
                     leitorMovimentos["ID_CATEGORIA"].ToString()
                 );
                 if (idCategoria > 0)
@@ -75,6 +75,7 @@ namespace projetoFinalPJS
                 nomeCategoria = ((string)achaCategoria.ExecuteScalar());
                 item.SubItems[3].Text = nomeCategoria;
             }
+            verificaValor();
         }
 
         public void VisualizarCategoria(Cs_Categorias ctg, int idCategoria=0)
@@ -295,6 +296,7 @@ namespace projetoFinalPJS
             conexaoDados();
             carregaCategorias();
             carregaMovimentos();
+            
             verificaSelecaoMovimentos();
             SqlCommand comando = new SqlCommand();
             comando.Connection = conexaoFinanceiro;
@@ -312,7 +314,7 @@ namespace projetoFinalPJS
             string parcela, valorTotal;
             if (mvt.parcela <= 0)
             {
-                parcela = "0";
+                parcela = "";
                 valorTotal = itemValor.Text;
             }
             else
@@ -329,7 +331,6 @@ namespace projetoFinalPJS
                 // Apenas atribui uma tag ao movimento para id e categoria se for uma inserção
                 itemDescricao.Tag = idMovimento;
             itemDescricao.SubItems[3].Tag = idCategoria;
-
             return itemDescricao;
         }
 
@@ -346,7 +347,19 @@ namespace projetoFinalPJS
                     break;
             listViewMovimentos.Items[i] = ConstroiItemMovimento(mvt, true, idCategoria);
         }
-        
+
+        private void verificaValor()
+        {
+            foreach (ListViewItem mvt in listViewMovimentos.Items)
+            {
+                mvt.UseItemStyleForSubItems = false;
+                if (float.Parse(mvt.SubItems[1].Text.Replace("R$", "")) >= 0)
+                    mvt.SubItems[1].ForeColor = Color.Green;
+                else
+                    mvt.SubItems[1].ForeColor = Color.Red;
+            }
+        }
+
         private void verificaSelecaoMovimentos()
         {
             // Desabilita ou habilita o botão de edição de movimento no menu
@@ -455,13 +468,16 @@ namespace projetoFinalPJS
             Form_Movimentação Var_Form_Movimentação = new Form_Movimentação(this, adaptadorMovimento);
             Var_Form_Movimentação.checkBox1.Enabled = false;
             Var_Form_Movimentação.groupBox1.Enabled = false;
+            Var_Form_Movimentação.tbValor.ForeColor = Color.Green;
             Var_Form_Movimentação.ShowDialog();
         }
 
-        private void saidaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void saídaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Form_Movimentação Var_Form_Movimentação_2 = new Form_Movimentação(this, adaptadorMovimento);
-            Var_Form_Movimentação_2.ShowDialog();
+            var_Saida = true;
+            Form_Movimentação Var_Form_Movimentação = new Form_Movimentação(this, adaptadorMovimento);
+            Var_Form_Movimentação.tbValor.ForeColor = Color.Red;
+            Var_Form_Movimentação.ShowDialog();
         }
 
         private void categoriaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -577,13 +593,6 @@ namespace projetoFinalPJS
                 }
                 leitor.Close();
             }
-        }
-
-        private void saídaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)
-        {  
-            var_Saida = true; 
-            Form_Movimentação Var_Form_Movimentação = new Form_Movimentação(this, adaptadorMovimento);
-            Var_Form_Movimentação.ShowDialog();
         }
 
         public bool valor_Negativo()
