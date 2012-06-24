@@ -477,7 +477,8 @@ namespace projetoFinalPJS
 
         private void listViewMovimentos_DoubleClick(object sender, EventArgs e)
         {
-            FormAlteracaoMovimentos formAlt = new FormAlteracaoMovimentos(adaptadorMovimento, this, listViewMovimentos.SelectedItems[0]);
+            Form_Movimentação formAlt = new Form_Movimentação(this, adaptadorMovimento, listViewMovimentos.SelectedItems[0]);
+            //FormAlteracaoMovimentos formAlt = new FormAlteracaoMovimentos(adaptadorMovimento, this, listViewMovimentos.SelectedItems[0]);
             formAlt.ShowDialog();
         }
 

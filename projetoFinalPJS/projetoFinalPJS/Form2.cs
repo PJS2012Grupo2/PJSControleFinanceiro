@@ -16,19 +16,30 @@ namespace projetoFinalPJS
         SqlDataAdapter adaptadorMovimento;
         private formularioInicial formularioInicial;
         SqlCommand comando = new SqlCommand();
+        ListViewItem itemAlt;
         
         private void Form_Movimentação_Load(object sender, EventArgs e)
         {
             cbCategoria.SelectedIndex = 0;
             //trecho para inicializar escolha de quantidade de parcelas com 1
             numericUpDown1.Value = 1;
+
+            if (itemAlt != null)
+            {
+                tbDescrição.Text = itemAlt.SubItems[0].Text;
+                cbCategoria.Text = itemAlt.SubItems[3].Text;
+                cbCategoria.SelectedText = itemAlt.SubItems[3].Text;
+                tbValor.Text = itemAlt.SubItems[1].Text;
+                dtpData.Text = DateTime.Parse(itemAlt.SubItems[2].Text).ToString().Substring(0, 7);
+            }
         }
 
-        public Form_Movimentação(formularioInicial formularioInicial, SqlDataAdapter adaptadorMovimento)
+        public Form_Movimentação(formularioInicial formularioInicial, SqlDataAdapter adaptadorMovimento, ListViewItem itemSelecionado=null)
         {
             InitializeComponent();
             this.formularioInicial = formularioInicial;
             this.adaptadorMovimento = formularioInicial.adaptadorMovimento;
+            this.itemAlt = itemSelecionado;
 
             //trecho para popular combo box de categoria
             comando.Connection = formularioInicial.conexaoFinanceiro;
@@ -75,10 +86,30 @@ namespace projetoFinalPJS
                 achaCategoria.CommandText = "SELECT ID_CATEGORIA FROM CATEGORIA WHERE NOME = '" + cbCategoria.Text + "'";
                 int numeroCategoria = ((int)achaCategoria.ExecuteScalar());
                 novoMovimento["Id_Categoria"] = numeroCategoria;
-                formularioInicial.dadosFinanceiro.Tables["MOVIMENTO"].Rows.Add(novoMovimento);
+                if (itemAlt != null)
+                {
+                    SqlCommand achaMovimento = formularioInicial.conexaoFinanceiro.CreateCommand();
+                    achaMovimento.CommandText = "SELECT ID_CATEGORIA FROM CATEGORIA WHERE NOME = '" + cbCategoria.Text + "'";
+                    foreach (DataRow registro in formularioInicial.dadosFinanceiro.Tables["MOVIMENTO"].Rows)
+                    {
+                        if (int.Parse(registro["ID_MOVIMENTO"].ToString()) == int.Parse(itemAlt.Tag.ToString()))
+                        {
+                            DataRow altRegistro =
+                                formularioInicial.dadosFinanceiro.Tables["MOVIMENTO"].Rows.Find(int.Parse(itemAlt.Tag.ToString()));
+                            altRegistro["Descricao"] = tbDescrição.Text;
+                            altRegistro["Valor"] = float.Parse(tbValor.Text.Replace("R$", ""));
+                            altRegistro["DATA_CADASTRO"] = DateTime.Parse(dtpData.Text);
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    formularioInicial.dadosFinanceiro.Tables["MOVIMENTO"].Rows.Add(novoMovimento);
+                    Cs_Movimento movimento = new Cs_Movimento(tbDescrição.Text, float.Parse(tbValor.Text), DateTime.Parse(dtpData.Text), 0, 0, cbCategoria.Text);
+                    formularioInicial.AdicionaMovimento(movimento, novoMovimento["ID_MOVIMENTO"].ToString(), numeroCategoria);
+                }
                 adaptadorMovimento.Update(formularioInicial.dadosFinanceiro, "MOVIMENTO");
-                Cs_Movimento movimento = new Cs_Movimento(tbDescrição.Text, float.Parse(tbValor.Text), DateTime.Parse(dtpData.Text), 0, 0, cbCategoria.Text);
-                formularioInicial.AdicionaMovimento(movimento, novoMovimento["ID_MOVIMENTO"].ToString(), numeroCategoria);
 
                 Saldo total_saldo= new Saldo(float.Parse(tbValor.Text));
                 float total = float.Parse(tbValor.Text);
@@ -92,7 +123,6 @@ namespace projetoFinalPJS
                 }
                 else
                 {
- 
                     // comando da inserção 
                     comando.CommandText = "UPDATE SALDO SET TOTAL = TOTAL- (" + total + ")";
                     //executa a inserção dos dados no sql 
