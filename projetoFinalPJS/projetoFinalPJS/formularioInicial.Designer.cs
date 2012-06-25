@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("Todas as Categorias");
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("Todas as Categorias");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formularioInicial));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.arquivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -257,11 +257,11 @@
             this.listViewCategorias.ForeColor = System.Drawing.Color.Black;
             this.listViewCategorias.FullRowSelect = true;
             this.listViewCategorias.GridLines = true;
-            listViewItem4.Checked = true;
-            listViewItem4.StateImageIndex = 1;
-            listViewItem4.Tag = "todas";
+            listViewItem5.Checked = true;
+            listViewItem5.StateImageIndex = 1;
+            listViewItem5.Tag = "todas";
             this.listViewCategorias.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem4});
+            listViewItem5});
             this.listViewCategorias.Location = new System.Drawing.Point(-2, 0);
             this.listViewCategorias.Name = "listViewCategorias";
             this.listViewCategorias.Size = new System.Drawing.Size(169, 365);
@@ -419,6 +419,7 @@
             this.toolStripButtonRelatorio.Text = "Relatório";
             this.toolStripButtonRelatorio.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolStripButtonRelatorio.ToolTipText = "Relatório";
+            this.toolStripButtonRelatorio.Click += new System.EventHandler(this.toolStripButtonRelatorio_Click);
             // 
             // toolStripButton5
             // 

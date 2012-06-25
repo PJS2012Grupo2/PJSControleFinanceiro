@@ -636,5 +636,11 @@ namespace projetoFinalPJS
                 }
             }
         }
+
+        private void toolStripButtonRelatorio_Click(object sender, EventArgs e)
+        {
+            Form_Relatorios formRelatorios = new Form_Relatorios();
+            formRelatorios.ShowDialog();
+        }
     }
 }
