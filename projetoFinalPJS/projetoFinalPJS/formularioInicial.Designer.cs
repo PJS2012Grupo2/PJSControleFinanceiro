@@ -65,10 +65,10 @@
             this.csCategoriasBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonNovaEntrada = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonNovaSaida = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonRelatorio = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
@@ -237,9 +237,9 @@
             this.panel1.AutoSize = true;
             this.panel1.BackColor = System.Drawing.SystemColors.HighlightText;
             this.panel1.Controls.Add(this.listViewCategorias);
-            this.panel1.Location = new System.Drawing.Point(0, 47);
+            this.panel1.Location = new System.Drawing.Point(0, 66);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(212, 389);
+            this.panel1.Size = new System.Drawing.Size(165, 370);
             this.panel1.TabIndex = 1;
             // 
             // listViewCategorias
@@ -248,12 +248,13 @@
             this.listViewCategorias.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.listViewCategorias.BackColor = System.Drawing.Color.AliceBlue;
+            this.listViewCategorias.BackColor = System.Drawing.Color.Gainsboro;
             this.listViewCategorias.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listViewCategorias.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnNome,
             this.columnLimite,
             this.columnRestante});
+            this.listViewCategorias.ForeColor = System.Drawing.Color.Black;
             this.listViewCategorias.FullRowSelect = true;
             this.listViewCategorias.GridLines = true;
             listViewItem1.Checked = true;
@@ -261,9 +262,9 @@
             listViewItem1.Tag = "todas";
             this.listViewCategorias.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1});
-            this.listViewCategorias.Location = new System.Drawing.Point(-2, 3);
+            this.listViewCategorias.Location = new System.Drawing.Point(-2, -6);
             this.listViewCategorias.Name = "listViewCategorias";
-            this.listViewCategorias.Size = new System.Drawing.Size(195, 378);
+            this.listViewCategorias.Size = new System.Drawing.Size(169, 368);
             this.listViewCategorias.TabIndex = 0;
             this.listViewCategorias.UseCompatibleStateImageBehavior = false;
             this.listViewCategorias.View = System.Windows.Forms.View.Tile;
@@ -303,9 +304,9 @@
             this.columnTotal});
             this.listViewMovimentos.FullRowSelect = true;
             this.listViewMovimentos.GridLines = true;
-            this.listViewMovimentos.Location = new System.Drawing.Point(-1, 3);
+            this.listViewMovimentos.Location = new System.Drawing.Point(0, 19);
             this.listViewMovimentos.Name = "listViewMovimentos";
-            this.listViewMovimentos.Size = new System.Drawing.Size(707, 376);
+            this.listViewMovimentos.Size = new System.Drawing.Size(732, 362);
             this.listViewMovimentos.TabIndex = 0;
             this.listViewMovimentos.UseCompatibleStateImageBehavior = false;
             this.listViewMovimentos.View = System.Windows.Forms.View.Details;
@@ -355,75 +356,77 @@
             this.panel2.AutoSize = true;
             this.panel2.BackColor = System.Drawing.SystemColors.HighlightText;
             this.panel2.Controls.Add(this.listViewMovimentos);
-            this.panel2.Location = new System.Drawing.Point(199, 47);
+            this.panel2.Location = new System.Drawing.Point(173, 47);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(746, 389);
+            this.panel2.Size = new System.Drawing.Size(744, 389);
             this.panel2.TabIndex = 2;
             // 
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1,
-            this.toolStripButton2,
+            this.toolStripButtonNovaEntrada,
+            this.toolStripButtonNovaSaida,
             this.toolStripButton3,
-            this.toolStripButton4,
+            this.toolStripButtonRelatorio,
             this.toolStripButton5,
-            this.toolStripButton6,
-            this.toolStripButton7});
+            this.toolStripButton7,
+            this.toolStripButton6});
+            this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.toolStrip1.Location = new System.Drawing.Point(0, 25);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(905, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(905, 38);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // toolStripButton1
+            // toolStripButtonNovaEntrada
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
-            this.toolStripButton1.ToolTipText = "Entrada de Valores";
+            this.toolStripButtonNovaEntrada.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonNovaEntrada.Image")));
+            this.toolStripButtonNovaEntrada.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonNovaEntrada.Name = "toolStripButtonNovaEntrada";
+            this.toolStripButtonNovaEntrada.Size = new System.Drawing.Size(97, 35);
+            this.toolStripButtonNovaEntrada.Text = "Entrada de Valor";
+            this.toolStripButtonNovaEntrada.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
+            this.toolStripButtonNovaEntrada.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolStripButtonNovaEntrada.ToolTipText = "Entrada de Valores";
             // 
-            // toolStripButton2
+            // toolStripButtonNovaSaida
             // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton2.Text = "toolStripButton2";
-            this.toolStripButton2.ToolTipText = "Saída de Valores";
+            this.toolStripButtonNovaSaida.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonNovaSaida.Image")));
+            this.toolStripButtonNovaSaida.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonNovaSaida.Name = "toolStripButtonNovaSaida";
+            this.toolStripButtonNovaSaida.Size = new System.Drawing.Size(85, 35);
+            this.toolStripButtonNovaSaida.Text = "Saída de Valor";
+            this.toolStripButtonNovaSaida.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolStripButtonNovaSaida.ToolTipText = "Saída de Valores";
             // 
             // toolStripButton3
             // 
-            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton3.Text = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(62, 35);
+            this.toolStripButton3.Text = "Categoria";
+            this.toolStripButton3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolStripButton3.ToolTipText = "Cadastrar Categorias";
             // 
-            // toolStripButton4
+            // toolStripButtonRelatorio
             // 
-            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
-            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton4.Text = "toolStripButton4";
-            this.toolStripButton4.ToolTipText = "Relatório";
+            this.toolStripButtonRelatorio.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonRelatorio.Image")));
+            this.toolStripButtonRelatorio.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonRelatorio.Name = "toolStripButtonRelatorio";
+            this.toolStripButtonRelatorio.Size = new System.Drawing.Size(58, 35);
+            this.toolStripButtonRelatorio.Text = "Relatório";
+            this.toolStripButtonRelatorio.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolStripButtonRelatorio.ToolTipText = "Relatório";
             // 
             // toolStripButton5
             // 
-            this.toolStripButton5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButton5.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton5.Image")));
             this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton5.Name = "toolStripButton5";
-            this.toolStripButton5.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton5.Text = "toolStripButton5";
+            this.toolStripButton5.Size = new System.Drawing.Size(43, 35);
+            this.toolStripButton5.Text = "Filtros";
+            this.toolStripButton5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolStripButton5.ToolTipText = "Filtros";
             // 
             // toolStripButton6
@@ -432,18 +435,18 @@
             this.toolStripButton6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton6.Image")));
             this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton6.Name = "toolStripButton6";
-            this.toolStripButton6.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton6.Size = new System.Drawing.Size(23, 20);
             this.toolStripButton6.Text = "toolStripButton6";
             this.toolStripButton6.ToolTipText = "Salvar";
             // 
             // toolStripButton7
             // 
-            this.toolStripButton7.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButton7.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton7.Image")));
             this.toolStripButton7.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton7.Name = "toolStripButton7";
-            this.toolStripButton7.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton7.Text = "toolStripButton7";
+            this.toolStripButton7.Size = new System.Drawing.Size(74, 35);
+            this.toolStripButton7.Text = "Calculadora";
+            this.toolStripButton7.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolStripButton7.ToolTipText = "Calculadora";
             this.toolStripButton7.Click += new System.EventHandler(this.toolStripButton7_Click);
             // 
@@ -474,7 +477,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(905, 451);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
@@ -515,10 +518,10 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripButton toolStripButtonNovaEntrada;
+        private System.Windows.Forms.ToolStripButton toolStripButtonNovaSaida;
         private System.Windows.Forms.ToolStripButton toolStripButton3;
-        private System.Windows.Forms.ToolStripButton toolStripButton4;
+        private System.Windows.Forms.ToolStripButton toolStripButtonRelatorio;
         private System.Windows.Forms.ToolStripButton toolStripButton5;
         private System.Windows.Forms.ToolStripMenuItem relatóriosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem categoriasToolStripMenuItem;
