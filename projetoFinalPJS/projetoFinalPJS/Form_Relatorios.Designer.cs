@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.listViewInformacoes = new System.Windows.Forms.ListView();
             this.lbExibir = new System.Windows.Forms.Label();
             this.lbPara = new System.Windows.Forms.Label();
             this.cbCampo = new System.Windows.Forms.ComboBox();
@@ -41,15 +41,25 @@
             this.dtpFiltroDe = new System.Windows.Forms.DateTimePicker();
             this.dtpFiltroAte = new System.Windows.Forms.DateTimePicker();
             this.lbFiltroAte = new System.Windows.Forms.Label();
+            this.columnDespesa = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnRenda = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnSaldo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnResultado = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
-            // listView1
+            // listViewInformacoes
             // 
-            this.listView1.Location = new System.Drawing.Point(189, 12);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(536, 396);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listViewInformacoes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnResultado,
+            this.columnDespesa,
+            this.columnRenda,
+            this.columnSaldo});
+            this.listViewInformacoes.Location = new System.Drawing.Point(189, 12);
+            this.listViewInformacoes.Name = "listViewInformacoes";
+            this.listViewInformacoes.Size = new System.Drawing.Size(483, 396);
+            this.listViewInformacoes.TabIndex = 0;
+            this.listViewInformacoes.UseCompatibleStateImageBehavior = false;
+            this.listViewInformacoes.View = System.Windows.Forms.View.Details;
             // 
             // lbExibir
             // 
@@ -111,7 +121,7 @@
             this.shapeContainer1.Name = "shapeContainer1";
             this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
             this.lineShapeDivisao});
-            this.shapeContainer1.Size = new System.Drawing.Size(737, 420);
+            this.shapeContainer1.Size = new System.Drawing.Size(675, 420);
             this.shapeContainer1.TabIndex = 6;
             this.shapeContainer1.TabStop = false;
             // 
@@ -168,11 +178,31 @@
             this.lbFiltroAte.TabIndex = 11;
             this.lbFiltroAte.Text = "Até:";
             // 
+            // columnDespesa
+            // 
+            this.columnDespesa.Text = "Despesa";
+            this.columnDespesa.Width = 77;
+            // 
+            // columnRenda
+            // 
+            this.columnRenda.Text = "Renda";
+            this.columnRenda.Width = 68;
+            // 
+            // columnSaldo
+            // 
+            this.columnSaldo.Text = "Saldo";
+            this.columnSaldo.Width = 69;
+            // 
+            // columnResultado
+            // 
+            this.columnResultado.Text = "Resultado";
+            this.columnResultado.Width = 110;
+            // 
             // Form_Relatorios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(737, 420);
+            this.ClientSize = new System.Drawing.Size(675, 420);
             this.Controls.Add(this.lbFiltroAte);
             this.Controls.Add(this.dtpFiltroAte);
             this.Controls.Add(this.dtpFiltroDe);
@@ -183,7 +213,7 @@
             this.Controls.Add(this.cbCampo);
             this.Controls.Add(this.lbPara);
             this.Controls.Add(this.lbExibir);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.listViewInformacoes);
             this.Controls.Add(this.shapeContainer1);
             this.MinimizeBox = false;
             this.Name = "Form_Relatorios";
@@ -197,7 +227,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listViewInformacoes;
         private System.Windows.Forms.Label lbExibir;
         private System.Windows.Forms.Label lbPara;
         private System.Windows.Forms.ComboBox cbCampo;
@@ -210,5 +240,9 @@
         private System.Windows.Forms.DateTimePicker dtpFiltroDe;
         private System.Windows.Forms.DateTimePicker dtpFiltroAte;
         private System.Windows.Forms.Label lbFiltroAte;
+        private System.Windows.Forms.ColumnHeader columnResultado;
+        private System.Windows.Forms.ColumnHeader columnDespesa;
+        private System.Windows.Forms.ColumnHeader columnRenda;
+        private System.Windows.Forms.ColumnHeader columnSaldo;
     }
 }
