@@ -56,7 +56,7 @@
             this.columnSaldo});
             this.listViewInformacoes.Location = new System.Drawing.Point(189, 12);
             this.listViewInformacoes.Name = "listViewInformacoes";
-            this.listViewInformacoes.Size = new System.Drawing.Size(483, 396);
+            this.listViewInformacoes.Size = new System.Drawing.Size(474, 396);
             this.listViewInformacoes.TabIndex = 0;
             this.listViewInformacoes.UseCompatibleStateImageBehavior = false;
             this.listViewInformacoes.View = System.Windows.Forms.View.Details;
