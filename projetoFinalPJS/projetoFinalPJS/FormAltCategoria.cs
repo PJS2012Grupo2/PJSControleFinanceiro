@@ -22,7 +22,7 @@ namespace projetoFinalPJS
 
         public void PreencherCategoria()
         {
-            listaCategoria.Items.AddRange(formularioInicial.carregaCategorias(listaCategoria));
+           // listaCategoria.Items.AddRange();
         }
 
         /*(private void FormCategoria_Load(object sender, EventArgs e)
@@ -76,10 +76,10 @@ namespace projetoFinalPJS
                 leitor.Close();
                 registro.Delete();
                 limparListView(id);
-                formularioInicial.limparListViewInicial(id);
+                //formularioInicial.limparListViewInicial(id);
                 formularioInicial.adaptadorCategoria.Update(formularioInicial.dadosFinanceiro, "CATEGORIA");
                 formularioInicial.carregaMovimentos();
-                formularioInicial.carregaCategorias(formularioInicial.listViewCategorias);
+                formularioInicial.carregaCategorias();
             }
             else
                 Close();      

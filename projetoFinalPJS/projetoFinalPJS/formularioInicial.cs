@@ -27,15 +27,13 @@ namespace projetoFinalPJS
 
         public void carregaMovimentos(int idCategoria=0)
         {
+            int prc;
+            float total;
+            listViewMovimentos.Items.Clear();
             SqlCommand comandoInicializarMovimentos = new SqlCommand();
             comandoInicializarMovimentos.Connection = conexaoFinanceiro;
             comandoInicializarMovimentos.CommandText = "Select ID_MOVIMENTO, DESCRICAO, VALOR, DATA_CADASTRO, PARCELA, VALOR_TOTAL, ID_CATEGORIA FROM MOVIMENTO";
             SqlDataReader leitorMovimentos = comandoInicializarMovimentos.ExecuteReader();
-            
-            int prc;
-            float total;
-
-            listViewMovimentos.Items.Clear();
             while (leitorMovimentos.Read())
             {
                 if (int.TryParse(leitorMovimentos["PARCELA"].ToString(), out prc))
@@ -87,16 +85,12 @@ namespace projetoFinalPJS
             listViewCategorias.Items.Add(itemDescricao);
         }
 
-        public ListView.ListViewItemCollection carregaCategorias(ListView lista)
+        public void carregaCategorias()
         {
-            ListView.ListViewItemCollection valores = lista.Items;
-            foreach (ListViewItem itemCat in lista.Items)
-            {
-                if (itemCat.Tag.ToString() != "todas" && itemCat.SubItems[0].ToString() != "Sem Categoria")
-                {
-                    itemCat.Remove();
-                }
-            }
+            listViewCategorias.Items.Clear();
+            ListViewItem todas = new ListViewItem("Todas as Categorias");
+            todas.Tag = "todas";
+            listViewCategorias.Items.Add(todas);
             SqlCommand comandoInicializarCategorias = new SqlCommand();
             comandoInicializarCategorias.Connection = conexaoFinanceiro;
             comandoInicializarCategorias.CommandText = "Select id_categoria, nome, limite from CATEGORIA";
@@ -109,10 +103,9 @@ namespace projetoFinalPJS
                 ListViewItem.ListViewSubItem itemLimite = new ListViewItem.ListViewSubItem(itemDescricao, "R$" + categoria.Orçamento_Categoria.ToString());
                 itemDescricao.SubItems.Add(itemLimite);
                 itemDescricao.Tag = int.Parse(leitorCategorias["ID_Categoria"].ToString());
-                valores.Add(itemDescricao);
+                listViewCategorias.Items.Add(itemDescricao);
             }
             leitorCategorias.Close();
-            return valores;
         }        
         
         public void conexaoDados()
@@ -318,7 +311,7 @@ namespace projetoFinalPJS
         private void formularioInicial_Load(object sender, EventArgs e)
         {
             conexaoDados();
-            carregaCategorias(listViewCategorias);
+            carregaCategorias();
             carregaMovimentos();
             
             verificaSelecaoMovimentos();
@@ -537,17 +530,17 @@ namespace projetoFinalPJS
                 SqlCommand comandoAchaSemCategoria = new SqlCommand();
                 comandoUpdate.Connection = conexaoFinanceiro;
                 comandoAchaSemCategoria.Connection = conexaoFinanceiro;
-                comandoAchaSemCategoria.CommandText = ("Select ID_CATEGORIA From CATEGORIA where NOME = 'Sem Categoria'");
+                comandoAchaSemCategoria.CommandText =
+                    ("Select ID_CATEGORIA From CATEGORIA where NOME = 'Sem Categoria'");
                 int idSemCategoria = (int)comandoAchaSemCategoria.ExecuteScalar();
-                comandoUpdate.CommandText = ("Update Movimento set id_categoria = " + idSemCategoria + " where id_categoria = " + id);
+                comandoUpdate.CommandText =
+                    ("Update Movimento set id_categoria = " + idSemCategoria + " where id_categoria = " + id);
                 comandoUpdate.ExecuteNonQuery();
-                SqlDataReader leitor = comandoUpdate.ExecuteReader();
-                leitor.Close();
                 catDel.Delete();
                 adaptadorCategoria.Update(dadosFinanceiro, "Categoria");
                 adaptadorMovimento.Update(dadosFinanceiro, "Movimento");
-                carregaCategorias(listViewCategorias);
                 carregaMovimentos();
+                carregaCategorias();
             }
         }
 
@@ -564,21 +557,6 @@ namespace projetoFinalPJS
                 movDel.Delete();
                 adaptadorMovimento.Update(dadosFinanceiro, "Movimento");
                 carregaMovimentos();
-            }
-        }
-
-        private void listViewMovimentos_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Delete && listViewMovimentos.SelectedItems.Count > 0)
-            {
-                foreach (DataRow movDel in dadosFinanceiro.Tables["Movimento"].Rows)
-                {
-                    if (movDel["ID_Movimento"].ToString() == listViewMovimentos.SelectedItems[0].Tag.ToString())
-                    {
-                        removeMovimento(movDel);
-                        break;
-                    }
-                }
             }
         }
 
@@ -613,50 +591,11 @@ namespace projetoFinalPJS
             FormAltCategoria Var_Alt_Categorias = new FormAltCategoria(this);
             Var_Alt_Categorias.ShowDialog(this);
         }
-
-        // Metodo para limpar os registros excluidos da tabela CATEGORIA
-        // dentro do listView do formularioInicial
-        public void limparListViewInicial(int id)
-        {
-            if (listViewCategorias.SelectedItems.Count > 0)
-            {
-                SqlCommand comandoLimpar = new SqlCommand();
-                comandoLimpar.Connection = conexaoFinanceiro;
-                comandoLimpar.CommandText = ("Select nome from Categoria where id_categoria = " + id);
-                comandoLimpar.ExecuteNonQuery();
-            
-                ListViewItem categoriaExcluida = listViewCategorias.SelectedItems[0];
-                SqlDataReader leitor = comandoLimpar.ExecuteReader();
-                while (leitor.Read())
-                {
-                    if (leitor["Nome"].ToString() == categoriaExcluida.Text)
-                    {
-                        listViewCategorias.Items.Remove(categoriaExcluida);
-                    }
-                }
-                leitor.Close();
-            }
-        }
-
+        
         public bool valor_Negativo()
         {
             bool negativo = var_Saida;
             return negativo;
-        }
-
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            entradaDeValoresToolStripMenuItem1_Click(sender, e);
-        }
-
-        private void toolStripButton2_Click(object sender, EventArgs e)
-        {
-            saídaDeValoresToolStripMenuItem1_Click(sender, e);
-        }
-
-        private void toolStripButton3_Click(object sender, EventArgs e)
-        {
-            categoriaToolStripMenuItem_Click(sender, e);
         }
 
         private void listViewCategorias_DoubleClick(object sender, EventArgs e)
@@ -668,29 +607,34 @@ namespace projetoFinalPJS
             }
         }
 
-        private void listViewCategorias_KeyDown(object sender, KeyEventArgs e)
+        private void listViewMovimentos_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Delete && listViewCategorias.SelectedItems.Count > 0)
+            if (e.KeyCode == Keys.Delete && listViewMovimentos.SelectedItems.Count > 0)
             {
-                foreach (DataRow movDel in dadosFinanceiro.Tables["CATEGORIA"].Rows)
+                foreach (DataRow movDel in dadosFinanceiro.Tables["MOVIMENTO"].Rows)
                 {
-                    if (movDel["ID_CATEGORIA"].ToString() == listViewCategorias.SelectedItems[0].Tag.ToString())
+                    if (movDel["ID_MOVIMENTO"].ToString() == listViewMovimentos.SelectedItems[0].Tag.ToString())
                     {
-                        removeCategoria(movDel);
+                        removeMovimento(movDel);
                         break;
                     }
                 }
             }
         }
 
-        private void verificaSelecaoMovimentos(object sender, KeyEventArgs e)
+        private void listViewCategorias_KeyDown(object sender, KeyEventArgs e)
         {
-
-        }
-
-        private void listViewMovimentos_KeyDown_1(object sender, KeyEventArgs e)
-        {
-
+            if (e.KeyCode == Keys.Delete && listViewCategorias.SelectedItems.Count > 0)
+            {
+                foreach (DataRow catDel in dadosFinanceiro.Tables["CATEGORIA"].Rows)
+                {
+                    if (catDel["ID_CATEGORIA"].ToString() == listViewCategorias.SelectedItems[0].Tag.ToString())
+                    {
+                        removeCategoria(catDel);
+                        break;
+                    }
+                }
+            }
         }
     }
 }

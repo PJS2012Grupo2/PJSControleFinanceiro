@@ -19,8 +19,7 @@ namespace projetoFinalPJS
         ListViewItem        itemAlt;
         
         private void Form_Movimentação_Load(object sender, EventArgs e)
-        {
-            comando.Connection = formularioInicial.conexaoFinanceiro;
+        {   
             cbCategoria.SelectedIndex = 0;
             //trecho para inicializar escolha de quantidade de parcelas com 1
             numericUpDown1.Value = 1;
@@ -61,6 +60,7 @@ namespace projetoFinalPJS
         public Form_Movimentação(formularioInicial formularioInicial, SqlDataAdapter adaptadorMovimento, ListViewItem itemSelecionado=null)
         {
             InitializeComponent();
+            comando.Connection = formularioInicial.conexaoFinanceiro;
             this.formularioInicial = formularioInicial;
             this.adaptadorMovimento = formularioInicial.adaptadorMovimento;
             this.itemAlt = itemSelecionado;
@@ -112,7 +112,6 @@ namespace projetoFinalPJS
                             registro["Valor"] = float.Parse(tbValor.Text.Replace("R$", ""));
                             registro["DATA_CADASTRO"] = DateTime.Parse(dtpData.Text);
                             registro["ID_CATEGORIA"] = numeroCategoria;
-                            adaptadorMovimento.Update(formularioInicial.dadosFinanceiro, "MOVIMENTO");
                             break;
                         }
                     }
