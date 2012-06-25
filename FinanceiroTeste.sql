@@ -22,6 +22,9 @@ GO
  select * from movimento;
 go
 
+select parcela from movimento where INDEX=1;
+go
+
 
  select * from categoria;
 go
@@ -34,7 +37,8 @@ GO
 delete from categoria where id_categoria in (43)
 go
 
-
+select count(datepart(month,data_cadastro))from movimento where datepart(month,data_cadastro)='06'
+go
 drop table movimento
 
 CREATE TABLE MOVIMENTO (

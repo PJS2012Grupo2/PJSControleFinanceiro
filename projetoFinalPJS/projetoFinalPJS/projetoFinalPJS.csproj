@@ -93,6 +93,12 @@
     <Compile Include="formularioInicial.Designer.cs">
       <DependentUpon>formularioInicial.cs</DependentUpon>
     </Compile>
+    <Compile Include="gastosParcelados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gastosParcelados.Designer.cs">
+      <DependentUpon>gastosParcelados.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Saldo.cs" />
@@ -105,6 +111,9 @@
     <EmbeddedResource Include="formularioInicial.resx">
       <DependentUpon>formularioInicial.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gastosParcelados.resx">
+      <DependentUpon>gastosParcelados.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

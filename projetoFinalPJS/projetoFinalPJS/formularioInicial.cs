@@ -446,6 +446,15 @@ namespace projetoFinalPJS
 
         }
 
+        private void gastosParceladosToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+            gastosParcelados parcelados = new gastosParcelados();
+            parcelados.ShowDialog();
+
+
+        }
+
 
 
 
