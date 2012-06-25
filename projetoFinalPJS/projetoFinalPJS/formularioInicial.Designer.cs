@@ -99,7 +99,7 @@
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.menuStrip1.ShowItemToolTips = true;
-            this.menuStrip1.Size = new System.Drawing.Size(905, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(823, 25);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -239,7 +239,7 @@
             this.panel1.Controls.Add(this.listViewCategorias);
             this.panel1.Location = new System.Drawing.Point(0, 66);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(165, 370);
+            this.panel1.Size = new System.Drawing.Size(167, 373);
             this.panel1.TabIndex = 1;
             // 
             // listViewCategorias
@@ -262,9 +262,9 @@
             listViewItem1.Tag = "todas";
             this.listViewCategorias.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1});
-            this.listViewCategorias.Location = new System.Drawing.Point(-2, -6);
+            this.listViewCategorias.Location = new System.Drawing.Point(-2, 0);
             this.listViewCategorias.Name = "listViewCategorias";
-            this.listViewCategorias.Size = new System.Drawing.Size(169, 368);
+            this.listViewCategorias.Size = new System.Drawing.Size(169, 365);
             this.listViewCategorias.TabIndex = 0;
             this.listViewCategorias.UseCompatibleStateImageBehavior = false;
             this.listViewCategorias.View = System.Windows.Forms.View.Tile;
@@ -306,7 +306,7 @@
             this.listViewMovimentos.GridLines = true;
             this.listViewMovimentos.Location = new System.Drawing.Point(0, 19);
             this.listViewMovimentos.Name = "listViewMovimentos";
-            this.listViewMovimentos.Size = new System.Drawing.Size(732, 362);
+            this.listViewMovimentos.Size = new System.Drawing.Size(654, 362);
             this.listViewMovimentos.TabIndex = 0;
             this.listViewMovimentos.UseCompatibleStateImageBehavior = false;
             this.listViewMovimentos.View = System.Windows.Forms.View.Details;
@@ -337,12 +337,12 @@
             // columnParcelas
             // 
             this.columnParcelas.Text = "Parcelas";
-            this.columnParcelas.Width = 79;
+            this.columnParcelas.Width = 57;
             // 
             // columnTotal
             // 
             this.columnTotal.Text = "Valor Total";
-            this.columnTotal.Width = 113;
+            this.columnTotal.Width = 71;
             // 
             // cATEGORIABindingSource
             // 
@@ -358,11 +358,12 @@
             this.panel2.Controls.Add(this.listViewMovimentos);
             this.panel2.Location = new System.Drawing.Point(173, 47);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(744, 389);
+            this.panel2.Size = new System.Drawing.Size(654, 389);
             this.panel2.TabIndex = 2;
             // 
             // toolStrip1
             // 
+            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonNovaEntrada,
             this.toolStripButtonNovaSaida,
@@ -371,10 +372,10 @@
             this.toolStripButton5,
             this.toolStripButton7,
             this.toolStripButton6});
-            this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
+            this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.toolStrip1.Location = new System.Drawing.Point(0, 25);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(905, 38);
+            this.toolStrip1.Size = new System.Drawing.Size(823, 38);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -435,7 +436,7 @@
             this.toolStripButton6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton6.Image")));
             this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton6.Name = "toolStripButton6";
-            this.toolStripButton6.Size = new System.Drawing.Size(23, 20);
+            this.toolStripButton6.Size = new System.Drawing.Size(23, 35);
             this.toolStripButton6.Text = "toolStripButton6";
             this.toolStripButton6.ToolTipText = "Salvar";
             // 
@@ -458,7 +459,7 @@
             this.statusStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.statusStrip1.Location = new System.Drawing.Point(0, 429);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(905, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(823, 22);
             this.statusStrip1.TabIndex = 3;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -478,7 +479,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(905, 451);
+            this.ClientSize = new System.Drawing.Size(823, 451);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.panel2);
