@@ -26,7 +26,7 @@ go
  select * from categoria;
 go
 
-delete from categoria where id_categoria in (40)
+delete from categoria where id_categoria in (41)
 go
 
 CREATE TABLE MOVIMENTO (
@@ -42,7 +42,7 @@ GO
 
 select * from MOVIMENTO
 
-delete from MOVIMENTO where id_categoria in (38)
+delete from MOVIMENTO where id_categoria in (41)
 go
 
 CREATE TABLE MOVIMENTO_RECORRENTE(
