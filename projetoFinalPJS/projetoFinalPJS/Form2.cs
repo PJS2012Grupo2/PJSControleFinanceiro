@@ -283,11 +283,11 @@ namespace projetoFinalPJS
                     if (vAtual < 0)
                     {
                         formularioInicial.toolStripStatusLabel3.Text = "Avisos: Categoria " + n + ", ultrapassou limite, valor atual: " + vAtual + "";
-
+                        break;
                     }
                     else 
                     {
-                        formularioInicial.toolStripStatusLabel3.Text = "Avisos: "; 
+                        formularioInicial.toolStripStatusLabel3.Text = "Avisos:- "; 
                     }
 
                 }

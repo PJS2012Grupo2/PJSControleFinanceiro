@@ -233,24 +233,35 @@ namespace projetoFinalPJS
                 }
                leitor.Close();
                 //popular listview de baixo
-                SqlCommand comandoInicial = new SqlCommand();
-                comandoInicial.Connection = conexaoFinanceiro;
+              
+               SqlDataReader leitorMovimentos = comandoInicializarMovimentos.ExecuteReader();
+               int prc;
+               float total;
+               while (leitorMovimentos.Read())
+               {
+                   if (int.TryParse(leitorMovimentos["PARCELA"].ToString(), out prc))
+                   {
+                       prc = int.Parse(leitorMovimentos["PARCELA"].ToString());
+                       total = float.Parse(leitorMovimentos["VALOR_TOTAL"].ToString());
+                   }
+                   else
+                   {
+                       prc = 0; total = 0;
+                   }
 
-                comandoInicial.CommandText = "Select DESCRICAO, VALOR, DATA_CADASTRO, ID_CATEGORIA, PARCELA, VALOR_TOTAL from MOVIMENTO";
-                comandoInicial.ExecuteNonQuery();
 
-                SqlDataReader reader = comandoInicial.ExecuteReader();
-                
-                //string nome = " "; float limite = 0.0F; float valor_atual = 0.0F;
-                //Cs_Categorias categoria;
+                    Class_Movimento movimento = new Class_Movimento(
+                       (string)leitorMovimentos["DESCRICAO"],
+                       float.Parse(leitorMovimentos["VALOR"].ToString()),
+                       (DateTime)leitorMovimentos["DATA_CADASTRO"],
+                       prc,
+                       total, //(float)leitorMovimentos["VALOR_TOTAL"],
+                       leitorMovimentos["ID_CATEGORIA"].ToString()
+                   );
+                   AdicionaMovimento(movimento);
+               }
+               leitorMovimentos.Close();
 
-                while (reader.Read())
-                {
-                    Class_Movimento movimento = new Class_Movimento(((string)reader["DESCRICAO"]), ((float.Parse(reader["VALOR"].ToString()))), ((DateTime)(reader["DATA_CADASTRO"])), (int.Parse(reader["ID_CATEGORIA"].ToString())), (int.Parse(reader["PARCELA"].ToString())), (float.Parse(reader["VALOR_TOTAL"].ToString())));
-                    AdicionaMovimento(movimento);
-                }
-
-                reader.Close();
 
             }
             catch (Exception x)
