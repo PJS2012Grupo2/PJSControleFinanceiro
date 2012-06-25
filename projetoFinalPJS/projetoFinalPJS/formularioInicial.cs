@@ -610,7 +610,7 @@ namespace projetoFinalPJS
 
         private void categoriasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormAltCategoria Var_Alt_Categorias = new FormAltCategoria(this, adaptadorCategoria);
+            FormAltCategoria Var_Alt_Categorias = new FormAltCategoria(this);
             Var_Alt_Categorias.ShowDialog(this);
         }
 
@@ -681,6 +681,16 @@ namespace projetoFinalPJS
                     }
                 }
             }
+        }
+
+        private void verificaSelecaoMovimentos(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void listViewMovimentos_KeyDown_1(object sender, KeyEventArgs e)
+        {
+
         }
     }
 }

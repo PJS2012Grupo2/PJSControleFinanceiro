@@ -12,15 +12,14 @@ namespace projetoFinalPJS
 {
     public partial class buscaMovimento : Form
     {
-        formularioInicial formularioInicial;
-        SqlDataAdapter adaptador;
+        formularioInicial   formularioInicial;
+        SqlDataAdapter      adaptador;
 
         public buscaMovimento(formularioInicial formularioInicial, SqlDataAdapter adaptador)
         {
             InitializeComponent();
-            this.formularioInicial = formularioInicial;
-            this.adaptador = adaptador;
-
+            this.formularioInicial  = formularioInicial;
+            this.adaptador          = adaptador;
         }
 
         private void buttonOk_Click(object sender, EventArgs e)

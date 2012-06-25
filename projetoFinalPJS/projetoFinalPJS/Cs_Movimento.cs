@@ -11,21 +11,21 @@ namespace projetoFinalPJS
 {
     public class Cs_Movimento : Form
     {
-        public string descricao { get; set; }
-        public float valor { get; set; }
-        public DateTime dataCadastro { get; set; }
-        public int parcela { get; set; }
-        public float valorTotal { get; set; }
-        public string categoria { get; set; }
+        public  string  descricao   { get; set; }
+        public  float   valor       { get; set; }
+        public  DateTime dataCadastro { get; set; }
+        public  int     parcela     { get; set; }
+        public  float   valorTotal  { get; set; }
+        public  string  categoria   { get; set; }
         
         public Cs_Movimento(string descricao, float valor, DateTime datacadastro, int parcelas, float valorTotal, string categoria)
         {
-            this.descricao = descricao;
-            this.valor = valor;
+            this.descricao  = descricao;
+            this.valor      = valor;
             this.dataCadastro = dataCadastro;
-            this.parcela = parcelas;
+            this.parcela    = parcelas;
             this.valorTotal = valorTotal;
-            this.categoria = categoria;
+            this.categoria  = categoria;
         }
     }
 }

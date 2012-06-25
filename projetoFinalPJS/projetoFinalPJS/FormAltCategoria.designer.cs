@@ -92,7 +92,6 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Lista de Categorias";
-            this.Load += new System.EventHandler(this.FormCategoria_Load);
             this.ResumeLayout(false);
 
         }

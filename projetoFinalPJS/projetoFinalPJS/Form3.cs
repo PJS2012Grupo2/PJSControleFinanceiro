@@ -12,32 +12,33 @@ namespace projetoFinalPJS
 {
     public partial class Form_Categoria : Form
     {
-        SqlDataAdapter adaptadorCategoria;
-        formularioInicial formularioInicial;
-        FormAltCategoria formEdit;
-        SqlCommand comando = new SqlCommand();
-        ListViewItem itemAlt;
+        SqlDataAdapter      adaptadorCategoria;
+        formularioInicial   formularioInicial;
+        FormAltCategoria    formEdit;
+        SqlCommand          comando = new SqlCommand();
+        ListViewItem        itemAlt;
 
-        private void Form_Categoria_Load(object sender, EventArgs e)
-        {
-            if (itemAlt != null)
-            {
-                tbDescriçãoCtg.Text = itemAlt.SubItems[0].Text;
-                tbOrçamentoCtg.Text = itemAlt.SubItems[1].Text;
-            }
-        }
-        
         public Form_Categoria(
             formularioInicial formularioInicial,
             SqlDataAdapter adaptadorCategoria,
             ListViewItem itemSelecionado = null,
-            FormAltCategoria formEdit=null)
+            FormAltCategoria formEdit = null)
         {
             InitializeComponent();
             this.formularioInicial = formularioInicial;
             this.formEdit = formEdit;
             this.adaptadorCategoria = adaptadorCategoria;
             this.itemAlt = itemSelecionado;
+        }
+
+        private void Form_Categoria_Load(object sender, EventArgs e)
+        {
+            comando.Connection = formularioInicial.conexaoFinanceiro;
+            if (itemAlt != null)
+            {
+                tbDescriçãoCtg.Text = itemAlt.SubItems[0].Text;
+                tbOrçamentoCtg.Text = itemAlt.SubItems[1].Text;
+            }
         }
 
         private void salvarCtg_Click(object sender, EventArgs e)
@@ -56,7 +57,6 @@ namespace projetoFinalPJS
             else
             {
                 comando.CommandText = "select NOME from CATEGORIA where NOME = '"+tbDescriçãoCtg.Text.ToUpper()+"'";
-                comando.Connection = formularioInicial.conexaoFinanceiro;
                 Object nome_Categoria = comando.ExecuteScalar();
 
                 if (nome_Categoria != null)
@@ -68,7 +68,7 @@ namespace projetoFinalPJS
                 {
                     string valorLimite = tbOrçamentoCtg.Text.Replace("R$", "");
                     DataRow novaCategoria = formularioInicial.dadosFinanceiro.Tables["CATEGORIA"].NewRow();
-                    novaCategoria["NOME"] = tbDescriçãoCtg.Text;
+                    novaCategoria["NOME"]   = tbDescriçãoCtg.Text;
                     novaCategoria["LIMITE"] = tbOrçamentoCtg.Text.Replace("R$", "");
                     Cs_Categorias categoria = new Cs_Categorias(tbDescriçãoCtg.Text, float.Parse(valorLimite));
 

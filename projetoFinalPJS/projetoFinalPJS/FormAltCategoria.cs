@@ -13,40 +13,22 @@ namespace projetoFinalPJS
     public partial class FormAltCategoria : Form
     {
         private formularioInicial formularioInicial;
-        //private SqlDataAdapter adaptadorCategoria;
         int id = 0;
-        public FormAltCategoria(formularioInicial formularioInicial, SqlDataAdapter adaptadorCategoria)
+        public FormAltCategoria(formularioInicial formularioInicial)
         {
             InitializeComponent();
             this.formularioInicial = formularioInicial;
-            //this.adaptadorCategoria = adaptadorCategoria;
         }
 
         public void PreencherCategoria()
         {
-            formularioInicial.carregaCategorias(listaCategoria);
-            /*
-            SqlDataReader leitor = comandoSelectCat.ExecuteReader();
-
-            while (leitor.Read())
-            {
-                ListViewItem itemDescricao = new ListViewItem(leitor["nome"].ToString());
-                itemDescricao.Tag = (int)leitor["ID_categoria"];
-                id = int.Parse(itemDescricao.Tag.ToString());
-                ListViewItem.ListViewSubItem itemLimite = new ListViewItem.ListViewSubItem(itemDescricao,leitor["limite"].ToString());
-
-                itemDescricao.SubItems.Add(itemLimite);
-
-                listaCategoria.Items.Add(itemDescricao);
-            }
-
-            leitor.Close();*/
+            listaCategoria.Items.AddRange(formularioInicial.carregaCategorias(listaCategoria));
         }
 
-        private void FormCategoria_Load(object sender, EventArgs e)
+        /*(private void FormCategoria_Load(object sender, EventArgs e)
         {
             PreencherCategoria();
-        }
+        }*/
 
         private void btAlterar_Click(object sender, EventArgs e)
         {

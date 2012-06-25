@@ -12,14 +12,15 @@ namespace projetoFinalPJS
 {
     public partial class Form_Movimentação : Form
     {
-        string[] parcelar = { "Sim", "Não" };
-        SqlDataAdapter adaptadorMovimento;
-        formularioInicial formularioInicial;
-        SqlCommand comando = new SqlCommand();
-        ListViewItem itemAlt;
+        string[] parcelar   = { "Sim", "Não" };
+        SqlDataAdapter      adaptadorMovimento;
+        formularioInicial   formularioInicial;
+        SqlCommand comando  = new SqlCommand();
+        ListViewItem        itemAlt;
         
         private void Form_Movimentação_Load(object sender, EventArgs e)
         {
+            comando.Connection = formularioInicial.conexaoFinanceiro;
             cbCategoria.SelectedIndex = 0;
             //trecho para inicializar escolha de quantidade de parcelas com 1
             numericUpDown1.Value = 1;
@@ -30,24 +31,27 @@ namespace projetoFinalPJS
                 cbCategoria.Text = itemAlt.SubItems[3].Text;
                 cbCategoria.SelectedText = itemAlt.SubItems[3].Text;
                 tbValor.Text = itemAlt.SubItems[1].Text;
-                dtpData.Value = DateTime.UtcNow; // TESTE
-                //dtpData.Text = DateTime.Parse(itemAlt.SubItems[2].Text).ToString().Substring(0, 7);
+                dtpData.Value = DateTime.UtcNow;
                 groupBox1.Enabled = false;
+
                 if (int.Parse(itemAlt.SubItems[4].Text) > 0)
                     radioButton2.Checked = true;
                 else
                     radioButton1.Checked = true;
+
                 numericUpDown1.Value = int.Parse(itemAlt.SubItems[4].Text);
                 numericUpDown1.Enabled = false;
                 checkBox1.Enabled = false;
             }
             else
                 tbValor.Text = "R$";
+
             verificaValor();
         }
 
         public void verificaValor()
         {
+            // Muda a cor do valor lido (vermelho = -) (verde = +)
             if (float.Parse(tbValor.Text.Replace("R$", "")) >= 0)
                 tbValor.ForeColor = Color.Green;
             else
@@ -67,11 +71,10 @@ namespace projetoFinalPJS
             cbCategoria.BindingContext = this.BindingContext;
 
             tbSaldo.Enabled = false;
-            comando.Connection = formularioInicial.conexaoFinanceiro;
+            groupBox1.Enabled = true;
             comando.CommandText = "select * from SALDO";
             Object total_saldo = comando.ExecuteScalar();
             tbSaldo.Text = total_saldo.ToString();
-            groupBox1.Enabled = true;
         }
 
         private void cadastrar_Click(object sender, EventArgs e)
@@ -88,15 +91,15 @@ namespace projetoFinalPJS
             }
             else
             {
-                adaptadorMovimento.Fill(formularioInicial.dadosFinanceiro, "MOVIMENTO");
-                DataRow novoMovimento = formularioInicial.dadosFinanceiro.Tables["MOVIMENTO"].NewRow();
-                novoMovimento["Descricao"] = tbDescrição.Text;
-                novoMovimento["Valor"] = tbValor.Text.Replace("R$", "");
-                novoMovimento["Data_Cadastro"] = DateTime.UtcNow;
                 SqlCommand achaCategoria = formularioInicial.conexaoFinanceiro.CreateCommand();
                 achaCategoria.CommandText = "SELECT ID_CATEGORIA FROM CATEGORIA WHERE NOME = '" + cbCategoria.Text + "'";
                 int numeroCategoria = ((int)achaCategoria.ExecuteScalar());
-                novoMovimento["Id_Categoria"] = numeroCategoria;
+
+                DataRow novoMovimento = formularioInicial.dadosFinanceiro.Tables["MOVIMENTO"].NewRow();
+                novoMovimento["Descricao"]      = tbDescrição.Text;
+                novoMovimento["Valor"]          = tbValor.Text.Replace("R$", "");
+                novoMovimento["Data_Cadastro"]  = DateTime.UtcNow;
+                novoMovimento["Id_Categoria"]   = numeroCategoria;
                 Cs_Movimento movimento = new Cs_Movimento(tbDescrição.Text, float.Parse(tbValor.Text.Replace("R$", "")), DateTime.UtcNow, 0, 0, cbCategoria.Text);
                     
                 if (itemAlt != null)
@@ -116,26 +119,21 @@ namespace projetoFinalPJS
                 }
                 else
                     formularioInicial.dadosFinanceiro.Tables["MOVIMENTO"].Rows.Add(novoMovimento);
-                adaptadorMovimento.Update(formularioInicial.dadosFinanceiro, "MOVIMENTO");
-                formularioInicial.carregaMovimentos(); //TESTE
 
-                Saldo total_saldo= new Saldo(float.Parse(tbValor.Text.Replace("R$", "")));
+                adaptadorMovimento.Update(formularioInicial.dadosFinanceiro, "MOVIMENTO");
+                formularioInicial.carregaMovimentos();
+
+                Saldo total_saldo = new Saldo(float.Parse(tbValor.Text.Replace("R$", "")));
                 float total = float.Parse(tbValor.Text.Replace("R$", ""));
-                bool negativar=formularioInicial.valor_Negativo();
+                bool negativar = formularioInicial.valor_Negativo();
                 if (negativar == false)
-                {
                     // comando da inserção 
                     comando.CommandText = "UPDATE SALDO SET TOTAL = TOTAL+ (" + total + ")";
-                    //executa a inserção dos dados no sql 
-                    comando.ExecuteNonQuery();
-                }
                 else
-                {
                     // comando da inserção 
                     comando.CommandText = "UPDATE SALDO SET TOTAL = TOTAL- (" + total + ")";
-                    //executa a inserção dos dados no sql 
-                    comando.ExecuteNonQuery();
-                 }
+                //executa a inserção dos dados no sql 
+                comando.ExecuteNonQuery();
                 Close();
             }
         }
@@ -156,21 +154,14 @@ namespace projetoFinalPJS
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (groupBox1.Enabled == true)
-            {
                 groupBox1.Enabled = false;
-            }
-            else
-            {
-                groupBox1.Enabled = true;
-            }
         }
 
         private void Form_Movimentação_FormClosing(object sender, FormClosingEventArgs e)
         {
             try
             {
-                SqlCommand comando = new SqlCommand();
-                comando.Connection = formularioInicial.conexaoFinanceiro;
+                SqlCommand comando = new SqlCommand();                
                 comando.CommandText = "SELECT * FROM Saldo";
                 Object total_saldo = comando.ExecuteScalar();
                 formularioInicial.toolStripStatusLabel1.Text = "Lembretes: Saldo=" + total_saldo.ToString() + "";

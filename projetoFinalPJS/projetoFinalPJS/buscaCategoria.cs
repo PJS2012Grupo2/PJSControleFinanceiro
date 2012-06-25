@@ -12,27 +12,23 @@ namespace projetoFinalPJS
 {
     public partial class buscaCategoria : Form
     {
-        formularioInicial formularioInicial;
-        SqlDataAdapter adaptador;
+        formularioInicial   formularioInicial;
+        SqlDataAdapter      adaptador;
 
         public buscaCategoria(formularioInicial formularioInicial, SqlDataAdapter adaptador)
         {
             InitializeComponent();
-            this.formularioInicial = formularioInicial;
-            this.adaptador = adaptador;
-
+            this.formularioInicial  = formularioInicial;
+            this.adaptador          = adaptador;
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-
-            DataSet dados = new DataSet();
-            adaptador.Fill(dados, "tabelaBusca");
+            adaptador.Fill(formularioInicial.dadosFinanceiro, "tabelaBusca");
             string buscaCategoria = textBoxCategoria.Text;
 
-            DataRow[] busca = dados.Tables["tabelaBusca"].Select("NOME LIKE '" + buscaCategoria + "'");
+            DataRow[] busca = formularioInicial.dadosFinanceiro.Tables["tabelaBusca"].Select("NOME LIKE '" + buscaCategoria + "'");
             formularioInicial.FiltrarCategoria(busca);
-
             Close();
         }
     }

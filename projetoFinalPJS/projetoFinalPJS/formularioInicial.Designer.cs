@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Todas as Categorias");
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Todas as Categorias");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formularioInicial));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.arquivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -99,7 +99,7 @@
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.menuStrip1.ShowItemToolTips = true;
-            this.menuStrip1.Size = new System.Drawing.Size(886, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(905, 25);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -239,7 +239,7 @@
             this.panel1.Controls.Add(this.listViewCategorias);
             this.panel1.Location = new System.Drawing.Point(0, 47);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(193, 372);
+            this.panel1.Size = new System.Drawing.Size(212, 389);
             this.panel1.TabIndex = 1;
             // 
             // listViewCategorias
@@ -256,14 +256,14 @@
             this.columnRestante});
             this.listViewCategorias.FullRowSelect = true;
             this.listViewCategorias.GridLines = true;
-            listViewItem1.Checked = true;
-            listViewItem1.StateImageIndex = 1;
-            listViewItem1.Tag = "todas";
+            listViewItem2.Checked = true;
+            listViewItem2.StateImageIndex = 1;
+            listViewItem2.Tag = "todas";
             this.listViewCategorias.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
+            listViewItem2});
             this.listViewCategorias.Location = new System.Drawing.Point(-2, 3);
             this.listViewCategorias.Name = "listViewCategorias";
-            this.listViewCategorias.Size = new System.Drawing.Size(194, 361);
+            this.listViewCategorias.Size = new System.Drawing.Size(195, 378);
             this.listViewCategorias.TabIndex = 0;
             this.listViewCategorias.UseCompatibleStateImageBehavior = false;
             this.listViewCategorias.View = System.Windows.Forms.View.Tile;
@@ -305,13 +305,13 @@
             this.listViewMovimentos.GridLines = true;
             this.listViewMovimentos.Location = new System.Drawing.Point(-1, 3);
             this.listViewMovimentos.Name = "listViewMovimentos";
-            this.listViewMovimentos.Size = new System.Drawing.Size(688, 359);
+            this.listViewMovimentos.Size = new System.Drawing.Size(707, 376);
             this.listViewMovimentos.TabIndex = 0;
             this.listViewMovimentos.UseCompatibleStateImageBehavior = false;
             this.listViewMovimentos.View = System.Windows.Forms.View.Details;
             this.listViewMovimentos.SelectedIndexChanged += new System.EventHandler(this.verificaSelecaoMovimentos);
             this.listViewMovimentos.DoubleClick += new System.EventHandler(this.abreAlteracaoMovimento);
-            this.listViewMovimentos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.verificaSelecaoMovimentos);
+            this.listViewMovimentos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listViewMovimentos_KeyDown_1);
             // 
             // columnDescricao
             // 
@@ -331,7 +331,7 @@
             // columnCategoria
             // 
             this.columnCategoria.Text = "Categoria";
-            this.columnCategoria.Width = 144;
+            this.columnCategoria.Width = 146;
             // 
             // columnParcelas
             // 
@@ -341,7 +341,7 @@
             // columnTotal
             // 
             this.columnTotal.Text = "Valor Total";
-            this.columnTotal.Width = 123;
+            this.columnTotal.Width = 113;
             // 
             // cATEGORIABindingSource
             // 
@@ -357,7 +357,7 @@
             this.panel2.Controls.Add(this.listViewMovimentos);
             this.panel2.Location = new System.Drawing.Point(199, 47);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(727, 372);
+            this.panel2.Size = new System.Drawing.Size(746, 389);
             this.panel2.TabIndex = 2;
             // 
             // toolStrip1
@@ -372,7 +372,7 @@
             this.toolStripButton7});
             this.toolStrip1.Location = new System.Drawing.Point(0, 25);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(886, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(905, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -456,9 +456,9 @@
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2});
             this.statusStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.statusStrip1.Location = new System.Drawing.Point(0, 412);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 429);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(886, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(905, 22);
             this.statusStrip1.TabIndex = 3;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -478,7 +478,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(886, 434);
+            this.ClientSize = new System.Drawing.Size(905, 451);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.panel2);
