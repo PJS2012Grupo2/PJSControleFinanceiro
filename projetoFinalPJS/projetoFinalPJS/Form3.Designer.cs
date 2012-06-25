@@ -33,14 +33,13 @@
             this.label4 = new System.Windows.Forms.Label();
             this.tbOrçamentoCtg = new System.Windows.Forms.TextBox();
             this.salvarCtg = new System.Windows.Forms.Button();
-            this.labelMensagem = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // tbDescriçãoCtg
             // 
             this.tbDescriçãoCtg.Location = new System.Drawing.Point(12, 25);
             this.tbDescriçãoCtg.Name = "tbDescriçãoCtg";
-            this.tbDescriçãoCtg.Size = new System.Drawing.Size(255, 20);
+            this.tbDescriçãoCtg.Size = new System.Drawing.Size(192, 20);
             this.tbDescriçãoCtg.TabIndex = 1;
             // 
             // label2
@@ -49,7 +48,7 @@
             this.label2.Location = new System.Drawing.Point(12, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 13);
-            this.label2.TabIndex = 2;
+            this.label2.TabIndex = 0;
             this.label2.Text = "Descrição";
             // 
             // label4
@@ -58,49 +57,43 @@
             this.label4.Location = new System.Drawing.Point(12, 48);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(34, 13);
-            this.label4.TabIndex = 6;
+            this.label4.TabIndex = 2;
             this.label4.Text = "Limite";
             // 
             // tbOrçamentoCtg
             // 
             this.tbOrçamentoCtg.Location = new System.Drawing.Point(12, 64);
             this.tbOrçamentoCtg.Name = "tbOrçamentoCtg";
-            this.tbOrçamentoCtg.Size = new System.Drawing.Size(255, 20);
-            this.tbOrçamentoCtg.TabIndex = 7;
+            this.tbOrçamentoCtg.Size = new System.Drawing.Size(192, 20);
+            this.tbOrçamentoCtg.TabIndex = 3;
             // 
             // salvarCtg
             // 
-            this.salvarCtg.Location = new System.Drawing.Point(192, 90);
+            this.salvarCtg.Location = new System.Drawing.Point(129, 114);
             this.salvarCtg.Name = "salvarCtg";
             this.salvarCtg.Size = new System.Drawing.Size(75, 23);
-            this.salvarCtg.TabIndex = 8;
+            this.salvarCtg.TabIndex = 4;
             this.salvarCtg.Text = "Salvar";
             this.salvarCtg.UseVisualStyleBackColor = true;
             this.salvarCtg.Click += new System.EventHandler(this.salvarCtg_Click);
-            // 
-            // labelMensagem
-            // 
-            this.labelMensagem.AutoSize = true;
-            this.labelMensagem.ForeColor = System.Drawing.Color.Red;
-            this.labelMensagem.Location = new System.Drawing.Point(12, 126);
-            this.labelMensagem.Name = "labelMensagem";
-            this.labelMensagem.Size = new System.Drawing.Size(0, 13);
-            this.labelMensagem.TabIndex = 9;
             // 
             // Form_Categoria
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(279, 186);
-            this.Controls.Add(this.labelMensagem);
+            this.ClientSize = new System.Drawing.Size(216, 149);
             this.Controls.Add(this.salvarCtg);
             this.Controls.Add(this.tbOrçamentoCtg);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tbDescriçãoCtg);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form_Categoria";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Categoria";
+            this.Load += new System.EventHandler(this.Form_Categoria_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -113,6 +106,5 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox tbOrçamentoCtg;
         private System.Windows.Forms.Button salvarCtg;
-        private System.Windows.Forms.Label labelMensagem;
     }
 }

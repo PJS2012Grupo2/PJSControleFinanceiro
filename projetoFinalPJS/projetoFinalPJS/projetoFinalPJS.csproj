@@ -67,12 +67,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="buscaCategoria.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="buscaCategoria.designer.cs">
+      <DependentUpon>buscaCategoria.cs</DependentUpon>
+    </Compile>
+    <Compile Include="buscaData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="buscaData.designer.cs">
+      <DependentUpon>buscaData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="buscaMovimento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="buscaMovimento.designer.cs">
+      <DependentUpon>buscaMovimento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="buscaRecorrente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="buscaRecorrente.designer.cs">
+      <DependentUpon>buscaRecorrente.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cs_Categorias.cs" />
     <Compile Include="Cs_Movimento.cs">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cs_Movimento.Designer.cs">
-      <DependentUpon>Cs_Movimento.cs</DependentUpon>
     </Compile>
     <Compile Include="Form2.cs">
       <SubType>Form</SubType>
@@ -100,6 +121,19 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Saldo.cs" />
+    <EmbeddedResource Include="buscaCategoria.resx">
+      <DependentUpon>buscaCategoria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="buscaData.resx">
+      <DependentUpon>buscaData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="buscaMovimento.resx">
+      <DependentUpon>buscaMovimento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="buscaRecorrente.resx">
+      <DependentUpon>buscaRecorrente.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form2.resx">
       <DependentUpon>Form2.cs</DependentUpon>
     </EmbeddedResource>

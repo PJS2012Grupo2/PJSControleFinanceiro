@@ -1,0 +1,203 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0056)http://rogerdudler.github.com/git-guide/index.pt_BR.html -->
+<!DOCTYPE html><HTML lang="en"><HEAD>
+<META charset="utf-8">
+<META content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"><TITLE>git - guia 
+prático - sem complicação!</TITLE><LINK rel="stylesheet" type="text/css" href="git%20-%20guia%20prático%20-%20sem%20complicação!_arquivos/css.css"><LINK 
+rel="stylesheet" type="text/css" href="git%20-%20guia%20prático%20-%20sem%20complicação!_arquivos/normalize.css"><LINK 
+rel="stylesheet" type="text/css" href="git%20-%20guia%20prático%20-%20sem%20complicação!_arquivos/style.css">
+<SCRIPT type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-652147-13']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+      function recordOutboundLink(link, category, action) {
+         _gat._getTrackerByName()._trackEvent(category, action);
+         setTimeout('document.location = "' + link.href + '"', 100);
+      }
+    </SCRIPT>
+
+<META name="GENERATOR" content="MSHTML 9.00.8112.16443"></HEAD>
+<BODY>
+<DIV class="scrollblock block-title">
+<H1>git - guia prático</H1>
+<P>apenas um guia prático para começar com git. sem complicação ;)</P><A class="twitter-share-button" 
+href="https://twitter.com/share" data-hashtags="git" data-related="rogerdudler" 
+data-url="http://rogerdudler.github.com/git-guide" data-size="large" data-via="rogerdudler">Tweet</A>
+<SCRIPT>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</SCRIPT>
+
+<P class="meta">            por <A 
+href="http://www.twitter.com/rogerdudler">Roger Dudler</A><BR>créditos para <A 
+href="http://www.twitter.com/tfnico">@tfnico</A>, <A href="http://www.twitter.com/fhd">@fhd</A> 
+and <A href="http://www.namics.com/">Namics</A><BR>            guia em           
+  <A href="http://rogerdudler.github.com/git-guide/index.html">english</A>,      
+      <A 
+href="http://rogerdudler.github.com/git-guide/index.de.html">deutsch</A>,        
+     <A 
+href="http://rogerdudler.github.com/git-guide/index.es.html">español</A>,        
+     <A 
+href="http://rogerdudler.github.com/git-guide/index.fr.html">français</A>,       
+      <A 
+href="http://rogerdudler.github.com/git-guide/index.it.html">italiano</A>,       
+      <A 
+href="http://rogerdudler.github.com/git-guide/index.nl.html">nederlands</A>,     
+        <A 
+href="http://rogerdudler.github.com/git-guide/index.ru.html">русский</A>,        
+     <BR><A 
+href="http://rogerdudler.github.com/git-guide/index.ja.html">日本語</A>,            
+ <A href="http://rogerdudler.github.com/git-guide/index.zh.html">中文</A>,         
+    <A 
+href="http://rogerdudler.github.com/git-guide/index.ko.html">한국어</A><BR>por 
+favor informe problemas em <A href="https://github.com/rogerdudler/git-guide/issues">github</A></P><IMG 
+alt="" src="git%20-%20guia%20prático%20-%20sem%20complicação!_arquivos/arrow.png"></DIV><!-- setup --><A 
+name="setup"></A>
+<DIV class="scrollblock block-setup">
+<H2>instalação</H2>
+<P><A 
+href="http://code.google.com/p/git-osx-installer/downloads/list?can=3">Baixe o 
+git para OSX</A></P>
+<P><A href="http://code.google.com/p/msysgit/downloads/list?can=3">Baixe o git 
+para Windows</A></P>
+<P><A href="http://book.git-scm.com/2_installing_git.html">Baixe o git para 
+Linux</A></P></DIV><A name="create"></A>
+<DIV class="scrollblock block-create">
+<H2>criando um novo repositório</H2>
+<P>            crie uma nova pasta, abra-a e execute o comando <BR><CODE>git 
+init</CODE><BR>            para criar um novo repositório.        </P></DIV><A 
+name="checkout"></A>
+<DIV class="scrollblock block-checkout">
+<H2>obtenha um repositório</H2>
+<P>            crie uma cópia de trabalho em um repositório local executando o 
+comando<BR><CODE>git clone /caminho/para/o/repositório</CODE><BR>            
+quando usar um servidor remoto, seu comando será<BR><CODE>git clone 
+usuário@servidor:/caminho/para/o/repositório</CODE></P></DIV><A 
+name="trees"></A>
+<DIV class="scrollblock block-trees">
+<H2>fluxo de trabalho</H2>
+<P>            seus repositório local consiste em três "árvores" mantidas pelo 
+git.            a primeira delas é sua <CODE>Working Directory</CODE> que contém 
+os arquivos vigentes.            a segunda <CODE>Index</CODE> que funciona como 
+uma área temporária e            finalmente a <CODE>HEAD</CODE> que aponta para 
+a última confirmação que você fez.        </P><IMG alt="" src="git%20-%20guia%20prático%20-%20sem%20complicação!_arquivos/trees.png"></DIV><A 
+name="add"></A>
+<DIV class="scrollblock block-add">
+<H2>adicionar &amp; confirmar</H2>
+<P>            Você pode propor mudanças (adicioná-las ao <B>Index</B>) 
+usando<BR><CODE>git add &lt;arquivo&gt;</CODE><BR><CODE>git add *</CODE><BR>     
+       Este é o primeiro passo no fluxo de trabalho básico do git. Para 
+realmente confirmar estas mudanças use<BR><CODE>git commit -m "comentários das 
+alterações"</CODE><BR>            Agora o arquivo é enviado para o <B>HEAD</B>, 
+mas ainda não para o repositório remoto.        </P></DIV><A name="push"></A>
+<DIV class="scrollblock block-remote">
+<H2>enviando alterações</H2>
+<P>            Suas alterações agora estão no <B>HEAD</B> da sua cópia de 
+trabalho local. Para enviar estas alterações ao seu repositório remoto, execute 
+<BR><CODE>git push origin master</CODE><BR>            Altere <I>master</I> para 
+qualquer ramificação desejada, enviando suas alterações para ela.            
+<BR><BR>            Se você não clonou um repositório existente e quer conectar 
+seu repositório a um servidor remoto, você deve adicioná-lo com<BR><CODE>git 
+remote add origin &lt;servidor&gt;</CODE><BR>            Agora você é capaz de 
+enviar suas alterações para o servidor remoto selecionado.<BR></P></DIV><A name="branching"></A>
+<DIV class="scrollblock block-branching">
+<H2>ramificando</H2>
+<P>            Ramos são utilizados para desenvolver funcionalidades isoladas 
+umas das outras. O ramo <I>master</I> é o ramo "padrão" quando você cria um 
+repositório. Use outros ramos para desenvolver e mescle-os ao ramo master após a 
+conclusão.        </P><IMG alt="" src="git%20-%20guia%20prático%20-%20sem%20complicação!_arquivos/branches.png">
+<P>            crie um novo ramo chamado "funcionalidade_x" e selecione-o 
+usando<BR><CODE>git checkout -b funcionalidade_x</CODE><BR>            retorne 
+para o master usando<BR><CODE>git checkout master</CODE><BR>            e remova 
+o ramo da seguinte forma<BR><CODE>git branch -d funcionalidade_x</CODE><BR>      
+      um ramo <I> não está disponível a outros</I> a menos que você envie o ramo 
+para seu repositório remoto<BR><CODE>git push origin 
+&lt;ramo&gt;</CODE></P></DIV><A name="update"></A>
+<DIV class="scrollblock block-merging">
+<H2>atualizar &amp; mesclar</H2>
+<P>            para atualizar seu repositório local com a mais nova versão, 
+execute <BR><CODE>git pull</CODE><BR>            na sua pasta de trabalho para 
+<I>obter</I> e <I>mesclar</I> alterações remotas.<BR>            para mesclar um 
+outro ramo ao seu ramo ativo (ex. master), use<BR><CODE>git merge 
+&lt;ramo&gt;</CODE><BR>            em ambos os casos o git tenta auto-mesclar as 
+alterações. Infelizmente, isto nem sempre é possível e resulta em 
+<I>conflitos</I>.            Você é responsável por mesclar estes 
+<I>conflitos</I>            manualmente editando os arquivos exibidos pelo git. 
+Depois de alterar, você precisa marcá-los como mesclados com<BR><CODE>git add 
+&lt;arquivo&gt;</CODE><BR>            antes de mesclar as alterações, você pode 
+também pré-visualizá-as usando<BR><CODE>git diff &lt;ramo origem&gt; &lt;ramo 
+destino&gt;</CODE></P></DIV><A name="tagging"></A>
+<DIV class="scrollblock block-tagging">
+<H2>rotulando</H2>
+<P>            é recomendado criar rótulos para releases de software. Este é um 
+conhecido conceito, que também existe no SVN. Você pode criar um novo rótulo 
+chamado <I>1.0.0</I> executando o comando<BR><CODE>git tag 1.0.0 
+1b2e1d63ff</CODE><BR>            o <I>1b2e1d63ff</I> representa os 10 primeiros 
+caracteres do id de confirmação que você quer referenciar com seu rótulo. Você 
+pode obter o id de confirmação com <BR><CODE>git log</CODE><BR>            você 
+pode também usar menos caracteres do id de confirmação, ele somente precisa ser 
+único.        </P></DIV><A name="checkout-replace"></A>
+<DIV class="scrollblock block-checkout-replace">
+<H2>sobrescrever alterações locais</H2>
+<P>            No caso de você ter feito algo errado (que seguramente nunca 
+acontece ;) você pode sobrescrever as alterações locais usando o 
+commando<BR><CODE>git checkout -- &lt;arquivo&gt;</CODE><BR>            isto 
+substitui as alterações na sua árvore de trabalho com o conteúdo mais recente no 
+HEAD. Alterações já adicionadas ao index, bem como novos arquivos serão 
+mantidos.        </P>
+<P>            Se ao invés disso você deseja remover todas as alterações e 
+confirmações locais, recupere o histórico mais recente do servidor e aponte para 
+seu ramo master local desta forma<BR><CODE>git fetch origin</CODE><BR><CODE>git 
+reset --hard origin/master</CODE></P></DIV><A name="hints"></A>
+<DIV class="scrollblock block-hints">
+<H2>dicas úteis</H2>
+<P>            Inteface gráfica padrão<BR><CODE>gitk</CODE><BR>            usar 
+saídas do git coloridas<BR><CODE>git config color.ui true</CODE><BR>            
+exibir log em apenas uma linha por confirmação<BR><CODE>git config format.pretty 
+oneline</CODE><BR>            fazer inclusões interativas<BR><CODE>git add 
+-i</CODE></P></DIV><A name="resources"></A>
+<DIV class="scrollblock block-resources">
+<H2>recursos &amp; links</H2>
+<H3>clientes gráficos</H3>
+<P>
+<UL>
+  <LI><A href="http://gitx.laullon.com/">GitX (L) (OSX, código aberto)</A></LI>
+  <LI><A href="http://www.git-tower.com/">Tower (OSX)</A></LI>
+  <LI><A href="http://www.sourcetreeapp.com/">Source Tree (OSX, 
+  gratuito)</A></LI>
+  <LI><A href="http://mac.github.com/">GitHub for Mac (OSX, 
+gratuito)</A></LI></UL>
+<P></P>
+<H3>guias</H3>
+<P>
+<UL>
+  <LI><A href="http://book.git-scm.com/">Livro da comunidade Git</A></LI>
+  <LI><A href="http://progit.org/book/">Pro Git</A></LI>
+  <LI><A href="http://think-like-a-git.net/">Pense como um git</A></LI>
+  <LI><A href="http://help.github.com/">Ajuda do GitHub</A></LI>
+  <LI><A href="http://marklodato.github.com/visual-git-guide/index-en.html">Um 
+  guia visual do Git</A></LI></UL>
+<P></P></DIV><A name="comments"></A>
+<DIV class="scrollblock block-comments">
+<H2>comentários</H2>
+<DIV id="disqus_thread"></DIV>
+<SCRIPT type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'git-the-simple-guide'; // required: replace example with your forum shortname
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </SCRIPT>
+<NOSCRIPT>Por favor habilite o JavaScript para ver os &lt;a 
+href="http://disqus.com/?ref_noscript"&gt;comentários powered by 
+Disqus.&lt;/a&gt;</NOSCRIPT></DIV><A class="tower" onclick="recordOutboundLink(this, 'Outbound Links', 'git-tower.com');return false;" 
+href="http://www.git-tower.com/?source=rd"></A><A class="cheatsheet" onclick="recordOutboundLink(this, 'Cheat Sheet', 'git-guide');return false;" 
+href="http://rogerdudler.github.com/git-guide/files/git_cheat_sheet.pdf"></A></BODY></HTML>

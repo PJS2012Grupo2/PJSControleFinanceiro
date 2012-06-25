@@ -14,57 +14,69 @@ namespace projetoFinalPJS
     {
         string[] parcelar = { "Sim", "Não" };
         SqlDataAdapter adaptadorMovimento;
-       // SqlDataAdapter preencherCategoria;
-        private formularioInicial formularioInicial;
-        SqlConnection conexao = new SqlConnection(@"Data Source=PC18LA3\SQLEXPRESS;Initial Catalog=FINANCEIRO;Integrated Security=SSPI");
+        formularioInicial formularioInicial;
         SqlCommand comando = new SqlCommand();
-
-        public Form_Movimentação(formularioInicial formularioInicial, SqlDataAdapter adaptadorMovimento)
+        ListViewItem itemAlt;
+        
+        private void Form_Movimentação_Load(object sender, EventArgs e)
         {
-            InitializeComponent();
-            this.formularioInicial = formularioInicial;
-            this.adaptadorMovimento = adaptadorMovimento;
-
-            //trecho para popular combo box de categoria
-            comando.Connection = conexao;
-            conexao.Open();
-            comando.CommandText = "select count (NOME) from CATEGORIA";
-            Object retorno = comando.ExecuteScalar();
-            int qtd_categorias=Convert.ToInt32(retorno);
-            conexao.Close();
-            Object name = new Object();
-            string[] TiposCategorias = new string[qtd_categorias];
-            conexao.Open();
-            for (int cont = 1; cont <= qtd_categorias; cont++)
-            { 
-                comando.CommandText = "select NOME from CATEGORIA where ID_CATEGORIA = "+cont+"";
-                name=comando.ExecuteScalar();
-                TiposCategorias[cont-1] = name.ToString(); 
-            }
-            conexao.Close();
-            this.cbCategoria.DataSource = TiposCategorias;
-
+            cbCategoria.SelectedIndex = 0;
             //trecho para inicializar escolha de quantidade de parcelas com 1
             numericUpDown1.Value = 1;
 
-            //trecho para popular campo saldo total com valor correto
+            if (itemAlt != null)
+            {
+                tbDescrição.Text = itemAlt.SubItems[0].Text;
+                cbCategoria.Text = itemAlt.SubItems[3].Text;
+                cbCategoria.SelectedText = itemAlt.SubItems[3].Text;
+                tbValor.Text = itemAlt.SubItems[1].Text;
+                dtpData.Value = DateTime.UtcNow; // TESTE
+                //dtpData.Text = DateTime.Parse(itemAlt.SubItems[2].Text).ToString().Substring(0, 7);
+                groupBox1.Enabled = false;
+                if (int.Parse(itemAlt.SubItems[4].Text) > 0.00)
+                    radioButton2.Checked = true;
+                else
+                    radioButton1.Checked = true;
+                numericUpDown1.Value = int.Parse(itemAlt.SubItems[4].Text);
+                numericUpDown1.Enabled = false;
+                checkBox1.Enabled = false;
+            }
+            else
+                tbValor.Text = "R$";
+            //verificaValor();
+        }
+
+        //public void verificaValor()
+        //{
+        //    if (float.Parse(tbValor.Text.Replace("R$", "")) >= 0)
+        //        tbValor.ForeColor = Color.Green;
+        //    else
+        //        tbValor.ForeColor = Color.Red;
+        //}
+
+        public Form_Movimentação(formularioInicial formularioInicial, SqlDataAdapter adaptadorMovimento, ListViewItem itemSelecionado=null)
+        {
+            InitializeComponent();
+            this.formularioInicial = formularioInicial;
+            this.adaptadorMovimento = formularioInicial.adaptadorMovimento;
+            this.itemAlt = itemSelecionado;
+
+            //trecho para popular combo box de categoria
+            cbCategoria.DataSource = formularioInicial.dadosFinanceiro.Tables["Categoria"].DefaultView;
+            cbCategoria.DisplayMember = "Nome";
+            cbCategoria.BindingContext = this.BindingContext;
+
             tbSaldo.Enabled = false;
-            conexao.Open();
+            comando.Connection = formularioInicial.conexaoFinanceiro;
             comando.CommandText = "select * from SALDO";
             Object total_saldo = comando.ExecuteScalar();
             tbSaldo.Text = total_saldo.ToString();
-            conexao.Close();
-
+            groupBox1.Enabled = true;
         }
 
         private void cadastrar_Click(object sender, EventArgs e)
-        {
-            if (tbSaldo.Text.Trim() == "")
-            {
-                MessageBox.Show("Digite um valor de Saldo válido.");
-                tbSaldo.Focus();
-            }
-            else if (tbDescrição.Text.Trim() == "")
+        {            
+            if (tbDescrição.Text.Trim() == "")
             {
                 MessageBox.Show("Digite uma descrição.");
                 tbDescrição.Focus();
@@ -76,22 +88,54 @@ namespace projetoFinalPJS
             }
             else
             {
-                DataSet dMovimento = new DataSet();
-                adaptadorMovimento.Fill(dMovimento, "MOVIMENTO");
-                DataRow novoMovimento = dMovimento.Tables["MOVIMENTO"].NewRow();
+                adaptadorMovimento.Fill(formularioInicial.dadosFinanceiro, "MOVIMENTO");
+                DataRow novoMovimento = formularioInicial.dadosFinanceiro.Tables["MOVIMENTO"].NewRow();
                 novoMovimento["Descricao"] = tbDescrição.Text;
-                novoMovimento["Valor"] = tbValor.Text;
+                novoMovimento["Valor"] = tbValor.Text.Replace("R$", "");
                 novoMovimento["Data_Cadastro"] = DateTime.UtcNow;
                 SqlCommand achaCategoria = formularioInicial.conexaoFinanceiro.CreateCommand();
                 achaCategoria.CommandText = "SELECT ID_CATEGORIA FROM CATEGORIA WHERE NOME = '" + cbCategoria.Text + "'";
                 int numeroCategoria = ((int)achaCategoria.ExecuteScalar());
                 novoMovimento["Id_Categoria"] = numeroCategoria;
-                dMovimento.Tables["MOVIMENTO"].Rows.Add(novoMovimento);
-                adaptadorMovimento.Update(dMovimento, "MOVIMENTO");
-                adaptadorMovimento.Fill(dMovimento, "MOVIMENTO");
-                //Cs_Movimento movimento = new Cs_Movimento(tbDescrição.Text, float.Parse(tbValor.Text), DateTime.Parse(dtpData.Text), 0, 0, cbCategoria.Text);
-                //formularioInicial.AdicionaMovimento(movimento);
+                Cs_Movimento movimento = new Cs_Movimento(tbDescrição.Text, float.Parse(tbValor.Text.Replace("R$", "")), DateTime.UtcNow, 0, 0, cbCategoria.Text);
+                    
+                if (itemAlt != null)
+                {
+                    foreach (DataRow registro in formularioInicial.dadosFinanceiro.Tables["MOVIMENTO"].Rows)
+                    {
+                        if (int.Parse(registro["ID_MOVIMENTO"].ToString()) == int.Parse(itemAlt.Tag.ToString()))
+                        {
+                            registro["Descricao"] = tbDescrição.Text;
+                            registro["Valor"] = float.Parse(tbValor.Text.Replace("R$", ""));
+                            registro["DATA_CADASTRO"] = DateTime.Parse(dtpData.Text).ToString("DD/MM/YYYY");
+                            registro["ID_CATEGORIA"] = numeroCategoria;
+                            adaptadorMovimento.Update(formularioInicial.dadosFinanceiro, "MOVIMENTO");
+                            break;
+                        }
+                    }
+                }
+                else
+                    formularioInicial.dadosFinanceiro.Tables["MOVIMENTO"].Rows.Add(novoMovimento);
+                adaptadorMovimento.Update(formularioInicial.dadosFinanceiro, "MOVIMENTO");
+                formularioInicial.carregaMovimentos(); //TESTE
 
+                Saldo total_saldo= new Saldo(float.Parse(tbValor.Text.Replace("R$", "")));
+                float total = float.Parse(tbValor.Text.Replace("R$", ""));
+                bool negativar=formularioInicial.valor_Negativo();
+                if (negativar == false)
+                {
+                    // comando da inserção 
+                    comando.CommandText = "UPDATE SALDO SET TOTAL = TOTAL+ (" + total + ")";
+                    //executa a inserção dos dados no sql 
+                    comando.ExecuteNonQuery();
+                }
+                else
+                {
+                    // comando da inserção 
+                    comando.CommandText = "UPDATE SALDO SET TOTAL = TOTAL- (" + total + ")";
+                    //executa a inserção dos dados no sql 
+                    comando.ExecuteNonQuery();
+                 }
                 Close();
             }
         }
@@ -107,7 +151,39 @@ namespace projetoFinalPJS
         {
             numericUpDown1.Enabled = true;
             label4.Enabled = true;
-        }     
-        
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (groupBox1.Enabled == true)
+            {
+                groupBox1.Enabled = false;
+            }
+            else
+            {
+                groupBox1.Enabled = true;
+            }
+        }
+
+        private void Form_Movimentação_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                SqlCommand comando = new SqlCommand();
+                comando.Connection = formularioInicial.conexaoFinanceiro;
+                comando.CommandText = "SELECT * FROM Saldo";
+                Object total_saldo = comando.ExecuteScalar();
+                formularioInicial.toolStripStatusLabel1.Text = "Lembretes: Saldo=" + total_saldo.ToString() + "";
+            }
+            catch
+            {
+                MessageBox.Show("Erro", "Erro de conexão com a base de dados", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void tbValor_TextChanged(object sender, EventArgs e)
+        {
+            //verificaValor();
+        }
     }
 }

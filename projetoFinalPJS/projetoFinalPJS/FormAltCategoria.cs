@@ -13,23 +13,19 @@ namespace projetoFinalPJS
     public partial class FormAltCategoria : Form
     {
         private formularioInicial formularioInicial;
-        private SqlDataAdapter adaptadorCategoria;
-        int id;
-        bool acao;
+        //private SqlDataAdapter adaptadorCategoria;
+        int id = 0;
         public FormAltCategoria(formularioInicial formularioInicial, SqlDataAdapter adaptadorCategoria)
         {
             InitializeComponent();
             this.formularioInicial = formularioInicial;
-            this.adaptadorCategoria = adaptadorCategoria;
+            //this.adaptadorCategoria = adaptadorCategoria;
         }
 
         public void PreencherCategoria()
         {
-            SqlCommand comandoSelectCat = new SqlCommand();
-            comandoSelectCat.Connection = formularioInicial.conexaoFinanceiro;
-            comandoSelectCat.CommandText = "Select ID_categoria,nome, limite from CATEGORIA";
-            comandoSelectCat.ExecuteNonQuery();
-
+            formularioInicial.carregaCategorias(listaCategoria);
+            /*
             SqlDataReader leitor = comandoSelectCat.ExecuteReader();
 
             while (leitor.Read())
@@ -44,7 +40,7 @@ namespace projetoFinalPJS
                 listaCategoria.Items.Add(itemDescricao);
             }
 
-            leitor.Close();
+            leitor.Close();*/
         }
 
         private void FormCategoria_Load(object sender, EventArgs e)
@@ -54,54 +50,60 @@ namespace projetoFinalPJS
 
         private void btAlterar_Click(object sender, EventArgs e)
         {
-            Form_Categoria Var_Form_Categoria = new Form_Categoria(this.formularioInicial, adaptadorCategoria,false,id);
-            Var_Form_Categoria.preencherCategoria(id);
-            Var_Form_Categoria.ShowDialog();
-        }
-
-        public void limparListView(int id)
-        {
-            SqlCommand comandoLimpar = new SqlCommand();
-            comandoLimpar.Connection = formularioInicial.conexaoFinanceiro;
-            comandoLimpar.CommandText = ("Select nome from Categoria where id_categoria = " + id);
-            comandoLimpar.ExecuteNonQuery();
-            ListViewItem categoriaExcluida = listaCategoria.SelectedItems[0];
-            SqlDataReader leitor = comandoLimpar.ExecuteReader();
-
-            while (leitor.Read())
+            if (listaCategoria.SelectedItems.Count > 0)
             {
-                if (leitor["Nome"].ToString() == categoriaExcluida.Text)
-                {
-                    listaCategoria.Items.Remove(categoriaExcluida);
-                }
+                Form_Categoria formAlt = new Form_Categoria(formularioInicial, formularioInicial.adaptadorCategoria, listaCategoria.SelectedItems[0], this);
+                //formAlt.preencherCategoria(id); TESTE
+                formAlt.ShowDialog();
             }
-            leitor.Close(); 
-
         }
+
+        //public void limparListView(int id)
+        //{
+        //    SqlCommand comandoLimpar = new SqlCommand();
+        //    comandoLimpar.Connection = formularioInicial.conexaoFinanceiro;
+        //    comandoLimpar.CommandText = ("Select nome from Categoria where id_categoria = " + id);
+        //    comandoLimpar.ExecuteNonQuery();
+        //    ListViewItem categoriaExcluida = listaCategoria.SelectedItems[0];
+        //    SqlDataReader leitor = comandoLimpar.ExecuteReader();
+
+        //    while (leitor.Read())
+        //    {
+        //        if (leitor["Nome"].ToString() == categoriaExcluida.Text)
+        //        {
+        //            listaCategoria.Items.Remove(categoriaExcluida);
+        //        }
+        //    }
+        //    leitor.Close(); 
+
+        //}
       
         private void btExcluir_Click(object sender, EventArgs e)
         {
-            DataSet DeleteCategoria = new DataSet();
-            adaptadorCategoria.Fill(DeleteCategoria,"CATEGORIA");
-            DialogResult resposta;
-            resposta = MessageBox.Show("Deseja excluir esse item?", "Aviso", MessageBoxButtons.YesNo);
-            if (resposta == DialogResult.Yes)
-            {
-                DataRow registro = DeleteCategoria.Tables["CATEGORIA"].Rows.Find(id);
-                SqlCommand comandoUpdate = new SqlCommand();
-                comandoUpdate.Connection = formularioInicial.conexaoFinanceiro;
-                comandoUpdate.CommandText = ("Update Movimento set id_categoria = 1 where id_categoria = " + id);
-                comandoUpdate.ExecuteNonQuery();
-                SqlDataReader leitor = comandoUpdate.ExecuteReader();
-                leitor.Close();
-                registro.Delete();
-                limparListView(id);
+            //formularioInicial.adaptadorCategoria.Fill(formularioInicial.dadosFinanceiro,"CATEGORIA");
+            //DialogResult resposta;
+            //resposta = MessageBox.Show("Deseja excluir esse item?", "Aviso", MessageBoxButtons.YesNo);
+            //if (resposta == DialogResult.Yes)
+            //{
+                int id = int.Parse(listaCategoria.SelectedItems[0].Tag.ToString());
+                DataRow registro = formularioInicial.dadosFinanceiro.Tables["CATEGORIA"].Rows.Find(id);
+                //SqlCommand comandoUpdate = new SqlCommand();
+                //comandoUpdate.Connection = formularioInicial.conexaoFinanceiro;
+                //comandoUpdate.CommandText = ("Update Movimento set id_categoria = 1 where id_categoria = " + id);
+                //comandoUpdate.ExecuteNonQuery();
+                //SqlDataReader leitor = comandoUpdate.ExecuteReader();
+                //leitor.Close();
+                //registro.Delete();
+                //limparListView(id);
+                formularioInicial.removeCategoria(registro,listaCategoria);
+                PreencherCategoria();
                 formularioInicial.limparListViewInicial(id);
-                adaptadorCategoria.Update(DeleteCategoria, "CATEGORIA");
-            }
-
-            else
-                Close();      
+                formularioInicial.adaptadorCategoria.Update(formularioInicial.dadosFinanceiro, "CATEGORIA");
+                formularioInicial.carregaMovimentos();
+                formularioInicial.carregaCategorias(formularioInicial.listViewCategorias);
+            //}
+            //else
+            //    Close();      
         }
     }
 }
