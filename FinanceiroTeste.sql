@@ -26,8 +26,16 @@ go
  select * from categoria;
 go
 
-delete from categoria where id_categoria in (41)
+insert into CATEGORIA values(
+'SUPERFLUOS',800,800
+)
+GO
+
+delete from categoria where id_categoria in (43)
 go
+
+
+drop table movimento
 
 CREATE TABLE MOVIMENTO (
   ID_MOVIMENTO INT PRIMARY KEY NOT NULL IDENTITY,
@@ -35,14 +43,16 @@ CREATE TABLE MOVIMENTO (
   VALOR MONEY NOT NULL,
   DATA_CADASTRO DATE NOT NULL,
   PARCELA INT,
-  VALOR_TOTAL AS (VALOR * PARCELA),
+  VALOR_PARCELADO AS (VALOR / PARCELA),
   ID_CATEGORIA INT FOREIGN KEY REFERENCES CATEGORIA(ID_CATEGORIA)
   );
 GO
 
 select * from MOVIMENTO
 
-delete from MOVIMENTO where id_categoria in (41)
+
+
+delete from MOVIMENTO where id_categoria in (42)
 go
 
 CREATE TABLE MOVIMENTO_RECORRENTE(

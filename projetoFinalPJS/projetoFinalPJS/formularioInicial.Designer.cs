@@ -335,7 +335,7 @@
             // 
             // columnTotal
             // 
-            this.columnTotal.Text = "Valor Total";
+            this.columnTotal.Text = "Valor Parcelado";
             this.columnTotal.Width = 112;
             // 
             // cATEGORIABindingSource
@@ -552,7 +552,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nOMEDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn lIMITEDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource cATEGORIABindingSource1;
-        private System.Windows.Forms.ListView listViewMovimentos;
         private System.Windows.Forms.ColumnHeader columnDescricao;
         private System.Windows.Forms.ColumnHeader columnValor;
         private System.Windows.Forms.ColumnHeader columnRestante;
@@ -565,5 +564,6 @@
         public System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         public System.Windows.Forms.ListView listViewCategorias;
         public System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
+        public System.Windows.Forms.ListView listViewMovimentos;
     }
 }

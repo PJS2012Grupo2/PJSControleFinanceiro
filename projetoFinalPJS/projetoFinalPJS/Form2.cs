@@ -26,11 +26,17 @@ namespace projetoFinalPJS
             this.adaptadorMovimento = adaptadorMovimento;
             
             //trecho para popular combo box de categoria
+            int qtd_categorias=0;
             comando.Connection = conexao;
             conexao.Open();
             comando.CommandText = "select MAX (ID_CATEGORIA) from CATEGORIA";
             Object retorno = comando.ExecuteScalar();
-            int qtd_categorias=Convert.ToInt32(retorno);
+
+            //há um bug aqui se o banco estiver vazio
+            if (retorno != null)
+            {
+                qtd_categorias = Convert.ToInt32(retorno);
+            }
 
             comando.CommandText = "select COUNT (ID_CATEGORIA) from CATEGORIA";
             Object total_Categ = comando.ExecuteScalar();
@@ -107,10 +113,25 @@ namespace projetoFinalPJS
                 novoMovimento["Descricao"] = tbDescrição.Text;
                 novoMovimento["Valor"] = tbValor.Text;
                 novoMovimento["Data_Cadastro"] = DateTime.UtcNow;
+
                 SqlCommand achaCategoria = formularioInicial.conexaoFinanceiro.CreateCommand();
                 achaCategoria.CommandText = "SELECT ID_CATEGORIA FROM CATEGORIA WHERE NOME = '" + cbCategoria.Text + "'";
                 int numeroCategoria = ((int)achaCategoria.ExecuteScalar());
                 novoMovimento["Id_Categoria"] = numeroCategoria;
+
+
+                int parcelas = 1;
+                if (radioButton2.Checked)
+                {
+                    parcelas = int.Parse(numericUpDown1.Value.ToString());
+                }
+                else
+                {
+                    parcelas = 1;
+                }
+                novoMovimento["PARCELA"] = parcelas;
+
+
                 dMovimento.Tables["MOVIMENTO"].Rows.Add(novoMovimento);
                 adaptadorMovimento.Update(dMovimento, "MOVIMENTO");
                 adaptadorMovimento.Fill(dMovimento, "MOVIMENTO");
@@ -138,6 +159,7 @@ namespace projetoFinalPJS
                      //executa a inserção dos dados no sql 
                      comando.ExecuteNonQuery();
                      formularioInicial.listViewCategorias.Items.Clear();
+                     formularioInicial.listViewMovimentos.Items.Clear();
                      formularioInicial.conexaoDados();
                      conexao.Close();
 
@@ -154,11 +176,10 @@ namespace projetoFinalPJS
                      comando.ExecuteNonQuery();
 
                      formularioInicial.listViewCategorias.Items.Clear();
+                     formularioInicial.listViewMovimentos.Items.Clear();
                      formularioInicial.conexaoDados();
-                     conexao.Close();
-                     
+                     conexao.Close();       
                  }
-                 
 
                 Close();
             }

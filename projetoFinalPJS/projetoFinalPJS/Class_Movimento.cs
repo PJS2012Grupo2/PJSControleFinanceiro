@@ -16,16 +16,18 @@ namespace projetoFinalPJS
         public float valor { get; set; }
         public DateTime dataCadastro { get; set; }
         public int parcela { get; set; }
-        public float valorTotal { get; set; }
+        //VALOR PARCELADO
+        public float valorParcelado { get; set; }
         public string categoria { get; set; }
 
-        public Class_Movimento(string descricao, float valor, DateTime datacadastro, int parcelas, float valorTotal, string categoria)
+        public Class_Movimento(string descricao, float valor, DateTime datacadastro, int parcelas, float valorParcelado, string categoria)
         {
             this.descricao = descricao;
             this.valor = valor;
             this.dataCadastro = dataCadastro;
             this.parcela = parcelas;
-            this.valorTotal = valorTotal;
+            //VALOR PARCELADO
+            this.valorParcelado = valorParcelado;
             this.categoria = categoria;
         }
     }

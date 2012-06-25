@@ -65,7 +65,7 @@ namespace projetoFinalPJS
             /* -------------- Comandos de inserção ------------------ */
 
 
-            SqlCommand comandoInsercaoMovimento = new SqlCommand("Insert into MOVIMENTO (DESCRICAO, VALOR, DATA_CADASTRO, ID_CATEGORIA) values (@Descricao, @Valor, @DataCadastro, @Categoria)", conexaoFinanceiro);
+            SqlCommand comandoInsercaoMovimento = new SqlCommand("Insert into MOVIMENTO (DESCRICAO, VALOR, DATA_CADASTRO,PARCELA, ID_CATEGORIA) values (@Descricao, @Valor, @DataCadastro,@Parcela, @Categoria)", conexaoFinanceiro);
             // Descrição
             SqlParameter prmDescricaoMovimento = new SqlParameter("@Descricao", SqlDbType.VarChar, 50);
             prmDescricaoMovimento.SourceColumn = "DESCRICAO";
@@ -233,7 +233,10 @@ namespace projetoFinalPJS
                 }
                leitor.Close();
                 //popular listview de baixo
-              
+               SqlCommand comandoInicializarMovimentos = new SqlCommand();
+               comandoInicializarMovimentos.Connection = conexaoFinanceiro;
+               comandoInicializarMovimentos.CommandText = "Select DESCRICAO, VALOR, DATA_CADASTRO, PARCELA, VALOR_PARCELADO, ID_CATEGORIA FROM MOVIMENTO";
+            
                SqlDataReader leitorMovimentos = comandoInicializarMovimentos.ExecuteReader();
                int prc;
                float total;
@@ -242,7 +245,7 @@ namespace projetoFinalPJS
                    if (int.TryParse(leitorMovimentos["PARCELA"].ToString(), out prc))
                    {
                        prc = int.Parse(leitorMovimentos["PARCELA"].ToString());
-                       total = float.Parse(leitorMovimentos["VALOR_TOTAL"].ToString());
+                       total = float.Parse(leitorMovimentos["VALOR_PARCELADO"].ToString());
                    }
                    else
                    {
@@ -285,6 +288,11 @@ namespace projetoFinalPJS
               listViewCategorias.View = View.Details;
               listViewCategorias.GridLines = true;
               listViewCategorias.LabelEdit = true;
+
+
+              listViewMovimentos.View = View.Details;
+              listViewMovimentos.GridLines = true;
+              listViewMovimentos.LabelEdit = true;
               try
               {
                   SqlConnection conn = new SqlConnection(@"Data Source=ROPAS-PC\SQLEXPRESS;Initial Catalog=FINANCEIRO;Integrated Security=SSPI");
@@ -321,32 +329,48 @@ namespace projetoFinalPJS
 
         public void AdicionaMovimento(Class_Movimento mvt)
         {
-            ListViewItem itemDescricao = new ListViewItem(mvt.decricao);
+            ListViewItem itemDescricao = new ListViewItem(mvt.descricao);
             ListViewItem.ListViewSubItem itemValor = new ListViewItem.ListViewSubItem(itemDescricao, "R$" + mvt.valor.ToString());
-            ListViewItem.ListViewSubItem itemDataCadastro = new ListViewItem.ListViewSubItem(itemDescricao, mvt.data_cadastro.ToString());
-            ListViewItem.ListViewSubItem itemCategoria = new ListViewItem.ListViewSubItem(itemDescricao, mvt.id_categoria.ToString());
-            string parcela, valorTotal;
-
-            if (mvt.parcela <= 0)
-            { 
-                parcela = "null"; valorTotal = "null";
-            }
-            else
-            { 
-                parcela = mvt.parcela.ToString();
-                valorTotal = mvt.valor_total.ToString(); 
-            
-            }
+            ListViewItem.ListViewSubItem itemDataCadastro = new ListViewItem.ListViewSubItem(itemDescricao, mvt.dataCadastro.ToString());
+            ListViewItem.ListViewSubItem itemCategoria = new ListViewItem.ListViewSubItem(itemDescricao, mvt.categoria);
+            string parcela, valorParcelado;
+            if (mvt.parcela <= 0) { parcela = ""; valorParcelado = ""; } else { parcela = mvt.parcela.ToString(); valorParcelado = mvt.valorParcelado.ToString(); }
             ListViewItem.ListViewSubItem itemParcela = new ListViewItem.ListViewSubItem(itemDescricao, parcela);
-            ListViewItem.ListViewSubItem itemVTotal = new ListViewItem.ListViewSubItem(itemDescricao,valorTotal);
+            ListViewItem.ListViewSubItem itemValorParcelado = new ListViewItem.ListViewSubItem(itemDescricao, valorParcelado);
             itemDescricao.SubItems.Add(itemValor);
             itemDescricao.SubItems.Add(itemDataCadastro);
             itemDescricao.SubItems.Add(itemCategoria);
             itemDescricao.SubItems.Add(itemParcela);
-            itemDescricao.SubItems.Add(itemVTotal);
-
+            itemDescricao.SubItems.Add(itemValorParcelado);                                  
             listViewMovimentos.Items.Add(itemDescricao);
         }
+
+        public void AlteraMovimento(Class_Movimento mvt, ListViewItem itemAlterado)
+        {
+            int i;
+            for (i = 0; i < listViewMovimentos.Items.Count; i++)
+            {
+                if (listViewMovimentos.Items[i] == itemAlterado)
+                {
+                    break;
+                }
+            }
+            ListViewItem itemDescricao = new ListViewItem(mvt.descricao);
+            ListViewItem.ListViewSubItem itemValor = new ListViewItem.ListViewSubItem(itemDescricao, "R$" + mvt.valor.ToString());
+            ListViewItem.ListViewSubItem itemDataCadastro = new ListViewItem.ListViewSubItem(itemDescricao, mvt.dataCadastro.ToString());
+            ListViewItem.ListViewSubItem itemCategoria = new ListViewItem.ListViewSubItem(itemDescricao, mvt.categoria);
+            string parcela, valorParcelado;
+            if (mvt.parcela <= 0) { parcela = ""; valorParcelado = ""; } else { parcela = mvt.parcela.ToString(); valorParcelado = mvt.valorParcelado.ToString(); }
+            ListViewItem.ListViewSubItem itemParcela = new ListViewItem.ListViewSubItem(itemDescricao, parcela);
+            ListViewItem.ListViewSubItem itemValorParcelado = new ListViewItem.ListViewSubItem(itemDescricao, valorParcelado);
+            itemDescricao.SubItems.Add(itemValor);
+            itemDescricao.SubItems.Add(itemDataCadastro);
+            itemDescricao.SubItems.Add(itemCategoria);
+            itemDescricao.SubItems.Add(itemParcela);
+            itemDescricao.SubItems.Add(itemValorParcelado);
+            listViewMovimentos.Items[i] = itemAlterado;
+        }
+
 
         private void entradaDeValoresToolStripMenuItem1_Click(object sender, EventArgs e)
         {
