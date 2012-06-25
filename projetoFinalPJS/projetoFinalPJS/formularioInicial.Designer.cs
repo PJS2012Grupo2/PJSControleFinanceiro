@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Todas as Categorias");
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("Todas as Categorias");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formularioInicial));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.arquivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -257,11 +257,11 @@
             this.listViewCategorias.ForeColor = System.Drawing.Color.Black;
             this.listViewCategorias.FullRowSelect = true;
             this.listViewCategorias.GridLines = true;
-            listViewItem1.Checked = true;
-            listViewItem1.StateImageIndex = 1;
-            listViewItem1.Tag = "todas";
+            listViewItem4.Checked = true;
+            listViewItem4.StateImageIndex = 1;
+            listViewItem4.Tag = "todas";
             this.listViewCategorias.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
+            listViewItem4});
             this.listViewCategorias.Location = new System.Drawing.Point(-2, 0);
             this.listViewCategorias.Name = "listViewCategorias";
             this.listViewCategorias.Size = new System.Drawing.Size(169, 365);
@@ -306,7 +306,7 @@
             this.listViewMovimentos.GridLines = true;
             this.listViewMovimentos.Location = new System.Drawing.Point(0, 19);
             this.listViewMovimentos.Name = "listViewMovimentos";
-            this.listViewMovimentos.Size = new System.Drawing.Size(654, 362);
+            this.listViewMovimentos.Size = new System.Drawing.Size(650, 362);
             this.listViewMovimentos.TabIndex = 0;
             this.listViewMovimentos.UseCompatibleStateImageBehavior = false;
             this.listViewMovimentos.View = System.Windows.Forms.View.Details;
