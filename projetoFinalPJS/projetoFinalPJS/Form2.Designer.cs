@@ -51,8 +51,8 @@
             // 
             // dtpData
             // 
-            this.dtpData.CustomFormat = "yyyy/dd/MM";
-            this.dtpData.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpData.CustomFormat = "dd/MM/yyyy";
+            this.dtpData.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpData.Location = new System.Drawing.Point(179, 143);
             this.dtpData.Name = "dtpData";
             this.dtpData.Size = new System.Drawing.Size(104, 20);
@@ -243,7 +243,6 @@
 
         #endregion
 
-        private System.Windows.Forms.DateTimePicker dtpData;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tbValor;
         private System.Windows.Forms.Label label6;
@@ -260,6 +259,7 @@
         public System.Windows.Forms.RadioButton radioButton2;
         public System.Windows.Forms.RadioButton radioButton1;
         public System.Windows.Forms.NumericUpDown numericUpDown1;
+        public System.Windows.Forms.DateTimePicker dtpData;
 
     }
 }

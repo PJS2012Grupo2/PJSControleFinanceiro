@@ -17,55 +17,20 @@ namespace projetoFinalPJS
         SqlCommand comando = new SqlCommand();
         public gastosParcelados()
         {
+          
             InitializeComponent();
-
+            
             string[] meses = { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" };
             comboBox2.DataSource = meses;
             comando.Connection = conexao;
             conexao.Open();
-            
-          
-
-            
-
-            
         }     
 
 
         private void button2_Click(object sender, EventArgs e)
         {
-
             popular_combos();
-            
-                //string[] gastos=new string[qtdMes];
-                //for (int i = 0; i < qtdMes; i++)
-                //{ 
-
                 
-                //comando.CommandText = "select descricao from movimento where datepart(month,data_cadastro)='"+ comboBox2.SelectedItem +"'";
-                //Object desc = comando.ExecuteScalar();
-                //gastos[i] = desc.ToString();
-               
-                
-                
-                
-                //comando.CommandText = "select datepart(month,data_cadastro)from movimento where datepart(month,data_cadastro)='02'";
-                //for (int i = 0; i < qtdParcelados; i++)
-                //{ 
-
-                     
-                //  if()
-                
-                
-                //}
-
-                //    //POPULAR CAMPOS
-                //comando.CommandText = "select datepart(month,data_cadastro)from movimento where datepart(month,data_cadastro)='02'";
-                //Object tContasParceladas = comando.ExecuteScalar();
-                //int qtdParcelados = int.Parse(tContasParceladas.ToString());
-
-
-              
         }
 
 
@@ -75,6 +40,7 @@ namespace projetoFinalPJS
             //CRIAR VETOR Para POPULAR GASTOS PARCELADOS
 
             //VETOR "SUJO" COM VALORES NÃO PARCELADOS
+           
             comando.CommandText = "SELECT MAX(ID_MOVIMENTO) FROM MOVIMENTO WHERE PARCELA > 1";
             Object MContasParceladas = comando.ExecuteScalar();
             int MAXParcelados = int.Parse(MContasParceladas.ToString());
@@ -116,24 +82,55 @@ namespace projetoFinalPJS
 
             }
 
-            comando.CommandText = "select count(datepart(month,data_cadastro))from movimento where datepart(month,data_cadastro)='" + comboBox2.SelectedItem + "'";
+            comando.CommandText = "select count(datepart(month,data_cadastro))from movimento where datepart(month,data_cadastro)='" + comboBox2.SelectedItem + "'and parcela >1";
             Object qtdMeses = comando.ExecuteScalar();
             int qtdMes = int.Parse(qtdMeses.ToString());
             string[] gastos = new string[qtdMes];
-
+             int l = 0;
             for (int k = 0; k < qtdParcelados; k++)
             {
+
+               
                 comando.CommandText = "select descricao from movimento where datepart(month,data_cadastro)='" + comboBox2.SelectedItem + "'and descricao='" + movParcelados[k]+"'";
                 Object qtddesc = comando.ExecuteScalar();
-                string desc = qtddesc.ToString();
-
-
-                gastos[k] = desc.ToString();
+                if (qtddesc != null)
+                { string desc = qtddesc.ToString(); 
+                
+                   gastos[l] = desc;
+                   l++;
+                }
+                
             }
 
             comboBox1.DataSource = gastos;
-        
+
+            
+          
         }
 
+        private void comboBox1_SelectedValueChanged(object sender, EventArgs e)
+        {
+            comando.CommandText = "select PARCELA FROM MOVIMENTO WHERE DESCRICAO ='" + comboBox1.Text + "';";
+            Object parcela = comando.ExecuteScalar();
+            textBox2.Text = parcela.ToString();
+
+            comando.CommandText = "select valor FROM MOVIMENTO WHERE DESCRICAO ='" + comboBox1.Text + "';";
+            Object valor = comando.ExecuteScalar();
+            textBox5.Text = valor.ToString();
+
+            comando.CommandText = "select valor_parcelado FROM MOVIMENTO WHERE DESCRICAO ='" + comboBox1.Text + "';";
+            Object valor_parcelado = comando.ExecuteScalar();
+            textBox7.Text = valor_parcelado.ToString();
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            comando.CommandText ="UPDATE MOVIMENTO SET VALOR=VALOR-VALOR_PARCELADO where DESCRICAO='"+comboBox1.Text+"'";
+            comando.ExecuteScalar();
+            comando.CommandText = "UPDATE MOVIMENTO SET PARCELA=PARCELA-1 where descricao='"+comboBox1.Text+"'";
+            comando.ExecuteScalar();
+            popular_combos();
+        }
     }
 }

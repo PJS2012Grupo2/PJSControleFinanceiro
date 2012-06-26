@@ -321,7 +321,7 @@
             // 
             // columnDataCadastro
             // 
-            this.columnDataCadastro.Text = "Data do Cadastro";
+            this.columnDataCadastro.Text = "Data do Pagamento";
             this.columnDataCadastro.Width = 106;
             // 
             // columnCategoria

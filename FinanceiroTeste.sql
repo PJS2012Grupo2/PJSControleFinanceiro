@@ -34,7 +34,7 @@ insert into CATEGORIA values(
 )
 GO
 
-delete from categoria where id_categoria in (43)
+delete from categoria where id_categoria in (46)
 go
 
 select count(datepart(month,data_cadastro))from movimento where datepart(month,data_cadastro)='06'
@@ -52,11 +52,14 @@ CREATE TABLE MOVIMENTO (
   );
 GO
 
+ 
+
+
 select * from MOVIMENTO
 
 
 
-delete from MOVIMENTO where id_categoria in (42)
+delete from MOVIMENTO where descricao in ('chapéu')
 go
 
 CREATE TABLE MOVIMENTO_RECORRENTE(

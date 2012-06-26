@@ -331,7 +331,7 @@ namespace projetoFinalPJS
         {
             ListViewItem itemDescricao = new ListViewItem(mvt.descricao);
             ListViewItem.ListViewSubItem itemValor = new ListViewItem.ListViewSubItem(itemDescricao, "R$" + mvt.valor.ToString());
-            ListViewItem.ListViewSubItem itemDataCadastro = new ListViewItem.ListViewSubItem(itemDescricao, mvt.dataCadastro.ToString());
+            ListViewItem.ListViewSubItem itemDataCadastro = new ListViewItem.ListViewSubItem(itemDescricao, mvt.dataCadastro.ToString("yyyy/dd/MM"));
             ListViewItem.ListViewSubItem itemCategoria = new ListViewItem.ListViewSubItem(itemDescricao, mvt.categoria);
             string parcela, valorParcelado;
             if (mvt.parcela <= 0) { parcela = ""; valorParcelado = ""; } else { parcela = mvt.parcela.ToString(); valorParcelado = mvt.valorParcelado.ToString(); }

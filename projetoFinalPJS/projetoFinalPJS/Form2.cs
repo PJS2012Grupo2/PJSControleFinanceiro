@@ -112,7 +112,7 @@ namespace projetoFinalPJS
                 DataRow novoMovimento = dMovimento.Tables["MOVIMENTO"].NewRow();
                 novoMovimento["Descricao"] = tbDescrição.Text;
                 novoMovimento["Valor"] = tbValor.Text;
-                novoMovimento["Data_Cadastro"] = DateTime.UtcNow;
+                novoMovimento["Data_Cadastro"] = dtpData.Value.ToString("dd-MM-yyyy");
 
                 SqlCommand achaCategoria = formularioInicial.conexaoFinanceiro.CreateCommand();
                 achaCategoria.CommandText = "SELECT ID_CATEGORIA FROM CATEGORIA WHERE NOME = '" + cbCategoria.Text + "'";
