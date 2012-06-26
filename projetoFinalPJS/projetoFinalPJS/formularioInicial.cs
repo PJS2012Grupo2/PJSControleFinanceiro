@@ -112,8 +112,8 @@ namespace projetoFinalPJS
         {
             // Cria a conexão para a base de dados e seu adaptador
             conexaoFinanceiro = new SqlConnection();
-            conexaoFinanceiro.ConnectionString = "Data Source=YURI-PC\\YURISQL;Initial Catalog=Financeiro;Integrated Security=SSPI";
-            //conexaoFinanceiro.ConnectionString = "Data Source=PC15LAB3\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
+            //conexaoFinanceiro.ConnectionString = "Data Source=YURI-PC\\YURISQL;Initial Catalog=Financeiro;Integrated Security=SSPI";
+            conexaoFinanceiro.ConnectionString = "Data Source=PC18LA3\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
             try
             {
                 conexaoFinanceiro.Open();
@@ -575,21 +575,15 @@ namespace projetoFinalPJS
                     }
                 }
             } 
-            else if (listViewCategorias.SelectedItems[0].Tag.ToString() == "todas") 
-            {
-                carregaMovimentos();
-            }
+            //else if (listViewCategorias.SelectedItems[0].Tag.ToString() == "todas") 
+            //{
+            //    carregaMovimentos();
+            //}
         }
 
         private void toolStripButton7_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("calc");
-        }
-
-        private void categoriasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FormAltCategoria Var_Alt_Categorias = new FormAltCategoria(this);
-            Var_Alt_Categorias.ShowDialog(this);
         }
         
         public bool valor_Negativo()

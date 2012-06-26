@@ -14,19 +14,19 @@ namespace projetoFinalPJS
     {
         SqlDataAdapter      adaptadorCategoria;
         formularioInicial   formularioInicial;
-        FormAltCategoria    formEdit;
+      //  FormAltCategoria    formEdit;
         SqlCommand          comando = new SqlCommand();
         ListViewItem        itemAlt;
 
         public Form_Categoria(
             formularioInicial formularioInicial,
             SqlDataAdapter adaptadorCategoria,
-            ListViewItem itemSelecionado = null,
-            FormAltCategoria formEdit = null)
+            ListViewItem itemSelecionado = null)
+          //  FormAltCategoria formEdit = null)
         {
             InitializeComponent();
             this.formularioInicial = formularioInicial;
-            this.formEdit = formEdit;
+           // this.formEdit = formEdit;
             this.adaptadorCategoria = adaptadorCategoria;
             this.itemAlt = itemSelecionado;
         }
@@ -43,6 +43,21 @@ namespace projetoFinalPJS
 
         private void salvarCtg_Click(object sender, EventArgs e)
         {
+            // Se é para alterar uma categoria oa variavel do tipo ListView é diferente de nulo
+			if (itemAlt != null)
+            {
+                int id = int.Parse(formularioInicial.listViewCategorias.SelectedItems[0].Tag.ToString());
+                DataSet dataAlterarCategoria = new DataSet();
+                adaptadorCategoria.Fill(dataAlterarCategoria, "CATEGORIA");
+                DataRow alterarCategoria = dataAlterarCategoria.Tables["CATEGORIA"].Rows.Find(id);
+                alterarCategoria["Nome"] = tbDescriçãoCtg.Text;
+                alterarCategoria["Limite"] = tbOrçamentoCtg.Text.Replace("R$", "");
+                adaptadorCategoria.Update(dataAlterarCategoria, "CATEGORIA");
+                adaptadorCategoria.Fill(dataAlterarCategoria, "CATEGORIA");
+                formularioInicial.carregaCategorias();
+                Close();
+            }
+            
             float valorParse;
             if (tbDescriçãoCtg.Text.Trim() == "")
             {
@@ -90,8 +105,8 @@ namespace projetoFinalPJS
                     adaptadorCategoria.Update(formularioInicial.dadosFinanceiro, "CATEGORIA");
                     formularioInicial.carregaCategorias();
 
-                    if (formEdit != null)
-                        formEdit.PreencherCategoria();
+                    if (formularioInicial != null)
+                        formularioInicial.carregaCategorias();
                     Close();
                 }
             }

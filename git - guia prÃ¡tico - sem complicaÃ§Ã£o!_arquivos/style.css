@@ -1,0 +1,207 @@
+body {
+	background: rgb(255, 255, 255); margin: 0px; padding: 0px; text-align: center; font-family: Georgia, Times New Roman, Times, serif; font-size: 30px;
+}
+h1 {
+	margin: 0px; color: rgb(0, 0, 0); line-height: 1; font-family: "Chelsea Market", Georgia, serif; font-size: 60px; font-weight: normal;
+}
+h2 {
+	margin: 0px; color: rgb(255, 176, 0); text-transform: lowercase; font-family: "Chelsea Market", Georgia, serif; font-size: 70px; font-weight: normal;
+}
+h3 {
+	margin: 40px 0px 0px; text-transform: lowercase; font-size: 40px; font-weight: normal;
+}
+p {
+	margin: 40px auto; width: 960px; color: rgb(0, 0, 0); line-height: 200%;
+}
+a {
+	color: rgb(0, 0, 0); font-size: 12px; text-decoration: none;
+}
+a:visited {
+	color: rgb(0, 0, 0); font-size: 12px; text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+ul {
+	list-style: none;
+}
+.download {
+	padding: 10px;
+}
+pre {
+	font-size: 18px;
+}
+blockquote {
+	background: rgb(197, 195, 222); margin: 10px auto; padding: 0px 40px; border: 2px solid rgb(105, 105, 122); width: 720px; text-align: left;
+}
+code {
+	padding: 5px 15px; border-radius: 10px; color: white; font-family: menlo, monospace; font-style: normal; background-color: rgb(0, 0, 0);
+}
+.scrollblock {
+	margin: 0px; width: 100%; color: white; padding-top: 80px; padding-bottom: 80px; position: relative;
+}
+.scrollblock h2 {
+	
+}
+.block-title {
+	padding-bottom: 50px; background-color: rgb(255, 255, 255);
+}
+.block-title h2 {
+	color: rgb(0, 0, 0);
+}
+.block-title .meta {
+	color: rgb(153, 153, 153); font-size: 16px;
+}
+.block-title .meta a {
+	color: rgb(51, 51, 51); font-size: 16px;
+}
+.block-setup {
+	background-color: rgb(52, 143, 212);
+}
+.block-setup h2 {
+	color: rgb(6, 64, 108);
+}
+.block-setup h2 a {
+	padding: 0px;
+}
+.block-setup a {
+	padding: 10px 15px; border-radius: 10px; color: rgb(255, 255, 255); font-size: 40px; font-style: normal; font-weight: normal; text-decoration: none; background-color: rgb(6, 64, 108);
+}
+.block-setup a:hover {
+	text-decoration: underline;
+}
+.block-create {
+	background-color: rgb(6, 64, 108);
+}
+.block-create h2 {
+	color: rgb(255, 255, 255);
+}
+.block-create p {
+	color: rgb(255, 255, 255);
+}
+.block-create code {
+	color: rgb(255, 255, 255); background-color: rgb(0, 0, 0);
+}
+.block-checkout {
+	background-color: rgb(255, 255, 255);
+}
+.block-checkout h2 {
+	color: rgb(0, 0, 0);
+}
+.block-trees {
+	background-color: rgb(76, 13, 9);
+}
+.block-trees h2 {
+	color: rgb(211, 178, 175);
+}
+.block-trees p {
+	color: rgb(211, 178, 175);
+}
+.block-trees code {
+	color: rgb(0, 0, 0); background-color: white;
+}
+.block-add {
+	background-color: rgb(204, 64, 55);
+}
+.block-add h2 {
+	color: rgb(76, 13, 9);
+}
+.block-add p {
+	color: rgb(76, 13, 9);
+}
+.block-remote {
+	background-color: rgb(255, 193, 159);
+}
+.block-remote h2 {
+	color: rgb(204, 64, 55);
+}
+.block-branching {
+	background-color: rgb(0, 0, 0);
+}
+.block-branching h2 {
+	color: rgb(255, 255, 255);
+}
+.block-branching p {
+	color: rgb(221, 221, 221);
+}
+.block-branching code {
+	color: rgb(0, 0, 0); background-color: white;
+}
+.block-merging {
+	background-color: rgb(242, 242, 242);
+}
+.block-merging h2 {
+	color: rgb(102, 102, 102);
+}
+.block-tagging {
+	background-color: rgb(242, 242, 242);
+}
+.block-tagging h2 {
+	color: rgb(255, 255, 255);
+}
+.block-hints {
+	background-color: rgb(242, 242, 242);
+}
+.block-hints h2 {
+	color: rgb(255, 255, 255);
+}
+.block-resources {
+	background-color: rgb(255, 193, 159);
+}
+.block-resources h2 {
+	color: rgb(204, 64, 55);
+}
+.block-resources h3 {
+	color: rgb(125, 31, 25);
+}
+.block-resources ul {
+	margin: 0px; padding: 0px;
+}
+.block-resources ul li a {
+	color: rgb(204, 64, 55); font-size: 24px;
+}
+.block-tagging {
+	background-color: rgb(52, 143, 212);
+}
+.block-tagging h2 {
+	color: rgb(6, 64, 108);
+}
+.block-hints {
+	background-color: rgb(6, 64, 108);
+}
+.block-hints h2 {
+	color: rgb(255, 255, 255);
+}
+.block-hints p {
+	color: rgb(255, 255, 255);
+}
+.block-hints code {
+	color: rgb(255, 255, 255); background-color: rgb(0, 0, 0);
+}
+.block-checkout-replace {
+	background-color: rgb(255, 248, 201);
+}
+.block-checkout-replace h2 {
+	color: rgb(45, 39, 0);
+}
+.block-checkout-replace p {
+	color: rgb(97, 84, 0);
+}
+.block-comments {
+	color: rgb(0, 0, 0); padding-bottom: 50px; font-size: 14px; background-color: rgb(255, 255, 255);
+}
+.block-comments h2 {
+	color: rgb(0, 0, 0);
+}
+.block-comments h3 {
+	font-size: 16px;
+}
+.block-comments #disqus_thread {
+	width: 600px; text-align: left; margin-right: auto; margin-left: auto;
+}
+.tower {
+	background: url("../img/git-tower.png") no-repeat rgb(255, 255, 255); top: 330px; width: 180px; height: 260px; right: 0px; display: block; position: absolute;
+}
+.cheatsheet {
+	background: url("../img/cheatsheet.png") no-repeat rgb(255, 255, 255); left: 0px; top: 346px; width: 180px; height: 250px; display: block; position: absolute;
+}

@@ -30,15 +30,15 @@ namespace projetoFinalPJS
             PreencherCategoria();
         }*/
 
-        private void btAlterar_Click(object sender, EventArgs e)
-        {
-            if (listaCategoria.SelectedItems.Count > 0)
-            {
-                Form_Categoria formAlt = new Form_Categoria(formularioInicial, formularioInicial.adaptadorCategoria, listaCategoria.SelectedItems[0], this);
-                //formAlt.preencherCategoria(id); TESTE
-                formAlt.ShowDialog();
-            }
-        }
+        //private void btAlterar_Click(object sender, EventArgs e)
+        //{
+        //    if (listaCategoria.SelectedItems.Count > 0)
+        //    {
+        //        Form_Categoria formAlt = new Form_Categoria(formularioInicial, formularioInicial.adaptadorCategoria, listaCategoria.SelectedItems[0], this);
+        //        //formAlt.preencherCategoria(id); TESTE
+        //        formAlt.ShowDialog();
+        //    }
+        //}
 
         public void limparListView(int id)
         {
