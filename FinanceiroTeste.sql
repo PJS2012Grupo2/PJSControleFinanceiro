@@ -48,7 +48,6 @@ GO
 SELECT * FROM SALDO
 GO
 
-delete from saldo where total = 1200.00
 
 /*
 --Inserindo alguns registros para teste
@@ -138,11 +137,6 @@ select * from CATEGORIA;
 go
 
 */
-Select ID_CATEGORIA From CATEGORIA where NOME = 'Sem Categoria'
-
-Update Movimento set id_categoria = 14 where id_categoria = 1;
-delete from categoria;
-
 
 INSERT INTO CATEGORIA VALUES 
 ('Sem Categoria', 0);
