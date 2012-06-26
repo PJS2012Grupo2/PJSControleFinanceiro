@@ -119,9 +119,9 @@ namespace projetoFinalPJS
         {
             // Cria a conexão para a base de dados e seu adaptador
             conexaoFinanceiro = new SqlConnection();
-            conexaoFinanceiro.ConnectionString = "Data Source=PCBIBLIO02\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
+            //conexaoFinanceiro.ConnectionString = "Data Source=PCBIBLIO02\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
             //conexaoFinanceiro.ConnectionString = "Data Source=YURI-PC\\YURISQL;Initial Catalog=Financeiro;Integrated Security=SSPI";
-            //conexaoFinanceiro.ConnectionString = "Data Source=PC15LAB3\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
+            conexaoFinanceiro.ConnectionString = "Data Source=PC18LA3\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
             try
             {
                 conexaoFinanceiro.Open();
@@ -550,6 +550,9 @@ namespace projetoFinalPJS
                 carregaCategorias(listViewCategorias);
                 carregaMovimentos();
             }
+
+            else
+                Close();
         }
 
         public void removeMovimento(DataRow movDel)
