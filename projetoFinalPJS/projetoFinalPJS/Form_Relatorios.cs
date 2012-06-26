@@ -41,7 +41,7 @@ namespace projetoFinalPJS
                 listViewInformacoes.Items.Clear();
                 foreach (ListViewItem item in formPrincipal.listViewMovimentos.Items)
                 {
-                    var data = DateTime.Parse(item.SubItems[2].Text).DayOfWeek;
+                    var data = DateTime.Parse(item.SubItems[2].Text).C
                     listViewInformacoes.Items.Add(data.ToString());
                 }
             }
