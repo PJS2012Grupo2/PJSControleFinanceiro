@@ -51,10 +51,13 @@ namespace projetoFinalPJS
         public void verificaValor()
         {
             // Muda a cor do valor lido (vermelho = -) (verde = +)
-            if (float.Parse(tbValor.Text.Replace("R$", "")) >= 0)
-                tbValor.ForeColor = Color.Green;
-            else
-                tbValor.ForeColor = Color.Red;
+            if (tbValor.Text.ToString().Trim() != "R$")
+            {
+                if (float.Parse(tbValor.Text.Replace("R$", "")) >= 0)
+                    tbValor.ForeColor = Color.Green;
+                else
+                    tbValor.ForeColor = Color.Red;
+            }
         }
 
         public Form_Movimentação(formularioInicial formularioInicial, SqlDataAdapter adaptadorMovimento, ListViewItem itemSelecionado=null)

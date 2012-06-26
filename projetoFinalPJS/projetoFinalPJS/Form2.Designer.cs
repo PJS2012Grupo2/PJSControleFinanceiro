@@ -73,7 +73,6 @@
             this.tbValor.Name = "tbValor";
             this.tbValor.Size = new System.Drawing.Size(158, 20);
             this.tbValor.TabIndex = 7;
-            this.tbValor.TextChanged += new System.EventHandler(this.tbValor_TextChanged);
             // 
             // label6
             // 

@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.listViewInformacoes = new System.Windows.Forms.ListView();
+            this.columnResultado = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnDespesa = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnRenda = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnSaldo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lbExibir = new System.Windows.Forms.Label();
             this.lbPara = new System.Windows.Forms.Label();
             this.cbCampo = new System.Windows.Forms.ComboBox();
@@ -41,10 +45,7 @@
             this.dtpFiltroDe = new System.Windows.Forms.DateTimePicker();
             this.dtpFiltroAte = new System.Windows.Forms.DateTimePicker();
             this.lbFiltroAte = new System.Windows.Forms.Label();
-            this.columnDespesa = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnRenda = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnSaldo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnResultado = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listViewInformacoes
@@ -60,6 +61,26 @@
             this.listViewInformacoes.TabIndex = 0;
             this.listViewInformacoes.UseCompatibleStateImageBehavior = false;
             this.listViewInformacoes.View = System.Windows.Forms.View.Details;
+            // 
+            // columnResultado
+            // 
+            this.columnResultado.Text = "Resultado";
+            this.columnResultado.Width = 110;
+            // 
+            // columnDespesa
+            // 
+            this.columnDespesa.Text = "Despesa";
+            this.columnDespesa.Width = 77;
+            // 
+            // columnRenda
+            // 
+            this.columnRenda.Text = "Renda";
+            this.columnRenda.Width = 68;
+            // 
+            // columnSaldo
+            // 
+            this.columnSaldo.Text = "Saldo";
+            this.columnSaldo.Width = 69;
             // 
             // lbExibir
             // 
@@ -82,6 +103,7 @@
             // 
             // cbCampo
             // 
+            this.cbCampo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCampo.FormattingEnabled = true;
             this.cbCampo.Items.AddRange(new object[] {
             "Categoria",
@@ -92,6 +114,7 @@
             this.cbCampo.Name = "cbCampo";
             this.cbCampo.Size = new System.Drawing.Size(133, 21);
             this.cbCampo.TabIndex = 3;
+            this.cbCampo.SelectedIndexChanged += new System.EventHandler(this.FiltrarCampo);
             // 
             // lbVer
             // 
@@ -104,6 +127,7 @@
             // 
             // cbInformacoes
             // 
+            this.cbInformacoes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbInformacoes.FormattingEnabled = true;
             this.cbInformacoes.Items.AddRange(new object[] {
             "Gastos e Rendas",
@@ -128,6 +152,7 @@
             // lineShapeDivisao
             // 
             this.lineShapeDivisao.BorderColor = System.Drawing.SystemColors.InactiveCaption;
+            this.lineShapeDivisao.Enabled = false;
             this.lineShapeDivisao.Name = "lineShapeDivisao";
             this.lineShapeDivisao.X1 = 15;
             this.lineShapeDivisao.X2 = 181;
@@ -178,31 +203,21 @@
             this.lbFiltroAte.TabIndex = 11;
             this.lbFiltroAte.Text = "Até:";
             // 
-            // columnDespesa
+            // button1
             // 
-            this.columnDespesa.Text = "Despesa";
-            this.columnDespesa.Width = 77;
-            // 
-            // columnRenda
-            // 
-            this.columnRenda.Text = "Renda";
-            this.columnRenda.Width = 68;
-            // 
-            // columnSaldo
-            // 
-            this.columnSaldo.Text = "Saldo";
-            this.columnSaldo.Width = 69;
-            // 
-            // columnResultado
-            // 
-            this.columnResultado.Text = "Resultado";
-            this.columnResultado.Width = 110;
+            this.button1.Location = new System.Drawing.Point(83, 384);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(98, 23);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "Gerar Relatório";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // Form_Relatorios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(675, 420);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.lbFiltroAte);
             this.Controls.Add(this.dtpFiltroAte);
             this.Controls.Add(this.dtpFiltroDe);
@@ -220,6 +235,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Relatórios";
+            this.Load += new System.EventHandler(this.Form_Relatorios_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -227,7 +243,6 @@
 
         #endregion
 
-        private System.Windows.Forms.ListView listViewInformacoes;
         private System.Windows.Forms.Label lbExibir;
         private System.Windows.Forms.Label lbPara;
         private System.Windows.Forms.ComboBox cbCampo;
@@ -244,5 +259,7 @@
         private System.Windows.Forms.ColumnHeader columnDespesa;
         private System.Windows.Forms.ColumnHeader columnRenda;
         private System.Windows.Forms.ColumnHeader columnSaldo;
+        private System.Windows.Forms.Button button1;
+        public System.Windows.Forms.ListView listViewInformacoes;
     }
 }

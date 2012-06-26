@@ -112,8 +112,8 @@ namespace projetoFinalPJS
         {
             // Cria a conexão para a base de dados e seu adaptador
             conexaoFinanceiro = new SqlConnection();
-            conexaoFinanceiro.ConnectionString = "Data Source=YURI-PC\\YURISQL;Initial Catalog=Financeiro;Integrated Security=SSPI";
-            //conexaoFinanceiro.ConnectionString = "Data Source=PC15LAB3\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
+            //conexaoFinanceiro.ConnectionString = "Data Source=YURI-PC\\YURISQL;Initial Catalog=Financeiro;Integrated Security=SSPI";
+            conexaoFinanceiro.ConnectionString = "Data Source=PC15LAB3\\SQLEXPRESS;Initial Catalog=Financeiro;Integrated Security=SSPI";
             try
             {
                 conexaoFinanceiro.Open();
@@ -639,7 +639,7 @@ namespace projetoFinalPJS
 
         private void toolStripButtonRelatorio_Click(object sender, EventArgs e)
         {
-            Form_Relatorios formRelatorios = new Form_Relatorios();
+            Form_Relatorios formRelatorios = new Form_Relatorios(this);
             formRelatorios.ShowDialog();
         }
     }
